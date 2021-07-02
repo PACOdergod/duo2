@@ -5,11 +5,11 @@ class Leccion {
   Leccion(this.quizes);
 
   static prueba()=> Leccion([
-    Quiz("traduccion", ["and", "please","Hello", "coffee"], "Hola", "Hello"),
-    Quiz("traduccion", ["and", "please","Hello", "coffee"], "Hola", "Hello"),
-    Quiz("traduccion", ["and", "please","Hello", "coffee"], "Hola", "Hello"),
-    Quiz("traduccion", ["and", "please","Hello", "coffee"], "Hola", "Hello"),
-    Quiz("traduccion", ["and", "please","Hello", "coffee"], "Hola", "Hello"),
+    Quiz("traduccion", ["and","please","Hello","coffee"], "Hola", "Hello"),
+    Quiz("traduccion", ["and","please","Hello","coffee"], "Hola", "Hello"),
+    Quiz("traduccion", ["and","please","Hello","coffee"], "Hola", "Hello"),
+    Quiz("traduccion", ["and","please","Hello","coffee"], "Hola", "Hello"),
+    Quiz("traduccion", ["and","please","Hello","coffee"], "Hola", "Hello"),
   ]);
 }
 
