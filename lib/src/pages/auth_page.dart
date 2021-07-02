@@ -13,8 +13,6 @@ class AuthPage extends StatelessWidget {
       body: Stack(
         children: [
 
-          // SafeArea(child: Text("")),
-
           Center( 
             child: Container(
               child: Image.asset( 'assets/dou_logo.png', 
@@ -76,10 +74,12 @@ class _PrincipalButton extends StatelessWidget {
         width: ancho*0.90,
         height: 60,
         margin: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+
         decoration: BoxDecoration(
           border: Border.all(color: borderColor, width: 2),
           borderRadius: BorderRadius.circular(20),
           color: color??Colors.green,
+          
           boxShadow: [
             BoxShadow(
               color: Colors.black12, 

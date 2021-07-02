@@ -1,4 +1,5 @@
 import 'package:duo2/src/pages/auth_page.dart';
+import 'package:duo2/src/pages/login_page.dart';
 import 'package:flutter/material.dart';
  
 void main() => runApp(MyApp());
@@ -12,9 +13,10 @@ class MyApp extends StatelessWidget {
       ),
       title: 'Material App',
       routes: {
-        "auth": (_)=> AuthPage()
+        "auth": (_)=> AuthPage(),
+        "login": (_)=> LoginPage()
       },
-      initialRoute: "auth",
+      initialRoute: "login",
     );
   }
 }
