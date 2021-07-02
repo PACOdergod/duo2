@@ -1,4 +1,5 @@
 import 'package:duo2/src/controllers/lesson_controller.dart';
+import 'package:duo2/src/models/leccion_mode.dart';
 import 'package:flutter/material.dart';
 
 class LessonPage extends StatefulWidget {
@@ -23,6 +24,7 @@ class _LessonPageState extends State<LessonPage> {
         width: MediaQuery.of(context).size.width,
         color: Colors.white,
         padding: EdgeInsets.all(20),
+
         child: Column(
           children: [
 
@@ -56,23 +58,37 @@ class _LessonPageState extends State<LessonPage> {
 
             SizedBox(height: 20),
 
-            Container(
-              height: 180,
-              padding: EdgeInsets.all(10),
-              color: Colors.blue,
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-
-                children: [
-                  Option(),
-                  Option(),
-                  
-                ],
-              )
-            )
+            Options(currentQuiz.opciones, (MediaQuery.of(context).size.width*.85))
 
           ],
         ),
+      )
+    );
+  }
+}
+
+// TODO: las opciones se deben acomodar automaticamente
+class Options extends StatelessWidget {
+
+  final List<String> options;
+  final double ancho;
+
+  const Options( this.options, this.ancho );
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 180,
+      width: ancho,
+      color: Colors.blue,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+
+        children: [
+          Option(),
+          Option(),
+          
+        ],
       )
     );
   }
