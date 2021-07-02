@@ -31,6 +31,7 @@ class LoginPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   _LoginWith(),
+                  SizedBox(height: 10),
                   _Footer()
                 ],
               )
@@ -88,8 +89,10 @@ class _LoginWith extends StatelessWidget {
         ),
         _LoginWithButton(
           text: "GOOGLE",
-          //TODO: hacer el logo de google
-          icon: Icon(Icons.facebook, color:Colors.blue[700],),
+          icon: Container(
+            color: Colors.white,
+            child: Image.asset('assets/google.jpeg')
+          ),
           textColor: Colors.black87,
         )
       ],
@@ -140,8 +143,9 @@ class _Footer extends StatelessWidget {
     return Container(
         width: MediaQuery.of(context).size.width * 0.9,
         child: Text(
-          "Al registrarte en Duo2, aceptas nuestros" + 
-          "Terminos y Politicas de privacidad",
+          "Al registrarte en Duo2, aceptas\n"+
+          "nuestros Terminos y Politicas de privacidad",
+          textAlign: TextAlign.center,
         )
     );
   }

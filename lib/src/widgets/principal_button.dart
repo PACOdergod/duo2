@@ -72,8 +72,11 @@ class PrincipalButton extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          icon!,
-          SizedBox(width: 5),
+          Container(
+            width: 30,
+            child: icon!
+          ),
+          // SizedBox(width: 5),
           texto(),
         ],
       ),
