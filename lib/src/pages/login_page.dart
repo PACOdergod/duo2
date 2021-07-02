@@ -126,7 +126,7 @@ class _LoginWithButton extends StatelessWidget {
       text: this.text,
       textSize: 15,
       porcentajeAncho: 0.4,
-      paddingh: 10,
+      paddingh: 5,
       color: Colors.white,
       textColor: this.textColor,
       borderColor: Colors.grey[300]!,
