@@ -5,6 +5,8 @@ import 'package:duo2/src/pages/login_page.dart';
 import 'package:flutter/material.dart';
  
 void main() => runApp(MyApp());
+
+//Git merge
  
 class MyApp extends StatelessWidget {
   @override
