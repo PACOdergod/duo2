@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final advance = Get.put( AdvanceController() );
+    Get.put( AdvanceController() );
     
     return GetMaterialApp(
       theme: ThemeData(
@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
         "lesson": (_)=> LessonPage(),
         "registrar":(_)=> RegistrarPage()
       },
-      initialRoute: "home",
+      initialRoute: "lesson",
     );
   }
 }

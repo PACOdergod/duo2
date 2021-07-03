@@ -24,7 +24,7 @@ class LessonAuxiliar extends StatelessWidget {
           PrincipalButton(
             text: "Completar leccion",
             onTap: () {
-              advanceController.aumentarLessonsDone(id);
+              // advanceController.aumentarLessonsDone(id);
               Get.to(()=> HomePage());
             },
           ),
