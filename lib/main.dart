@@ -1,3 +1,4 @@
+import 'package:duo2/src/controllers/advance.dart';
 import 'package:duo2/src/pages/auth_page.dart';
 import 'package:duo2/src/pages/home_page.dart';
 import 'package:duo2/src/pages/lesson_page.dart';
@@ -11,6 +12,9 @@ void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+
+    final advance = Get.put( Advance() );
+    
     return GetMaterialApp(
       theme: ThemeData(
         primaryColor: Colors.green
@@ -24,7 +28,7 @@ class MyApp extends StatelessWidget {
         "lesson": (_)=> LessonPage(),
         "registrar":(_)=> RegistrarPage()
       },
-      initialRoute: "auth",
+      initialRoute: "home",
     );
   }
 }

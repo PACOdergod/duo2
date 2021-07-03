@@ -5,7 +5,7 @@ import 'package:duo2/src/widgets/radia_progress.dart';
 class Module extends StatelessWidget {
 
   final double radio;
-  final double porcentaje;
+  final double? porcentaje;
   final int? level;
   final IconData? icon;
 
