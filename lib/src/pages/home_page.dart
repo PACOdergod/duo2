@@ -1,4 +1,4 @@
-import 'package:duo2/src/controllers/advance.dart';
+import 'package:duo2/src/controllers/advance_controller.dart';
 import 'package:duo2/src/pages/lesson_aux.dart';
 import 'package:duo2/src/pages/lesson_page.dart';
 import 'package:duo2/src/widgets/principal_button.dart';
@@ -18,7 +18,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
 
-    var advance = Get.find<Advance>();
+    var advanceController = Get.find<AdvanceController>();
 
     return Scaffold(
 
@@ -28,9 +28,9 @@ class _HomePageState extends State<HomePage> {
         title: Text("appbar"),
       ),
 
-      floatingActionButton: FloatingActionButton(
-        onPressed: ()=>advance.aumentarPorcentaje("numeros"),
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: ()=>advanceController.aumentarPorcentaje("numeros"),
+      // ),
       
       body: Container(
         color: Colors.white,
@@ -46,7 +46,7 @@ class _HomePageState extends State<HomePage> {
 
 class _Modules extends StatelessWidget {
 
-  final advance = Get.find<Advance>();
+  final advanceController = Get.find<AdvanceController>();
 
   @override
   Widget build(BuildContext context) {
@@ -57,20 +57,20 @@ class _Modules extends StatelessWidget {
 
         GestureDetector(
           child: Module(
-            level: advance.getNivel("numeros"),
-            porcentaje: advance.getPorcentaje("numeros"),
+            level: advanceController.getNivel("numeros"),
+            porcentaje: advanceController.getPorcentaje("numeros"),
           ),
-          onTap: () => _myAlert(context)
+          onTap: () => _myAlert(context, "numeros")
         ),
 
         SizedBox(height: 20),
-        Module(level: 1),
+        Module(),
         SizedBox(height: 20),
-        Module(level: 1),
+        Module(),
         SizedBox(height: 20),
-        Module(level: 1),
+        Module(),
         SizedBox(height: 20),
-        Module(level: 1),
+        Module(),
 
       ],
     ),);
@@ -78,7 +78,7 @@ class _Modules extends StatelessWidget {
 }
 
 
-_myAlert(BuildContext context) {
+_myAlert(BuildContext context, String id) {
   return showGeneralDialog(
     barrierLabel: "Label",
     barrierDismissible: true,
@@ -90,7 +90,7 @@ _myAlert(BuildContext context) {
         alignment: Alignment.bottomCenter,
         child: Dialog(
           backgroundColor: Colors.transparent,
-          child: BoxDescription(),
+          child: BoxDescription(id),
         )
       );
     },
@@ -105,6 +105,10 @@ _myAlert(BuildContext context) {
 
 class BoxDescription extends StatelessWidget {
 
+  final String id;
+
+  const BoxDescription(this.id);
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -118,7 +122,7 @@ class BoxDescription extends StatelessWidget {
 
       child: Column(
         children: [
-          _levels(),
+          _levels(context, id),
           PrincipalButton(
             porcentajeAncho: .9,
             marginh: 0,
@@ -136,7 +140,7 @@ class BoxDescription extends StatelessWidget {
             textColor: Colors.black,
             onTap: () {
               Navigator.pop(context); //cerrar el dialog
-              Get.to(()=> LessonAuxiliar());
+              Get.to(()=> LessonAuxiliar(), arguments: id);
             },
           )
 
@@ -145,17 +149,30 @@ class BoxDescription extends StatelessWidget {
     );
   }
 }
-Column _levels() {
+
+Column _levels(BuildContext context, String id) {
+
+  final advanceController = Get.find<AdvanceController>();
+
+  String? leccT = '${advanceController.levels[id]?.totalLessons}';
+  String? leccH = '${advanceController.levels[id]?.lessonsDone}';
+  String? nivT = '${advanceController.levels[id]?.totalLevels}';
+  String? nivU = '${advanceController.levels[id]?.levelUser}';
+
   return Column(
     children: [
-      Text("Nivel 1/5", style: TextStyle(
-        fontSize: 20, fontWeight: FontWeight.bold,
-        color: Colors.white
-      )),
-      Text("Leccion 1/3", style: TextStyle(
-        fontSize: 17,
-        color: Colors.white
-      ))
+      Text( "Nivel" +nivU+"/"+nivT,
+        style: TextStyle(
+          fontSize: 20, fontWeight: FontWeight.bold,
+          color: Colors.white
+        )
+      ),
+      Text("Leccion "+leccH+"/"+leccT, 
+        style: TextStyle(
+          fontSize: 17,
+          color: Colors.white
+        )
+      )
     ],
   );
 }

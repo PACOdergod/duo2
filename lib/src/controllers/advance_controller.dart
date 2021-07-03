@@ -1,24 +1,27 @@
+import 'package:duo2/src/models/level_model.dart';
 import 'package:get/get.dart';
 
-class Advance extends GetxController{
+class AdvanceController extends GetxController{
     //TODO: se conecta a la base de datos 
-
   var levels = {
     "numeros" : Level(
       id: "numeros", 
-      levelUser: 0, 
+      levelUser: 0,
+      totalLevels: 5, 
       lessonsDone: 0,
       totalLessons:5
     ),
     "letras" : Level(
       id: "letras", 
-      levelUser: 0, 
+      levelUser: 0,
+      totalLevels: 5, 
       lessonsDone: 0,
       totalLessons:5
     ),
     "colores" : Level(
       id: "colores", 
-      levelUser: 0, 
+      levelUser: 0,
+      totalLevels: 5, 
       lessonsDone: 0,
       totalLessons:5
     ),
@@ -37,7 +40,7 @@ class Advance extends GetxController{
 
     return (levels[id]!.lessonsDone*100)/ levels[id]!.totalLessons;
   }
-  void aumentarPorcentaje(String id)=> this.levels.update(id, (l){
+  void aumentarLessonsDone(String id)=> this.levels.update(id, (l){
     var nivel = levels[id];
     if (nivel == null) printError(info: 'El id del modulo no existe');
 
@@ -50,18 +53,4 @@ class Advance extends GetxController{
     return l;
   });
 
-}
-
-class Level {
-  String id;
-  int levelUser;
-  int lessonsDone;
-  int totalLessons;
-
-  Level({
-    required this.id, 
-    required this.levelUser, 
-    required this.lessonsDone,
-    required this.totalLessons,
-  });
 }

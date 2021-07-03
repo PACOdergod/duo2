@@ -1,4 +1,4 @@
-import 'package:duo2/src/controllers/advance.dart';
+import 'package:duo2/src/controllers/advance_controller.dart';
 import 'package:duo2/src/pages/auth_page.dart';
 import 'package:duo2/src/pages/home_page.dart';
 import 'package:duo2/src/pages/lesson_page.dart';
@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final advance = Get.put( Advance() );
+    final advance = Get.put( AdvanceController() );
     
     return GetMaterialApp(
       theme: ThemeData(
