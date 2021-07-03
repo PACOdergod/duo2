@@ -1,5 +1,6 @@
 import 'package:duo2/src/widgets/principal_button.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class AuthPage extends StatelessWidget {
 
@@ -30,12 +31,16 @@ class AuthPage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                PrincipalButton( text: "EMPIEZA AHORA", ),
+                PrincipalButton( 
+                  text: "EMPIEZA AHORA",
+                  onTap: ()=>Navigator.pushNamed(context, 'registrar'),
+                ),
                 PrincipalButton( 
                   text: "YA TENGO CUENTA", 
                   textColor: Colors.green,
                   color: Colors.white,
                   borderColor: Colors.black12,
+                  onTap: ()=>Navigator.pushNamed(context, 'login'),
                 )
               ],
             )

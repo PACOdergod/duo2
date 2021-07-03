@@ -9,6 +9,10 @@ class LoginPage extends StatelessWidget {
     return Scaffold(
 
       appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.ac_unit, color: Colors.black),
+          onPressed: ()=> Navigator.pop(context),
+        ),
         backgroundColor: Colors.white,
         elevation: 0,
         centerTitle: true,
