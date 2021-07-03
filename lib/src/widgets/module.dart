@@ -5,7 +5,7 @@ import 'package:duo2/src/widgets/radia_progress.dart';
 class Module extends StatelessWidget {
 
   final double radio;
-  final double porcentaje;
+  final double? porcentaje;
   final int? level;
   final IconData? icon;
 
@@ -69,11 +69,11 @@ class Module extends StatelessWidget {
           width: radio*.25,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(radio),
-            color: level==null ? Colors.black12 : Colors.amber,
+            color: level==null||level==0 ? Colors.black12 : Colors.amber,
           ),
 
           child: Center(
-            child: Text( level==null ? "" : "$level",
+            child: Text( level==null||level==0 ? "" : "$level",
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: radio*.15,

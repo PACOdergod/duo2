@@ -8,6 +8,7 @@ class PrincipalButton extends StatelessWidget {
   final Color? textColor;
   final Color? color;
   final Widget? icon;
+  final Function()? onTap;
   final double porcentajeAncho;
   final Color borderColor;
   final double paddingh;
@@ -19,6 +20,7 @@ class PrincipalButton extends StatelessWidget {
     this.textColor, 
     this.color, 
     this.icon,
+    this.onTap, 
     this.borderColor = Colors.green, 
     this.porcentajeAncho = 0.9, 
     this.textSize = 20, 
@@ -57,9 +59,7 @@ class PrincipalButton extends StatelessWidget {
         ),
       ),
       
-      onTap: () {
-        
-      },
+      onTap: this.onTap,
     );
   }
 
