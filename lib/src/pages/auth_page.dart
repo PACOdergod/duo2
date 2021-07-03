@@ -2,6 +2,8 @@ import 'package:duo2/src/widgets/principal_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+//TODO: verificar que el usuario ya haya iniciado sesion
+// si es asi enviar directo al home
 class AuthPage extends StatelessWidget {
 
   @override

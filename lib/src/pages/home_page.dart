@@ -1,7 +1,10 @@
+import 'package:duo2/src/pages/lesson_aux.dart';
+import 'package:duo2/src/pages/lesson_page.dart';
 import 'package:duo2/src/widgets/principal_button.dart';
 import 'package:flutter/material.dart';
 
 import 'package:duo2/src/widgets/module.dart';
+import 'package:get/get.dart';
 
 class HomePage extends StatefulWidget {
 
@@ -98,6 +101,7 @@ class BoxDescription extends StatelessWidget {
             color: Colors.blue,
             borderColor: Colors.black12,
             text: "APUNTES",
+            //TODO crear la pagina de apuntes
           ),
           PrincipalButton(
             porcentajeAncho: .9,
@@ -106,6 +110,10 @@ class BoxDescription extends StatelessWidget {
             borderColor: Colors.black12,
             text: "EMPEZAR",
             textColor: Colors.black,
+            onTap: () {
+              Navigator.pop(context); //cerrar el dialog
+              Get.to(()=> LessonAuxiliar());
+            },
           )
 
         ],

@@ -1,12 +1,16 @@
+import 'package:duo2/src/pages/home_page.dart';
 import 'package:duo2/src/widgets/campos_text.dart';
 import 'package:flutter/material.dart';
 import 'package:duo2/src/widgets/principal_button.dart';
+import 'package:get/get.dart';
 
 
 class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // cuando abre el teclado no movera ningun widget
+      resizeToAvoidBottomInset: false, 
 
       appBar: AppBar(
         leading: IconButton(
@@ -68,10 +72,15 @@ class _Body extends StatelessWidget {
 
           SizedBox(height: 30,),
 
-          Text("RESTABLECER CONTRASEÑA", 
-            style: TextStyle(color: Colors.lightBlue[400], fontSize: 18,
-              fontWeight: FontWeight.bold,
+          GestureDetector(
+            child: Text("RESTABLECER CONTRASEÑA", 
+              style: TextStyle(color: Colors.lightBlue[400], fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
             ),
+            onTap: () {
+              // TODO crear la pagina de reestablecer contraseña
+            },
           ),
         ],
       ),
@@ -86,11 +95,17 @@ class _LoginWith extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
+
         _LoginWithButton(
           text: "FACEBOOK",
           icon: Icon(Icons.facebook, color: Colors.blue[700],),
           textColor: Colors.blue[700]!,
+          onTap: (){
+            //TODO llamar a firebase para registrar usuario
+            Get.to(()=> HomePage());
+          },
         ),
+
         _LoginWithButton(
           text: "GOOGLE",
           icon: Container(
@@ -98,6 +113,10 @@ class _LoginWith extends StatelessWidget {
             child: Image.asset('assets/google.jpeg')
           ),
           textColor: Colors.black87,
+          onTap: (){
+            //TODO llamar a firebase para registrar usuario
+            Get.to(()=> HomePage());
+          },
         )
       ],
     );
@@ -106,9 +125,16 @@ class _LoginWith extends StatelessWidget {
 
 
 class _IngresarButton extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
-    return PrincipalButton(text: "INGRESAR",);
+    return PrincipalButton(
+      text: "INGRESAR",
+      onTap: (){
+        // TODO: verificar que los compos sean validos y el usuario este registrado
+        Get.to(()=> HomePage());
+      },
+    );
   }
 }
 
@@ -117,11 +143,13 @@ class _LoginWithButton extends StatelessWidget {
   final String text;
   final Widget icon;
   final Color textColor;
+  final Function()? onTap;
 
   const _LoginWithButton({
     required this.text, 
     required this.icon, 
-    required this.textColor
+    required this.textColor, 
+    this.onTap
   });
 
   @override
@@ -136,6 +164,7 @@ class _LoginWithButton extends StatelessWidget {
       borderColor: Colors.grey[300]!,
       icon: this.icon,
       marginh: 0,
+      onTap: this.onTap,
     );
   }
 }
