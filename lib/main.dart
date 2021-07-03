@@ -8,8 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
  
 void main() => runApp(MyApp());
-
-//Git merge
  
 class MyApp extends StatelessWidget {
   @override
