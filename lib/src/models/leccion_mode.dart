@@ -11,6 +11,8 @@ class Leccion {
     Quiz("traduccion", ["and","please","Hello","coffee"], "Hola", "Hello"),
     Quiz("traduccion", ["and","please","Hello","coffee"], "Hola", "Hello"),
   ]);
+
+  int get numQuiz=> quizes.length;
 }
 
 class Quiz {
