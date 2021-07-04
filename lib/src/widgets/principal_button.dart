@@ -14,8 +14,8 @@ class PrincipalButton extends StatelessWidget {
   final Color borderColor;
   final double marginh;
   final double marginv;
-  final bool autoAjustar;
   final FontWeight textWeight;
+  final bool autoajustar;
 
   const PrincipalButton({
     this.text, 
@@ -24,34 +24,36 @@ class PrincipalButton extends StatelessWidget {
     this.icon,
     this.onTap, 
     this.borderColor = Colors.green, 
+    this.paddingh, 
     this.porcentajeAncho = 0.9, 
     this.textSize = 20, 
-    this.paddingh, 
-    this.marginh = 0, 
-    this.marginv = 8,
-    this.autoAjustar = true,
-    this.textWeight = FontWeight.bold
+    this.marginh = 5, 
+    this.marginv = 5,
+    this.textWeight = FontWeight.bold,
+    this.autoajustar = true
   });
 
   @override
   Widget build(BuildContext context) {
 
-    var ancho = MediaQuery.of(context).size.width;
-
     return GestureDetector(
 
       child: Container( 
-        child: tituloButton(),
-
-        // width: autoAjustar ? ancho*porcentajeAncho : null,
+        //TODO: arreglar esto
+        child: autoajustar 
+        ? Center(child: tituloButton(),)
+        : Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [tituloButton()],
+        ),
+        
+        width: autoajustar?MediaQuery.of(context).size.width*.9:null,
         height: 60,
         margin: EdgeInsets.symmetric(
           horizontal: this.marginh, 
           vertical: this.marginv
         ),
-        padding: autoAjustar
-          ? null 
-          : EdgeInsets.symmetric(horizontal: this.paddingh??0),
+        padding:EdgeInsets.symmetric(horizontal: 20),
 
         decoration: BoxDecoration(
           border: Border.all(color: borderColor, width: 2),
@@ -71,13 +73,11 @@ class PrincipalButton extends StatelessWidget {
     );
   }
 
-  Center tituloButton() {
-    if (icon == null) return Center(
-      child: texto()
-    );
-    else return Center(
+  Widget tituloButton() {
 
-      child: Row(
+    if (icon == null) return texto();
+
+    else return Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Container(
@@ -87,8 +87,7 @@ class PrincipalButton extends StatelessWidget {
           // SizedBox(width: 5),
           texto(),
         ],
-      ),
-    ); 
+      );
   }
 
 

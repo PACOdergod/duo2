@@ -60,11 +60,11 @@ class _LessonPageState extends State<LessonPage> {
               ),
             ),
 
-            SizedBox(height: 20),
+            SizedBox(height: 70),
 
             Options(currentQuiz.opciones, (MediaQuery.of(context).size.width*.85)),
 
-            PrincipalButton()
+            PrincipalButton(text: "COMPROBAR",)
           ],
         ),
       )
@@ -72,7 +72,6 @@ class _LessonPageState extends State<LessonPage> {
   }
 }
 
-// TODO: las opciones se deben acomodar automaticamente
 class Options extends StatelessWidget {
 
   final List<String> options;
@@ -83,9 +82,9 @@ class Options extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 180,
+      // height: 180,
       width: ancho,
-      color: Colors.blue,
+      // color: Colors.blue,
       child: Wrap(
         alignment: WrapAlignment.center,
 
@@ -104,13 +103,14 @@ class Option extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PrincipalButton(
-      paddingh: 5,
-      // autoAjustar: false,
       color: Colors.white,
       borderColor: Colors.black12,
       textColor: Colors.black,
       text: this.text,
       textWeight: FontWeight.normal,
+      paddingh: 10,
+      autoajustar: false,
     );
+
   }
 }
