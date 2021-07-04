@@ -9,11 +9,13 @@ class PrincipalButton extends StatelessWidget {
   final Color? color;
   final Widget? icon;
   final Function()? onTap;
+  final double? paddingh;
   final double porcentajeAncho;
   final Color borderColor;
-  final double paddingh;
   final double marginh;
   final double marginv;
+  final bool autoAjustar;
+  final FontWeight textWeight;
 
   const PrincipalButton({
     this.text, 
@@ -24,9 +26,11 @@ class PrincipalButton extends StatelessWidget {
     this.borderColor = Colors.green, 
     this.porcentajeAncho = 0.9, 
     this.textSize = 20, 
-    this.paddingh = 20, 
-    this.marginh = 20, 
-    this.marginv = 8, 
+    this.paddingh, 
+    this.marginh = 0, 
+    this.marginv = 8,
+    this.autoAjustar = true,
+    this.textWeight = FontWeight.bold
   });
 
   @override
@@ -39,11 +43,15 @@ class PrincipalButton extends StatelessWidget {
       child: Container( 
         child: tituloButton(),
 
-        width: ancho*porcentajeAncho,
+        // width: autoAjustar ? ancho*porcentajeAncho : null,
         height: 60,
         margin: EdgeInsets.symmetric(
-          horizontal: this.marginh, vertical: this.marginv),
-        padding: EdgeInsets.symmetric(horizontal: this.paddingh),
+          horizontal: this.marginh, 
+          vertical: this.marginv
+        ),
+        padding: autoAjustar
+          ? null 
+          : EdgeInsets.symmetric(horizontal: this.paddingh??0),
 
         decoration: BoxDecoration(
           border: Border.all(color: borderColor, width: 2),
@@ -89,7 +97,8 @@ class PrincipalButton extends StatelessWidget {
       style: TextStyle(
         fontSize: this.textSize, 
         color: textColor??Colors.white,
-        fontWeight: FontWeight.bold),
+        fontWeight: this.textWeight
+      ),
     );
   }
 }

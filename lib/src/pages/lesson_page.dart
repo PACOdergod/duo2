@@ -1,5 +1,6 @@
 import 'package:duo2/src/controllers/lesson_controller.dart';
 import 'package:duo2/src/models/leccion_mode.dart';
+import 'package:duo2/src/widgets/principal_button.dart';
 import 'package:flutter/material.dart';
 
 class LessonPage extends StatefulWidget {
@@ -28,6 +29,7 @@ class _LessonPageState extends State<LessonPage> {
         child: Column(
           children: [
 
+            // Tipo de pregunta
             Container(
               width: MediaQuery.of(context).size.width,
               child: Text( currentQuiz.tipo, 
@@ -37,6 +39,7 @@ class _LessonPageState extends State<LessonPage> {
 
             SizedBox(height: 20),
 
+            // pregunta
             Container(
               width: MediaQuery.of(context).size.width,
               child: Text(currentQuiz.pregunta, 
@@ -46,6 +49,7 @@ class _LessonPageState extends State<LessonPage> {
 
             SizedBox(height: 10),
             
+            // linear donde se acomodaran las respuestas
             Container(
               height: 80,
               decoration: BoxDecoration(
@@ -58,8 +62,9 @@ class _LessonPageState extends State<LessonPage> {
 
             SizedBox(height: 20),
 
-            Options(currentQuiz.opciones, (MediaQuery.of(context).size.width*.85))
+            Options(currentQuiz.opciones, (MediaQuery.of(context).size.width*.85)),
 
+            PrincipalButton()
           ],
         ),
       )
@@ -81,14 +86,10 @@ class Options extends StatelessWidget {
       height: 180,
       width: ancho,
       color: Colors.blue,
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
+      child: Wrap(
+        alignment: WrapAlignment.center,
 
-        children: [
-          Option(),
-          Option(),
-          
-        ],
+        children: options.map((e) => Option(e)).toList()
       )
     );
   }
@@ -96,15 +97,20 @@ class Options extends StatelessWidget {
 
 class Option extends StatelessWidget {
 
+  final String text;
+
+  const Option( this.text );
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 150,
-      height: 50,
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.black),
-        color: Colors.white,
-      ),
+    return PrincipalButton(
+      paddingh: 5,
+      // autoAjustar: false,
+      color: Colors.white,
+      borderColor: Colors.black12,
+      textColor: Colors.black,
+      text: this.text,
+      textWeight: FontWeight.normal,
     );
   }
 }
