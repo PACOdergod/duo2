@@ -87,9 +87,18 @@ class _LessonPageState extends State<LessonPage> {
               ),
             ),
 
-            SizedBox(height: 70),
+            SizedBox(height: 60),
 
-            Options(currentQuiz.opciones, (MediaQuery.of(context).size.width*.85)),
+            Container(
+              // color: Colors.blue,
+              // height: 180,
+              width: MediaQuery.of(context).size.width*.85,
+              child: Wrap(
+                alignment: WrapAlignment.center,
+
+                children: currentQuiz.opciones.map((e) => _option(e)).toList()
+              )
+            ),
 
             Expanded(child: SizedBox()),
 
@@ -104,42 +113,14 @@ class _LessonPageState extends State<LessonPage> {
   }
 }
 
-class Options extends StatefulWidget {
-
-  final List<String> options;
-  final double ancho;
-
-  const Options( this.options, this.ancho );
-
-  @override
-  _OptionsState createState() => _OptionsState();
+PrincipalButton _option(String text) {
+  return PrincipalButton(
+    color: Colors.white,
+    borderColor: Colors.black12,
+    textColor: Colors.black,
+    text: text,
+    textWeight: FontWeight.normal,
+    paddingh: 10,
+    autoajustar: false,
+  );
 }
-
-class _OptionsState extends State<Options> {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      // height: 180,
-      width: widget.ancho,
-      // color: Colors.blue,
-      child: Wrap(
-        alignment: WrapAlignment.center,
-
-        children: widget.options.map((e) => _option(e)).toList()
-      )
-    );
-  }
-
-  PrincipalButton _option(String text) {
-    return PrincipalButton(
-      color: Colors.white,
-      borderColor: Colors.black12,
-      textColor: Colors.black,
-      text: text,
-      textWeight: FontWeight.normal,
-      paddingh: 10,
-      autoajustar: false,
-    );
-  }
-}
-
