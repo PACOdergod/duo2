@@ -11,6 +11,7 @@ class LessonPage extends StatefulWidget {
 }
 
 class _LessonPageState extends State<LessonPage> {
+
   @override
   Widget build(BuildContext context) {
 
@@ -18,8 +19,9 @@ class _LessonPageState extends State<LessonPage> {
     int currentIndexQuiz = 0;
     var currentQuiz = lesson.quizes[currentIndexQuiz];
 
-    return Scaffold(
+    List<Widget> respsUser = [_option("hola")];
 
+    return Scaffold(
       body: Container(
         width: MediaQuery.of(context).size.width,
         color: Colors.white,
@@ -85,6 +87,10 @@ class _LessonPageState extends State<LessonPage> {
                   bottom: BorderSide(color: Colors.black12, width: 3)
                 )
               ),
+
+              child: Row(
+                children: respsUser
+              ),
             ),
 
             SizedBox(height: 60),
@@ -96,7 +102,15 @@ class _LessonPageState extends State<LessonPage> {
               child: Wrap(
                 alignment: WrapAlignment.center,
 
-                children: currentQuiz.opciones.map((e) => _option(e)).toList()
+                children: currentQuiz.opciones.map((e){
+                  return GestureDetector(
+                    child: _option(e),
+                    onTap: (){
+                      //TODO: agregar esta opcion a la linea
+                      // remover esta opcion de aqui
+                    }
+                  );
+                }).toList()
               )
             ),
 
