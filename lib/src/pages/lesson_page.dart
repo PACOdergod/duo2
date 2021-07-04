@@ -138,3 +138,7 @@ PrincipalButton _option(String text) {
     autoajustar: false,
   );
 }
+
+class Singleton {
+  
+}
