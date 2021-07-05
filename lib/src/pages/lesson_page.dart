@@ -19,8 +19,6 @@ class _LessonPageState extends State<LessonPage> {
     int currentIndexQuiz = 0;
     var currentQuiz = lesson.quizes[currentIndexQuiz];
 
-    List<Widget> respsUser = [_option("hola")];
-
     return Scaffold(
       body: Container(
         width: MediaQuery.of(context).size.width,
@@ -76,49 +74,17 @@ class _LessonPageState extends State<LessonPage> {
             ),
 
             SizedBox(height: 10),
-            
-            // linear donde se acomodaran las respuestas
-            Container(
-              margin: EdgeInsets.symmetric(horizontal: 20),
-              height: 80,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                border: Border(
-                  bottom: BorderSide(color: Colors.black12, width: 3)
-                )
-              ),
 
-              child: Row(
-                children: respsUser
-              ),
-            ),
-
-            SizedBox(height: 60),
-
-            Container(
-              // color: Colors.blue,
-              // height: 180,
-              width: MediaQuery.of(context).size.width*.85,
-              child: Wrap(
-                alignment: WrapAlignment.center,
-
-                children: currentQuiz.opciones.map((e){
-                  return GestureDetector(
-                    child: _option(e),
-                    onTap: (){
-                      //TODO: agregar esta opcion a la linea
-                      // remover esta opcion de aqui
-                    }
-                  );
-                }).toList()
-              )
-            ),
+            Responder(),
 
             Expanded(child: SizedBox()),
 
             PrincipalButton(
               text: "COMPROBAR",
               marginv: 20,
+              onTap: (){
+                print(Singleton().respuesta);
+              },
             )
           ],
         ),
@@ -126,6 +92,102 @@ class _LessonPageState extends State<LessonPage> {
     );
   }
 }
+
+
+class Responder extends StatefulWidget {
+
+  final List<String> respsUser = [];
+
+  final Map<String, bool> opciones = {
+    "1":true, 
+    "2":true,
+    "3":true,
+  };
+
+  @override
+  _ResponderState createState() => _ResponderState();
+}
+
+class _ResponderState extends State<Responder> {
+  @override
+  Widget build(BuildContext context) {
+
+    List<GestureDetector> respuestas = [];
+    for (var i = 0; i < widget.respsUser.length; i++) {
+      
+      var boton = GestureDetector(
+        child: _option(widget.respsUser[i]),
+        onTap: () {
+          String palabra = widget.respsUser[i];
+
+          if (widget.opciones.containsKey(palabra)) {
+            widget.opciones[palabra] = true;
+            widget.respsUser.remove(palabra);
+            super.setState(() {});
+
+            Singleton().respuesta.remove(palabra);
+          }
+        }
+      );
+
+      respuestas.add(boton);
+    }
+
+    List<Opacity> misOpciones = [];
+    widget.opciones.forEach((key, value) {
+      var boton = Opacity(
+        opacity: value?1:0,
+        child: GestureDetector(
+          child: _option(key),
+          onTap: () {
+            super.setState(() {
+              widget.opciones[key] = false;
+              widget.respsUser.add(key);
+            });
+
+            Singleton().respuesta.add(key);
+          }
+        ),
+      );
+
+      misOpciones.add(boton);
+    });
+
+    return Column(
+      children: [
+
+        // linear donde se acomodaran las respuestas
+        Container(
+          margin: EdgeInsets.symmetric(horizontal: 20),
+          height: 80,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            border: Border(
+              bottom: BorderSide(color: Colors.black12, width: 3)
+            )
+          ),
+
+          child: Row(
+            children: respuestas
+          ),
+        ),
+
+        SizedBox(height: 60),
+
+        Container(
+          width: MediaQuery.of(context).size.width*.85,
+          child: Wrap(
+            alignment: WrapAlignment.center,
+
+            children: misOpciones
+          )
+        ),
+
+      ],
+    );
+  }
+}
+
 
 PrincipalButton _option(String text) {
   return PrincipalButton(
@@ -139,6 +201,11 @@ PrincipalButton _option(String text) {
   );
 }
 
+
 class Singleton {
-  
+  static final Singleton _singleton = Singleton._internal();
+  factory Singleton() => _singleton;
+  Singleton._internal();
+
+  List<String> respuesta = [];
 }
