@@ -1,26 +1,26 @@
-import 'package:duo2/src/models/leccion_mode.dart';
 import 'package:flutter/material.dart';
 
-import 'package:duo2/src/controllers/lesson_controller.dart';
+import 'package:duo2/src/models/leccion_mode.dart';
 import 'package:duo2/src/widgets/principal_button.dart';
 
 class SectionResponse extends StatefulWidget {
 
-
   final Quiz currentQuiz;
+  late Map<String, bool> opciones ;
 
   SectionResponse({
     Key? key, 
-    required this.currentQuiz,
-  });
+    required this.currentQuiz, 
+  }){
+    this.opciones = Map.fromIterable(currentQuiz.opciones,
+      key: (item) => item.toString(),
+      value: (item) => true
+    );
+
+    Singleton().currentQuiz = this.currentQuiz;
+  }
 
   final List<String> respsUser = [];
-
-  final Map<String, bool> opciones = {
-    "1":true, 
-    "2":true,
-    "3":true,
-  };
 
   @override
   _SectionResponseState createState() => _SectionResponseState();
@@ -55,6 +55,8 @@ class _SectionResponseState extends State<SectionResponse> {
 
     List<Opacity> misOpciones = [];
     widget.opciones.forEach((key, value) {
+
+      // TODO: aunque no se vea el boton sigue estando ahi
       var boton = Opacity(
         opacity: value?1:0,
         child: GestureDetector(
@@ -109,7 +111,7 @@ class _SectionResponseState extends State<SectionResponse> {
                 ),
               ),
 
-              SizedBox(height: 20),
+              SizedBox(height: 10),
 
               // linear donde se acomodaran las respuestas
               Container(
@@ -144,16 +146,24 @@ class _SectionResponseState extends State<SectionResponse> {
           
           Positioned(
             bottom: 10,
-            child: Container(
-              width: MediaQuery.of(context).size.width,
-              child: PrincipalButton(
-                text: "COMPROBAR",
-                marginv: 0,
-                marginh: 15,
-              ),
-            )
+            child: _comprobar(context)
           )
         ]
+      ),
+    );
+  }
+
+  Container _comprobar(BuildContext context) {
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      child: GestureDetector(
+        child: PrincipalButton(
+          text: "COMPROBAR",
+          marginv: 0,
+          marginh: 15,
+        ),
+
+        onTap: ()=> Singleton().comprobarRespuesta(),
       ),
     );
   }
@@ -179,5 +189,10 @@ class Singleton {
 
   List<String> respuesta = [];
 
+  late Quiz currentQuiz;
 
+  void comprobarRespuesta(){
+    //TODO: comprobar
+    
+  }
 }
