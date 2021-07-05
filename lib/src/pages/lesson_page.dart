@@ -50,7 +50,7 @@ class _LessonPageState extends State<LessonPage> {
               ),
             ),
 
-            Expanded(child: SectionResponse())
+            Expanded(child: SectionResponse(currentQuiz: currentQuiz,))
 
           ],
         ),

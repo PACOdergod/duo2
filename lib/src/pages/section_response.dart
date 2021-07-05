@@ -1,3 +1,4 @@
+import 'package:duo2/src/models/leccion_mode.dart';
 import 'package:flutter/material.dart';
 
 import 'package:duo2/src/controllers/lesson_controller.dart';
@@ -5,11 +6,12 @@ import 'package:duo2/src/widgets/principal_button.dart';
 
 class SectionResponse extends StatefulWidget {
 
-  final Color? color;
+
+  final Quiz currentQuiz;
 
   SectionResponse({
     Key? key, 
-    this.color
+    required this.currentQuiz,
   });
 
   final List<String> respsUser = [];
@@ -26,13 +28,11 @@ class SectionResponse extends StatefulWidget {
 
 class _SectionResponseState extends State<SectionResponse> {
 
-  final lesson = LessonController.getLesson();
-  int currentIndexQuiz = 0;
-
   @override
   Widget build(BuildContext context) {
 
-    var currentQuiz = lesson.quizes[currentIndexQuiz];
+
+    //TODO: esta parte es muy confusa hay que implementar cubit
     List<GestureDetector> respuestas = [];
     for (var i = 0; i < widget.respsUser.length; i++) {
       var boton = GestureDetector(
@@ -75,7 +75,7 @@ class _SectionResponseState extends State<SectionResponse> {
 
 
     return Container(
-      color: Colors.blue,
+      color: Colors.white,
       width: MediaQuery.of(context).size.width,
 
       child: Stack(
@@ -86,16 +86,17 @@ class _SectionResponseState extends State<SectionResponse> {
           Column(
             children: [
 
+              SizedBox(height: 10),
+
               // Tipo de pregunta
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 20),
                 width: MediaQuery.of(context).size.width,
-                child: Text( currentQuiz.tipo, 
+                child: Text( widget.currentQuiz.tipo, 
                   style: TextStyle(
                     fontSize: 28, fontWeight: FontWeight.bold,),
                 ),
               ),
-
 
               SizedBox(height: 20),
 
@@ -103,10 +104,12 @@ class _SectionResponseState extends State<SectionResponse> {
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 20),
                 width: MediaQuery.of(context).size.width,
-                child: Text(currentQuiz.pregunta, 
+                child: Text(widget.currentQuiz.pregunta, 
                   style: TextStyle(fontSize: 20),
                 ),
               ),
+
+              SizedBox(height: 20),
 
               // linear donde se acomodaran las respuestas
               Container(
@@ -126,27 +129,28 @@ class _SectionResponseState extends State<SectionResponse> {
 
               SizedBox(height: 60),
 
+              // OPCIONES
               Container(
                 width: MediaQuery.of(context).size.width*.85,
                 child: Wrap(
                   alignment: WrapAlignment.center,
-
                   children: misOpciones
                 )
               ),
-
 
             ],
           ),
 
           
-
-
           Positioned(
             bottom: 10,
-            child: PrincipalButton(
-              text: "COMPROBAR",
-              marginv: 0,
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              child: PrincipalButton(
+                text: "COMPROBAR",
+                marginv: 0,
+                marginh: 15,
+              ),
             )
           )
         ]
@@ -174,4 +178,6 @@ class Singleton {
   Singleton._internal();
 
   List<String> respuesta = [];
+
+
 }
