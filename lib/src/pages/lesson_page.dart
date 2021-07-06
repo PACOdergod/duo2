@@ -1,11 +1,10 @@
-import 'package:duo2/src/models/leccion_mode.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:duo2/src/pages/lesson/lesson_cubit.dart';
 import 'package:duo2/src/pages/section_response.dart';
-import 'package:flutter/material.dart';
 
 import 'package:duo2/src/controllers/lesson_controller.dart';
-import 'package:duo2/src/widgets/principal_button.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LessonPage extends StatefulWidget {
 
