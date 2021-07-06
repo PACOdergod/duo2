@@ -27,6 +27,10 @@ class AdvanceController extends GetxController{
     ),
   }.obs;
 
+  void aumentarPorcentaje(String){
+
+  }
+
   int? getNivel(String id) => levels[id]?.levelUser;
   void _aumentarNivel(String id)=> this.levels.update(id, (l){
     l.levelUser++;
