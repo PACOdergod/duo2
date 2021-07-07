@@ -61,10 +61,16 @@ class _LessonPageState extends State<LessonPage> {
 
             SizedBox(height: 10,),
 
+            // Expanded(
+            //   child: SectionResponse(
+            //     currentQuiz: currentQuiz,
+            //   )
+            // )
+
             Expanded(
-              child: SectionResponse(
-                currentQuiz: currentQuiz,
-              )
+              child: Container(
+                color: Colors.blue,
+              ),
             )
 
           ],
