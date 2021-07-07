@@ -25,8 +25,8 @@ class _HomePageState extends State<HomePage> {
 
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.plus_one),
-        // onPressed: ()=>advanceController.aumentarLessonsDone("numeros")
         onPressed: () {
+          // advanceController.aumentarLessonsDone("numeros")
           advanceController.coronasUser++;
         },
       ),
@@ -39,18 +39,18 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
 
-      bottomNavigationBar: BottomNavigationBar(
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: "hola"
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.ac_unit),
-            label: "hola"
-          ),
-        ] 
-      ),
+      // bottomNavigationBar: BottomNavigationBar(
+      //   items: [
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.home),
+      //       label: "hola"
+      //     ),
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.ac_unit),
+      //       label: "hola"
+      //     ),
+      //   ] 
+      // ),
 
     );
   }
