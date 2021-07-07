@@ -30,7 +30,7 @@ class HomeAppBar extends StatelessWidget {
           Row( children: [
               Image.asset('assets/corona.png', width: 25),
               SizedBox(width: 10),
-              Text( "5", 
+              Text( this.coronas.toString(), 
                 style: TextStyle(
                   color: Colors.yellow,
                   fontWeight: FontWeight.bold,
@@ -42,9 +42,9 @@ class HomeAppBar extends StatelessWidget {
           Row( children: [
               Image.asset('assets/fuego.jpeg', width: 25),
               SizedBox(width: 10),
-              Text( "5", 
+              Text( "0", 
                 style: TextStyle(
-                  color: Colors.orange,
+                  color: Colors.black26,
                   fontWeight: FontWeight.bold,
                   fontSize: 20
                 ),

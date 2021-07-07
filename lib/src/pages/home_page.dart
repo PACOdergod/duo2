@@ -38,6 +38,20 @@ class _HomePageState extends State<HomePage> {
           child: _Modules()
         ),
       ),
+
+      bottomNavigationBar: BottomNavigationBar(
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: "hola"
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.ac_unit),
+            label: "hola"
+          ),
+        ] 
+      ),
+
     );
   }
 
@@ -62,7 +76,7 @@ class _Modules extends StatelessWidget {
           child: Module(
             level: advanceController.getNivel("numeros"),
             porcentaje: advanceController.getPorcentaje("numeros"),
-            icon: Icons.adb_outlined,
+            // icon: Icons.home_repair_service
           ),
           onTap: () => _myAlert(context, "numeros")
         ),
