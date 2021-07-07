@@ -6,10 +6,9 @@ class Leccion {
 
   static prueba()=> Leccion([
     Quiz("traduccion", ["and","please","Hello","coffee"], "Hola", ["Hello"]),
-    Quiz("traduccion", ["and","please","Hello","coffee"], "Hola", ["Hello"]),
-    Quiz("traduccion", ["and","please","Hello","coffee"], "Hola", ["Hello"]),
-    Quiz("traduccion", ["and","please","Hello","coffee"], "Hola", ["Hello"]),
-    Quiz("traduccion", ["and","please","Hello","coffee"], "Hola", ["Hello"]),
+    Quiz("traduccion", ["and","please","Hello","coffee"], "cafe", ["coffe"]),
+    Quiz("traduccion", ["and","please","Hello","coffee"], "porfavor", ["please"]),
+    Quiz("traduccion", ["and","please","Hello","coffee"], "y", ["and"]),
   ]);
 
   int get numQuiz=> quizes.length;

@@ -1,7 +1,9 @@
+import 'package:duo2/src/pages/lesson/lesson_cubit.dart';
 import 'package:flutter/material.dart';
 
 import 'package:duo2/src/models/leccion_mode.dart';
 import 'package:duo2/src/widgets/principal_button.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SectionResponse extends StatefulWidget {
 
@@ -163,7 +165,11 @@ class _SectionResponseState extends State<SectionResponse> {
           marginh: 15,
         ),
 
-        onTap: ()=> Singleton().comprobarRespuesta(),
+        // onTap: ()=> Singleton().comprobarRespuesta(),
+        onTap: () {
+          final bloc = BlocProvider.of<LessonCubit>(context, listen:false);
+          bloc.siguienteQuiz();
+        },
       ),
     );
   }

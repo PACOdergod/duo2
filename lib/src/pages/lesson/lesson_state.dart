@@ -2,13 +2,20 @@
 part of 'lesson_cubit.dart';
 
 @immutable
-abstract class LessonState{}
+abstract class LessonState{
+  //TODO: creo que los parametrso deben inicializarse en el cubi
+  late final Leccion lesson;
+  late final int index;
+  late final Quiz currentQuiz;
+}
 
 class NewLesson extends LessonState {
 
-  // final lesson = LessonController.getLesson();
-  // int currentIndexQuiz = 0;
-  // var currentQuiz = lesson.quizes[currentIndexQuiz];
+  final lesson = LessonController.getLesson();
+  final int index;
+  // late final Quiz currentQuiz;
 
-  NewLesson(){}
+  NewLesson(this.index){
+    // this.currentQuiz = lesson.quizes[index];
+  }
 }
