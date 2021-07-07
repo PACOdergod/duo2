@@ -1,3 +1,4 @@
+import 'package:duo2/src/widgets/home_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -22,15 +23,13 @@ class _HomePageState extends State<HomePage> {
 
     return Scaffold(
 
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        leading: Icon(Icons.flag),
-        title: Text("appbar"),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.plus_one),
+        // onPressed: ()=>advanceController.aumentarLessonsDone("numeros")
+        onPressed: () {
+          advanceController.coronasUser++;
+        },
       ),
-
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: ()=>advanceController.aumentarPorcentaje("numeros"),
-      // ),
       
       body: Container(
         color: Colors.white,
@@ -53,7 +52,11 @@ class _Modules extends StatelessWidget {
     return Obx(()=> Column(
       children: [
 
-        SizedBox(height: 20),
+        SafeArea(child: HomeAppBar(
+          coronas: advanceController.coronasUser.value,
+        )),
+
+        SizedBox(height: 15),
 
         GestureDetector(
           child: Module(
@@ -86,7 +89,9 @@ class _Modules extends StatelessWidget {
       ],
     ),);
   }
+
 }
+
 
 _myTitle(String title){
   return Row(
