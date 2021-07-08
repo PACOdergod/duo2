@@ -175,7 +175,7 @@ PrincipalButton _option(String text) {
     borderColor: Colors.black12,
     textColor: Colors.black,
     text: text,
-    textWeight: FontWeight.normal,
+    // textWeight: FontWeight.normal,
     paddingh: 10,
     autoajustar: false,
   );

@@ -17,7 +17,7 @@ class PrincipalButton extends StatelessWidget {
   final FontWeight textWeight;
   final bool autoajustar;
 
-  const PrincipalButton({
+  PrincipalButton({
     this.text, 
     this.textColor, 
     this.color, 
