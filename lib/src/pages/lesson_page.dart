@@ -1,5 +1,4 @@
 import 'package:duo2/src/models/leccion_mode.dart';
-import 'package:duo2/src/pages/lesson/lesson_cubit.dart';
 import 'package:duo2/src/pages/section_response.dart';
 import 'package:flutter/material.dart';
 
@@ -24,12 +23,7 @@ class _LessonPageState extends State<LessonPage> {
 
     return Scaffold(
       
-      body: MultiBlocProvider(
-        providers: [
-          BlocProvider(create: (_)=> LessonCubit())
-        ],
-        
-        child: Container(
+      body: Container(
 
           width: MediaQuery.of(context).size.width,
           color: Colors.white,
@@ -73,7 +67,7 @@ class _LessonPageState extends State<LessonPage> {
 
 
         )
-      )
+      
     );
   }
 }
