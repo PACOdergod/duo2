@@ -8,20 +8,12 @@ import 'package:duo2/src/controllers/lesson_controller.dart';
 import 'package:provider/provider.dart';
 
 
-class LessonPage extends StatefulWidget {
-
-  @override
-  _LessonPageState createState() => _LessonPageState();
-}
-
-class _LessonPageState extends State<LessonPage> {
+class LessonPage extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
 
     final lesson = LessonController.getLesson();
-    // int currentIndexQuiz = 0;
-    // var currentQuiz = lesson.quizes[currentIndexQuiz];
 
     return MultiProvider(
       providers: [
@@ -38,7 +30,7 @@ class _LessonPageState extends State<LessonPage> {
   }
 }
 
-class LessonBody extends StatelessWidget {
+class LessonBody extends StatefulWidget {
 
   final Leccion lesson;
 
@@ -46,6 +38,12 @@ class LessonBody extends StatelessWidget {
     required this.lesson,
   });
 
+  @override
+  _LessonBodyState createState() => _LessonBodyState();
+}
+
+class _LessonBodyState extends State<LessonBody> {
+  
   @override
   Widget build(BuildContext context) {
 
@@ -77,13 +75,13 @@ class LessonBody extends StatelessWidget {
                   children: [
 
                     IconButton(
-                      icon: Icon(Icons.ac_unit, size: 32,),
+                      icon: Icon(Icons.close, size: 32,),
                       onPressed: null, 
                     ),
 
                     //TODO:barra de progreso
                     Text(
-                      "${lessonService.currentIndex+1}"+
+                      "${lessonService.currentIndex+1}" +
                       "/${lessonService.lesson.quizes.length}"
                     ),
 
@@ -101,6 +99,7 @@ class LessonBody extends StatelessWidget {
             // )
 
             Expanded(child: Container(
+              width: MediaQuery.of(context).size.width,
               color: Colors.amber,
               child: Column(
                 children: [

@@ -16,6 +16,7 @@ class LessonService with ChangeNotifier {
       return;
       //TODO: mostrar la pantalla de finalizacion 
     }
+    //TODO: mostrar una transicion de las secciones
     currentIndex++;
     notifyListeners();
   } 
