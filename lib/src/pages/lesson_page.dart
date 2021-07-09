@@ -70,7 +70,7 @@ class _LessonBodyState extends State<LessonBody> {
                 padding: EdgeInsets.symmetric(horizontal: 10),
                 width: MediaQuery.of(context).size.width,
                 height: 60,
-                color: Colors.amber,
+                color: Colors.white,
                 child: Row(
                   children: [
 
@@ -80,10 +80,16 @@ class _LessonBodyState extends State<LessonBody> {
                     ),
 
                     //TODO:barra de progreso
-                    Text(
-                      "${lessonService.currentIndex+1}" +
-                      "/${lessonService.lesson.quizes.length}"
-                    ),
+                    // Text(
+                    //   "${lessonService.currentIndex+1}" +
+                    //   "/${lessonService.lesson.quizes.length}"
+                    // ),
+
+                    ProgressBar(
+                      largo: lessonService.lesson.quizes.length,
+                      index: lessonService.currentIndex+1,
+                      ancho: MediaQuery.of(context).size.width*.65,
+                    )
 
                   ],
                 ),
@@ -117,6 +123,48 @@ class _LessonBodyState extends State<LessonBody> {
 
         )
       
+    );
+  }
+}
+
+class ProgressBar extends StatelessWidget {
+
+  final int largo;
+  final int index;
+  final double ancho;
+
+  const ProgressBar({
+    required this.largo,
+    required this.index,
+    this.ancho = 250,
+  });
+
+
+  @override
+  Widget build(BuildContext context) {
+
+    double sizeOcupado = (index*ancho)/largo;
+
+    return Stack(
+      children: [
+        Container(
+          height: 20,
+          width: this.ancho,
+          decoration: BoxDecoration(
+            color: Colors.black12,
+            borderRadius: BorderRadius.circular(10)
+          ),
+        ),
+
+        Container(
+          height: 20,
+          width: sizeOcupado,
+          decoration: BoxDecoration(
+            color: Colors.green,
+            borderRadius: BorderRadius.circular(10)
+          ),
+        ),
+      ],
     );
   }
 }
