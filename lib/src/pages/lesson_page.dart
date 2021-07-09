@@ -2,6 +2,7 @@
 import 'package:duo2/src/models/leccion_mode.dart';
 import 'package:duo2/src/pages/section_response.dart';
 import 'package:duo2/src/services/lesson_service.dart';
+import 'package:duo2/src/widgets/progress_bar.dart';
 import 'package:flutter/material.dart';
 
 import 'package:duo2/src/controllers/lesson_controller.dart';
@@ -48,12 +49,16 @@ class _LessonBodyState extends State<LessonBody> {
   Widget build(BuildContext context) {
 
     final lessonService = Provider.of<LessonService>(context);
-    var currentQuiz = lessonService.lesson.quizes[lessonService.currentIndex];
+    var quizes = lessonService.lesson.quizes;
+    var index = lessonService.currentIndex;
+
 
     return Scaffold(
 
       floatingActionButton: FloatingActionButton(
-        onPressed: ()=> lessonService.indexSig(),
+        onPressed: (){
+          lessonService.indexSig();
+        },
       ),
     
       body: Container(
@@ -79,17 +84,7 @@ class _LessonBodyState extends State<LessonBody> {
                       onPressed: null, 
                     ),
 
-                    //TODO:barra de progreso
-                    // Text(
-                    //   "${lessonService.currentIndex+1}" +
-                    //   "/${lessonService.lesson.quizes.length}"
-                    // ),
-
-                    ProgressBar(
-                      largo: lessonService.lesson.quizes.length,
-                      index: lessonService.currentIndex+1,
-                      ancho: MediaQuery.of(context).size.width*.65,
-                    )
+                    LessonBar()
 
                   ],
                 ),
@@ -104,18 +99,7 @@ class _LessonBodyState extends State<LessonBody> {
             //   )
             // )
 
-            Expanded(child: Container(
-              width: MediaQuery.of(context).size.width,
-              color: Colors.amber,
-              child: Column(
-                children: [
-                  Text(currentQuiz.tipo),
-                  Text(currentQuiz.pregunta),
-                  // Text(currentQuiz.opciones),
-                  ...currentQuiz.opciones.map((e) => Text(e)).toList()
-                ],
-              ),
-            ))
+            Demo(currentQuiz: quizes[index])
 
           ],
         ),
@@ -127,44 +111,41 @@ class _LessonBodyState extends State<LessonBody> {
   }
 }
 
-class ProgressBar extends StatelessWidget {
+class Demo extends StatelessWidget {
+  final Quiz currentQuiz;
 
-  final int largo;
-  final int index;
-  final double ancho;
-
-  const ProgressBar({
-    required this.largo,
-    required this.index,
-    this.ancho = 250,
+  const Demo({
+    Key? key,
+    required this.currentQuiz
   });
 
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      height: 400,
+      color: Colors.amber,
+      child: Column(
+        children: [
+          Text(currentQuiz.tipo),
+          Text(currentQuiz.pregunta),
+        ],
+      ),
+    );
+  }
+}
+
+class LessonBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
 
-    double sizeOcupado = (index*ancho)/largo;
+    final lessonService = Provider.of<LessonService>(context);
 
-    return Stack(
-      children: [
-        Container(
-          height: 20,
-          width: this.ancho,
-          decoration: BoxDecoration(
-            color: Colors.black12,
-            borderRadius: BorderRadius.circular(10)
-          ),
-        ),
-
-        Container(
-          height: 20,
-          width: sizeOcupado,
-          decoration: BoxDecoration(
-            color: Colors.green,
-            borderRadius: BorderRadius.circular(10)
-          ),
-        ),
-      ],
+    return ProgressBar(
+      largo: lessonService.lesson.quizes.length,
+      index: lessonService.currentIndex+1,
+      ancho: MediaQuery.of(context).size.width*.65,
     );
   }
 }
