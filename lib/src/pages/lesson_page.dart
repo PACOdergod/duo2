@@ -50,8 +50,13 @@ class LessonBody extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final lessonService = Provider.of<LessonService>(context);
+    var currentQuiz = lessonService.lesson.quizes[lessonService.currentIndex];
 
     return Scaffold(
+
+      floatingActionButton: FloatingActionButton(
+        onPressed: ()=> lessonService.indexSig(),
+      ),
     
       body: Container(
 
@@ -97,7 +102,14 @@ class LessonBody extends StatelessWidget {
 
             Expanded(child: Container(
               color: Colors.amber,
-              child: Text(lessonService.currentQuiz.tipo),
+              child: Column(
+                children: [
+                  Text(currentQuiz.tipo),
+                  Text(currentQuiz.pregunta),
+                  // Text(currentQuiz.opciones),
+                  ...currentQuiz.opciones.map((e) => Text(e)).toList()
+                ],
+              ),
             ))
 
           ],
