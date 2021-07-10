@@ -1,13 +1,14 @@
 
-import 'package:duo2/src/models/leccion_mode.dart';
-import 'package:duo2/src/pages/section_response.dart';
-import 'package:duo2/src/services/lesson_service.dart';
-import 'package:duo2/src/widgets/progress_bar.dart';
-import 'package:duo2/src/widgets/slide_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'package:duo2/src/controllers/lesson_controller.dart';
-import 'package:provider/provider.dart';
+import 'package:duo2/src/services/lesson_service.dart';
+import 'package:duo2/src/models/leccion_mode.dart';
+import 'package:duo2/src/pages/section_response.dart';
+
+import 'package:duo2/src/widgets/progress_bar.dart';
+import 'package:duo2/src/widgets/slide_widgets.dart';
 
 
 class LessonPage extends StatelessWidget{
@@ -45,31 +46,16 @@ class LessonBody extends StatefulWidget {
 }
 
 class _LessonBodyState extends State<LessonBody> {
- 
-  int index = 0;
-  late LessonService lessonService;
-  // List<Color> colores = [
-  //   Colors.white,
-  //   Colors.black,
-  //   Colors.blue,
-  //   Colors.green,
-  //   Colors.red,
-  // ];
-  // List<Widget> cuadrados = [];
-  late List<SectionResponse> secciones;
 
-  @override
-  void initState() {
-    super.initState();
-  }
- 
+  late LessonService lessonService;
+  late List<SectionResponse> secciones;
   
   @override
   Widget build(BuildContext context) {
 
     lessonService = Provider.of<LessonService>(context);
     var quizes = lessonService.lesson.quizes;
-    // var index = lessonService.currentIndex;
+    var index = lessonService.currentIndex;
 
     List<SectionResponse> secciones = [];
     for (var i = 0; i < quizes.length; i++) {
@@ -80,13 +66,6 @@ class _LessonBodyState extends State<LessonBody> {
     }
 
     return Scaffold(
-
-      floatingActionButton: FloatingActionButton(
-        onPressed: (){
-          lessonService.indexSig();
-          // lessonService.indexSig();
-        },
-      ),
     
       body: Container(
 
@@ -108,10 +87,10 @@ class _LessonBodyState extends State<LessonBody> {
 
                     IconButton(
                       icon: Icon(Icons.close, size: 32,),
-                      onPressed: null, 
+                      onPressed: null,
                     ),
 
-                    LessonBar()
+                    _LessonBar()
 
                   ],
                 ),
@@ -120,17 +99,14 @@ class _LessonBodyState extends State<LessonBody> {
 
             SizedBox(height: 10,),
 
-            SlideWidgets(
-              index: index,
-              widgets: secciones,
-              ancho: MediaQuery.of(context).size.width,
+            Expanded(
+              child: SlideWidgets(
+                index: index,
+                widgets: secciones,
+                ancho: MediaQuery.of(context).size.width,
+              ),
             )
 
-            // Expanded(
-            //   child: SectionResponse(
-            //     currentQuiz: currentQuiz,
-            //   )
-            // )
           ],
         ),
       )
@@ -139,7 +115,7 @@ class _LessonBodyState extends State<LessonBody> {
   }
 }
 
-class LessonBar extends StatelessWidget {
+class _LessonBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
