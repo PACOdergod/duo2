@@ -23,13 +23,13 @@ class _HomePageState extends State<HomePage> {
 
     return Scaffold(
 
-      // floatingActionButton: FloatingActionButton(
-      //   child: Icon(Icons.plus_one),
-      //   onPressed: () {
-      //     advanceController.aumentarLessonsDone("basico");
-      //     advanceController.coronasUser++;
-      //   },
-      // ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.plus_one),
+        onPressed: () {
+          // advanceController.aumentarLessonsDone("basico");
+          // advanceController.coronasUser++;
+        },
+      ),
       
       body: Container(
         color: Colors.white,
@@ -38,19 +38,6 @@ class _HomePageState extends State<HomePage> {
           child: _Modules()
         ),
       ),
-
-      // bottomNavigationBar: BottomNavigationBar(
-      //   items: [
-      //     BottomNavigationBarItem(
-      //       icon: Icon(Icons.home),
-      //       label: "hola"
-      //     ),
-      //     BottomNavigationBarItem(
-      //       icon: Icon(Icons.ac_unit),
-      //       label: "hola"
-      //     ),
-      //   ] 
-      // ),
 
     );
   }

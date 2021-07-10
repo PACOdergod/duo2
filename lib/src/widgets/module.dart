@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:duo2/src/widgets/radia_progress.dart';
 
+//TODO: cambiar el color de fondo conforme al nivel
+
 class Module extends StatelessWidget {
 
   final double radio;
