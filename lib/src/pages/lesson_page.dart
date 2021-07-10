@@ -43,7 +43,9 @@ class LessonBody extends StatefulWidget {
   _LessonBodyState createState() => _LessonBodyState();
 }
 
-class _LessonBodyState extends State<LessonBody> {
+class _LessonBodyState extends State<LessonBody> 
+  with SingleTickerProviderStateMixin
+{
 
   List<Color> colores = [
     Colors.black,
@@ -56,9 +58,19 @@ class _LessonBodyState extends State<LessonBody> {
 
   int index = 0;
 
+  double marginDerPrincipal = 0;
+  double marginIzqSiqguiente = 200;
+
+  late AnimationController controller;
+
   @override
   void initState() {
     super.initState();
+
+    controller = AnimationController(
+      vsync: this, 
+      duration: Duration(seconds: 2),
+    );
 
     for (var i = 0; i < colores.length; i++) {
       cuadrados.add(new Cuadrado(
@@ -71,6 +83,9 @@ class _LessonBodyState extends State<LessonBody> {
   @override
   Widget build(BuildContext context) {
 
+    // controller.forward();
+    
+
     // final lessonService = Provider.of<LessonService>(context);
     // var quizes = lessonService.lesson.quizes;
     // var index = lessonService.currentIndex;
@@ -81,7 +96,15 @@ class _LessonBodyState extends State<LessonBody> {
       floatingActionButton: FloatingActionButton(
         onPressed: (){
           setState(() {
-            index++;
+            // index++;
+            marginDerPrincipal = 100;
+            marginIzqSiqguiente = 0;
+
+            if (controller.isCompleted) {
+              controller.reverse();
+            }else{
+              controller.forward();
+            }
           });
           // lessonService.indexSig();
         },
@@ -125,19 +148,28 @@ class _LessonBodyState extends State<LessonBody> {
             //   )
             // )
 
-            AnimatedSwitcher(
-              duration: Duration(seconds: 2),
-              child: cuadrados[index],
-              transitionBuilder: (child, animation) {
-                return ScaleTransition(scale: animation, child: child);
-              },
-            )
+            Stack(
+              children: [
+                SlideTransition(
+                  position: Tween(begin: Offset(0, 0), end: Offset(-1, 0))
+                  .animate(controller),
+                  child: cuadrados[index],
+                ),
+                SlideTransition(
+                  position: Tween(begin: Offset(1, 0), end: Offset(0, 0))
+                  .animate(controller),
+                  child: cuadrados[index+1],
+                )
+
+              ],
+            ),
+            
 
           ],
         ),
 
 
-        )
+      )
       
     );
   }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 
+//TODO: vendria bien con el animatedSwitch
 class ProgressBar extends StatefulWidget {
 
   final int largo;
@@ -20,7 +21,7 @@ class ProgressBar extends StatefulWidget {
 class _ProgressBarState extends State<ProgressBar> 
   with TickerProviderStateMixin
 {
-  
+
   @override
   Widget build(BuildContext context) {
 
