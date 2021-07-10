@@ -1,11 +1,9 @@
+import 'package:flutter/material.dart';
 
+import 'package:get/get.dart';
 
 import 'package:duo2/src/controllers/advance_controller.dart';
-import 'package:duo2/src/pages/lesson_aux.dart';
-import 'package:duo2/src/pages/lesson_page.dart';
 import 'package:duo2/src/widgets/principal_button.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class BoxDescription extends StatelessWidget {
 
