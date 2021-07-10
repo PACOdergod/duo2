@@ -1,9 +1,9 @@
-import 'package:duo2/src/pages/lesson/lesson_cubit.dart';
+import 'package:duo2/src/services/lesson_service.dart';
 import 'package:flutter/material.dart';
 
 import 'package:duo2/src/models/leccion_mode.dart';
 import 'package:duo2/src/widgets/principal_button.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 
 class SectionResponse extends StatefulWidget {
 
@@ -33,6 +33,8 @@ class _SectionResponseState extends State<SectionResponse> {
   @override
   Widget build(BuildContext context) {
 
+    final lessonService = Provider.of<LessonService>(context, listen: false);
+
 
     //TODO: esta parte es muy confusa hay que implementar cubit
     List<GestureDetector> respuestas = [];
@@ -47,7 +49,6 @@ class _SectionResponseState extends State<SectionResponse> {
             widget.respsUser.remove(palabra);
             super.setState(() {});
 
-            Singleton().respuesta.remove(palabra);
           }
         }
       );
@@ -156,6 +157,7 @@ class _SectionResponseState extends State<SectionResponse> {
   }
 
   Container _comprobar(BuildContext context) {
+    final lessonService = Provider.of<LessonService>(context,listen: false);
     return Container(
       width: MediaQuery.of(context).size.width,
       child: GestureDetector(
@@ -165,11 +167,7 @@ class _SectionResponseState extends State<SectionResponse> {
           marginh: 15,
         ),
 
-        // onTap: ()=> Singleton().comprobarRespuesta(),
-        onTap: () {
-          final bloc = BlocProvider.of<LessonCubit>(context, listen:false);
-          bloc.siguienteQuiz();
-        },
+        onTap: lessonService.indexSig,
       ),
     );
   }
@@ -181,7 +179,7 @@ PrincipalButton _option(String text) {
     borderColor: Colors.black12,
     textColor: Colors.black,
     text: text,
-    textWeight: FontWeight.normal,
+    // textWeight: FontWeight.normal,
     paddingh: 10,
     autoajustar: false,
   );

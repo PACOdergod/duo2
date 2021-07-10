@@ -50,9 +50,10 @@ class _RadialProgressState extends State<RadialProgress>
             height: double.infinity,
             child: CustomPaint(
               painter: _MiRadialPainter(
-                  (widget.procentaje - diferenciaAnimar) +
-                      (diferenciaAnimar * controller.value),
-                  widget.colorPrimario),
+                (widget.procentaje - diferenciaAnimar) +
+                    (diferenciaAnimar * controller.value),
+                widget.colorPrimario
+              ),
             ),
           );
         });
