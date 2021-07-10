@@ -4,11 +4,13 @@ class SlideWidgets extends StatefulWidget {
 
   final int index;
   final List<Widget> widgets;
+  final double ancho;
   final Duration duracion;
 
   const SlideWidgets({
     required this.index,
     required this.widgets,
+    required this.ancho,
     this.duracion = const Duration(milliseconds: 1000),
   });
 
@@ -32,7 +34,15 @@ class _SlideWidgetsState extends State<SlideWidgets>
       duration: widget.duracion,
     );
 
-    widgets = widget.widgets;
+    widgets = [
+      Container(
+        height: 100,
+        width: widget.ancho,
+        color: Colors.transparent,
+      ),
+      ...widget.widgets
+    ];
+    // widgets.insert(0, );
   }
 
   @override
@@ -43,6 +53,7 @@ class _SlideWidgetsState extends State<SlideWidgets>
 
   @override
   Widget build(BuildContext context) {
+
     controller.forward(from: 0.0);
 
     return Stack(

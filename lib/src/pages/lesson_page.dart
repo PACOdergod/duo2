@@ -47,42 +47,43 @@ class LessonBody extends StatefulWidget {
 class _LessonBodyState extends State<LessonBody> {
  
   int index = 0;
-  List<Color> colores = [
-    Colors.white,
-    Colors.black,
-    Colors.blue,
-    Colors.green,
-    Colors.red,
-  ];
-  List<Widget> cuadrados = [];
+  late LessonService lessonService;
+  // List<Color> colores = [
+  //   Colors.white,
+  //   Colors.black,
+  //   Colors.blue,
+  //   Colors.green,
+  //   Colors.red,
+  // ];
+  // List<Widget> cuadrados = [];
+  late List<SectionResponse> secciones;
 
   @override
   void initState() {
     super.initState();
-    for (var i = 0; i < colores.length; i++) {
-      cuadrados.add(new Cuadrado(
-        color: colores[i],
-        key: ValueKey<int>(i),
-      ));
-    }
   }
  
   
   @override
   Widget build(BuildContext context) {
 
-    final lessonService = Provider.of<LessonService>(context);
+    lessonService = Provider.of<LessonService>(context);
     var quizes = lessonService.lesson.quizes;
-    var index = lessonService.currentIndex;
+    // var index = lessonService.currentIndex;
+
+    List<SectionResponse> secciones = [];
+    for (var i = 0; i < quizes.length; i++) {
+      secciones.add(SectionResponse(
+        currentQuiz: quizes[i],
+        key: ValueKey<int>(i),
+      ));
+    }
 
     return Scaffold(
 
       floatingActionButton: FloatingActionButton(
         onPressed: (){
           lessonService.indexSig();
-          setState(() {
-            index++;
-          });
           // lessonService.indexSig();
         },
       ),
@@ -121,7 +122,8 @@ class _LessonBodyState extends State<LessonBody> {
 
             SlideWidgets(
               index: index,
-              widgets: cuadrados,
+              widgets: secciones,
+              ancho: MediaQuery.of(context).size.width,
             )
 
             // Expanded(
@@ -133,24 +135,6 @@ class _LessonBodyState extends State<LessonBody> {
         ),
       )
       
-    );
-  }
-}
-
-class Cuadrado extends StatelessWidget {
-  final Color color;
-
-  const Cuadrado({Key? key, this.color=Colors.green}): super(key: key);
-
-    @override
-    Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.all(20),
-      width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height-140,
-      decoration: BoxDecoration(
-        color: this.color
-      ),
     );
   }
 }
