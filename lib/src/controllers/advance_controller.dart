@@ -4,8 +4,8 @@ import 'package:get/get.dart';
 class AdvanceController extends GetxController{
     //TODO: se conecta a la base de datos 
   var levels = {
-    "numeros" : Level(
-      id: "numeros", 
+    "basico" : Level(
+      id: "basico", 
       levelUser: 0,
       totalLevels: 5, 
       lessonsDone: 0,

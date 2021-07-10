@@ -74,13 +74,12 @@ class _Modules extends StatelessWidget {
 
         GestureDetector(
           child: Module(
-            level: advanceController.getNivel("numeros"),
-            porcentaje: advanceController.getPorcentaje("numeros"),
-            // icon: Icons.home_repair_service
+            level: advanceController.getNivel("basico"),
+            porcentaje: advanceController.getPorcentaje("basico"),
           ),
-          onTap: () => _myAlert(context, "numeros")
+          onTap: () => _myAlert(context, "basico")
         ),
-        _myTitle("Numeros"),
+        _myTitle("Basico"),
 
         SizedBox(height: 20),
 

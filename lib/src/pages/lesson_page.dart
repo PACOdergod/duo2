@@ -87,7 +87,7 @@ class _LessonBodyState extends State<LessonBody> {
 
                     IconButton(
                       icon: Icon(Icons.close, size: 32,),
-                      onPressed: null,
+                      onPressed: ()=> Navigator.pop(context),
                     ),
 
                     _LessonBar()
