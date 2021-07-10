@@ -150,6 +150,7 @@ class _LessonBodyState extends State<LessonBody>
 
             Stack(
               children: [
+
                 SlideTransition(
                   position: Tween(begin: Offset(0, 0), end: Offset(-1, 0))
                   .animate(controller),
@@ -183,8 +184,8 @@ class Cuadrado extends StatelessWidget {
     @override
     Widget build(BuildContext context) {
     return Container(
-      width: 70,
-      height: 70,
+      width: MediaQuery.of(context).size.width,
+      height: MediaQuery.of(context).size.height-100,
       decoration: BoxDecoration(
         color: this.color
       ),
