@@ -3,6 +3,7 @@ import 'package:duo2/src/models/leccion_mode.dart';
 import 'package:duo2/src/pages/section_response.dart';
 import 'package:duo2/src/services/lesson_service.dart';
 import 'package:duo2/src/widgets/progress_bar.dart';
+import 'package:duo2/src/widgets/slide_widgets.dart';
 import 'package:flutter/material.dart';
 
 import 'package:duo2/src/controllers/lesson_controller.dart';
@@ -43,36 +44,44 @@ class LessonBody extends StatefulWidget {
   _LessonBodyState createState() => _LessonBodyState();
 }
 
-class _LessonBodyState extends State<LessonBody> 
-  with SingleTickerProviderStateMixin
-{
+class _LessonBodyState extends State<LessonBody> {
  
   int index = 0;
+  List<Color> colores = [
+    Colors.white,
+    Colors.black,
+    Colors.blue,
+    Colors.green,
+    Colors.red,
+  ];
+  List<Widget> cuadrados = [];
+
+  @override
+  void initState() {
+    super.initState();
+    for (var i = 0; i < colores.length; i++) {
+      cuadrados.add(new Cuadrado(
+        color: colores[i],
+        key: ValueKey<int>(i),
+      ));
+    }
+  }
  
   
   @override
   Widget build(BuildContext context) {
 
-    
-
-    // final lessonService = Provider.of<LessonService>(context);
-    // var quizes = lessonService.lesson.quizes;
-    // var index = lessonService.currentIndex;
-
+    final lessonService = Provider.of<LessonService>(context);
+    var quizes = lessonService.lesson.quizes;
+    var index = lessonService.currentIndex;
 
     return Scaffold(
 
       floatingActionButton: FloatingActionButton(
         onPressed: (){
+          lessonService.indexSig();
           setState(() {
             index++;
-
-            // if (controller.isCompleted) {
-            //   controller.reverse();
-            // }else{
-            //   controller.forward();
-            // }
-
           });
           // lessonService.indexSig();
         },
@@ -110,93 +119,21 @@ class _LessonBodyState extends State<LessonBody>
 
             SizedBox(height: 10,),
 
-            SlideWidgets(index: index)
+            SlideWidgets(
+              index: index,
+              widgets: cuadrados,
+            )
 
             // Expanded(
             //   child: SectionResponse(
             //     currentQuiz: currentQuiz,
             //   )
             // )
-
-            
-            
-
           ],
         ),
       )
       
     );
-  }
-}
-
-class SlideWidgets extends StatefulWidget {
-
-  final int index;
-
-  const SlideWidgets({required this.index});
-
-  @override
-  _SlideWidgetsState createState() => _SlideWidgetsState();
-}
-
-class _SlideWidgetsState extends State<SlideWidgets> 
-  with SingleTickerProviderStateMixin
-{
-  List<Color> colores = [
-    Colors.white,
-    Colors.black,
-    Colors.blue,
-    Colors.green,
-    Colors.red,
-  ];
-
-  late AnimationController controller;
-  List<Widget> cuadrados = [];
-
-
-  @override
-  void initState() {
-    super.initState();
-    controller = AnimationController(
-      vsync: this, 
-      duration: Duration(seconds: 1),
-    );
-
-    for (var i = 0; i < colores.length; i++) {
-      cuadrados.add(new Cuadrado(
-        color: colores[i],
-        key: ValueKey<int>(i),
-      ));
-    }
-  }
-
-  
-
-  @override
-  Widget build(BuildContext context) {
-    controller.forward(from: 0.0);
-    return Stack(
-      children: [
-
-        SlideTransition(
-          position: Tween(begin: Offset(0, 0), end: Offset(-1, 0))
-          .animate(controller),
-          child: cuadrados[widget.index],
-        ),
-        SlideTransition(
-          position: Tween(begin: Offset(1, 0), end: Offset(0, 0))
-          .animate(controller),
-          child: cuadrados[widget.index+1],
-        )
-
-      ],
-    );
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    controller.dispose();
   }
 }
 
