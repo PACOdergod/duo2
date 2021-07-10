@@ -4,10 +4,12 @@ class SlideWidgets extends StatefulWidget {
 
   final int index;
   final List<Widget> widgets;
+  final Duration duracion;
 
   const SlideWidgets({
     required this.index,
     required this.widgets,
+    this.duracion = const Duration(milliseconds: 1000),
   });
 
   @override
@@ -27,7 +29,7 @@ class _SlideWidgetsState extends State<SlideWidgets>
     super.initState();
     controller = AnimationController(
       vsync: this, 
-      duration: Duration(seconds: 1),
+      duration: widget.duracion,
     );
 
     widgets = widget.widgets;
@@ -48,12 +50,16 @@ class _SlideWidgetsState extends State<SlideWidgets>
 
         SlideTransition(
           position: Tween(begin: Offset(0, 0), end: Offset(-1, 0))
-          .animate(controller),
+          .animate(CurvedAnimation(
+            parent: controller, 
+            curve: Curves.easeInOutSine)),
           child: widgets[widget.index],
         ),
         SlideTransition(
           position: Tween(begin: Offset(1, 0), end: Offset(0, 0))
-          .animate(controller),
+          .animate(CurvedAnimation(
+            parent: controller, 
+            curve: Curves.easeInOutSine)),
           child: widgets[widget.index+1],
         )
 
