@@ -44,20 +44,46 @@ class LessonBody extends StatefulWidget {
 }
 
 class _LessonBodyState extends State<LessonBody> {
+
+  List<Color> colores = [
+    Colors.black,
+    Colors.blue,
+    Colors.green,
+    Colors.red,
+  ];
+
+  List<Widget> cuadrados = [];
+
+  int index = 0;
+
+  @override
+  void initState() {
+    super.initState();
+
+    for (var i = 0; i < colores.length; i++) {
+      cuadrados.add(new Cuadrado(
+        color: colores[i],
+        key: ValueKey<int>(i),
+      ));
+    }
+  }
   
   @override
   Widget build(BuildContext context) {
 
-    final lessonService = Provider.of<LessonService>(context);
-    var quizes = lessonService.lesson.quizes;
-    var index = lessonService.currentIndex;
+    // final lessonService = Provider.of<LessonService>(context);
+    // var quizes = lessonService.lesson.quizes;
+    // var index = lessonService.currentIndex;
 
 
     return Scaffold(
 
       floatingActionButton: FloatingActionButton(
         onPressed: (){
-          lessonService.indexSig();
+          setState(() {
+            index++;
+          });
+          // lessonService.indexSig();
         },
       ),
     
@@ -99,7 +125,13 @@ class _LessonBodyState extends State<LessonBody> {
             //   )
             // )
 
-            Demo(currentQuiz: quizes[index])
+            AnimatedSwitcher(
+              duration: Duration(seconds: 2),
+              child: cuadrados[index],
+              transitionBuilder: (child, animation) {
+                return ScaleTransition(scale: animation, child: child);
+              },
+            )
 
           ],
         ),
@@ -111,25 +143,18 @@ class _LessonBodyState extends State<LessonBody> {
   }
 }
 
-class Demo extends StatelessWidget {
-  final Quiz currentQuiz;
+class Cuadrado extends StatelessWidget {
+  final Color color;
 
-  const Demo({
-    Key? key,
-    required this.currentQuiz
-  });
+  const Cuadrado({Key? key, this.color=Colors.green}): super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
+    @override
+    Widget build(BuildContext context) {
     return Container(
-      width: MediaQuery.of(context).size.width,
-      height: 400,
-      color: Colors.amber,
-      child: Column(
-        children: [
-          Text(currentQuiz.tipo),
-          Text(currentQuiz.pregunta),
-        ],
+      width: 70,
+      height: 70,
+      decoration: BoxDecoration(
+        color: this.color
       ),
     );
   }

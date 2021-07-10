@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 
-class ProgressBar extends StatelessWidget {
+class ProgressBar extends StatefulWidget {
 
   final int largo;
   final int index;
@@ -13,17 +13,24 @@ class ProgressBar extends StatelessWidget {
     this.ancho = 250,
   });
 
+  @override
+  _ProgressBarState createState() => _ProgressBarState();
+}
 
+class _ProgressBarState extends State<ProgressBar> 
+  with TickerProviderStateMixin
+{
+  
   @override
   Widget build(BuildContext context) {
 
-    double sizeOcupado = (index*ancho)/largo;
+    double sizeOcupado = (widget.index*widget.ancho)/widget.largo;
 
     return Stack(
       children: [
         Container(
           height: 20,
-          width: this.ancho,
+          width: this.widget.ancho,
           decoration: BoxDecoration(
             color: Colors.black12,
             borderRadius: BorderRadius.circular(10)
