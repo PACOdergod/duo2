@@ -46,44 +46,13 @@ class LessonBody extends StatefulWidget {
 class _LessonBodyState extends State<LessonBody> 
   with SingleTickerProviderStateMixin
 {
-
-  List<Color> colores = [
-    Colors.black,
-    Colors.blue,
-    Colors.green,
-    Colors.red,
-  ];
-
-  List<Widget> cuadrados = [];
-
+ 
   int index = 0;
-
-  double marginDerPrincipal = 0;
-  double marginIzqSiqguiente = 200;
-
-  late AnimationController controller;
-
-  @override
-  void initState() {
-    super.initState();
-
-    controller = AnimationController(
-      vsync: this, 
-      duration: Duration(seconds: 2),
-    );
-
-    for (var i = 0; i < colores.length; i++) {
-      cuadrados.add(new Cuadrado(
-        color: colores[i],
-        key: ValueKey<int>(i),
-      ));
-    }
-  }
+ 
   
   @override
   Widget build(BuildContext context) {
 
-    // controller.forward();
     
 
     // final lessonService = Provider.of<LessonService>(context);
@@ -96,15 +65,14 @@ class _LessonBodyState extends State<LessonBody>
       floatingActionButton: FloatingActionButton(
         onPressed: (){
           setState(() {
-            // index++;
-            marginDerPrincipal = 100;
-            marginIzqSiqguiente = 0;
+            index++;
 
-            if (controller.isCompleted) {
-              controller.reverse();
-            }else{
-              controller.forward();
-            }
+            // if (controller.isCompleted) {
+            //   controller.reverse();
+            // }else{
+            //   controller.forward();
+            // }
+
           });
           // lessonService.indexSig();
         },
@@ -142,37 +110,93 @@ class _LessonBodyState extends State<LessonBody>
 
             SizedBox(height: 10,),
 
+            SlideWidgets(index: index)
+
             // Expanded(
             //   child: SectionResponse(
             //     currentQuiz: currentQuiz,
             //   )
             // )
 
-            Stack(
-              children: [
-
-                SlideTransition(
-                  position: Tween(begin: Offset(0, 0), end: Offset(-1, 0))
-                  .animate(controller),
-                  child: cuadrados[index],
-                ),
-                SlideTransition(
-                  position: Tween(begin: Offset(1, 0), end: Offset(0, 0))
-                  .animate(controller),
-                  child: cuadrados[index+1],
-                )
-
-              ],
-            ),
+            
             
 
           ],
         ),
-
-
       )
       
     );
+  }
+}
+
+class SlideWidgets extends StatefulWidget {
+
+  final int index;
+
+  const SlideWidgets({required this.index});
+
+  @override
+  _SlideWidgetsState createState() => _SlideWidgetsState();
+}
+
+class _SlideWidgetsState extends State<SlideWidgets> 
+  with SingleTickerProviderStateMixin
+{
+  List<Color> colores = [
+    Colors.white,
+    Colors.black,
+    Colors.blue,
+    Colors.green,
+    Colors.red,
+  ];
+
+  late AnimationController controller;
+  List<Widget> cuadrados = [];
+
+
+  @override
+  void initState() {
+    super.initState();
+    controller = AnimationController(
+      vsync: this, 
+      duration: Duration(seconds: 1),
+    );
+
+    for (var i = 0; i < colores.length; i++) {
+      cuadrados.add(new Cuadrado(
+        color: colores[i],
+        key: ValueKey<int>(i),
+      ));
+    }
+  }
+
+  
+
+  @override
+  Widget build(BuildContext context) {
+    controller.forward(from: 0.0);
+    return Stack(
+      children: [
+
+        SlideTransition(
+          position: Tween(begin: Offset(0, 0), end: Offset(-1, 0))
+          .animate(controller),
+          child: cuadrados[widget.index],
+        ),
+        SlideTransition(
+          position: Tween(begin: Offset(1, 0), end: Offset(0, 0))
+          .animate(controller),
+          child: cuadrados[widget.index+1],
+        )
+
+      ],
+    );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    controller.dispose();
   }
 }
 
@@ -184,8 +208,9 @@ class Cuadrado extends StatelessWidget {
     @override
     Widget build(BuildContext context) {
     return Container(
+      margin: EdgeInsets.all(20),
       width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height-100,
+      height: MediaQuery.of(context).size.height-140,
       decoration: BoxDecoration(
         color: this.color
       ),
