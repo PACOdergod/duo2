@@ -25,16 +25,16 @@ class MyApp extends StatelessWidget {
         // fontFamily: 
       ),
       title: 'Material App',
-      home: ExamplePage(),
-      // routes: {
-      //   "auth": (_)=> AuthPage(),
-      //   "login": (_)=> LoginPage(),
-      //   "home": (_)=> HomePage(),
-      //   "lesson": (_)=> LessonPage(),
-      //   "registrar":(_)=> RegistrarPage(),
-      //   "final": (_)=> FinalPage(),
-      // },
-      // initialRoute: "lesson",
+      // home: ExamplePage(),
+      routes: {
+        "auth": (_)=> AuthPage(),
+        "login": (_)=> LoginPage(),
+        "home": (_)=> HomePage(),
+        "lesson": (_)=> LessonPage(),
+        "registrar":(_)=> RegistrarPage(),
+        "final": (_)=> FinalPage(),
+      },
+      initialRoute: "lesson",
     );
   }
 }

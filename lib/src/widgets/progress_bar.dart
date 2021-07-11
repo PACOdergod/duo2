@@ -33,7 +33,7 @@ class _ProgressBarState extends State<ProgressBar>
     indexAnterior = 0;
     controller = AnimationController(
       vsync: this,
-      duration: Duration(seconds: 1)
+      duration: Duration(milliseconds: 500)
     );
   }
 

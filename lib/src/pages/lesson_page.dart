@@ -79,29 +79,7 @@ class _LessonBodyState extends State<LessonBody> {
             children: [
 
             //appbar
-            SafeArea(
-              child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 10),
-                width: MediaQuery.of(context).size.width,
-                height: 60,
-                color: Colors.white,
-                child: Row(
-                  children: [
-
-                    IconButton(
-                      icon: Icon(Icons.close, size: 32,),
-                      onPressed: ()=> Navigator.pop(context),
-                    ),
-
-                    _LessonBar(
-                      largo: lessonService.lesson.quizes.length,
-                      index: index,
-                    )
-
-                  ],
-                ),
-              ),
-            ),
+            _LessonAppbar(secciones: secciones),
 
             SizedBox(height: 10,),
 
@@ -122,39 +100,43 @@ class _LessonBodyState extends State<LessonBody> {
   }
 }
 
-class _LessonBar extends StatefulWidget {
+class _LessonAppbar extends StatelessWidget {
+  const _LessonAppbar({
+    Key? key,
+    required this.secciones,
+  }) : super(key: key);
 
-  final int largo;
-  final int index;
-
-  const _LessonBar({
-    required this.largo, 
-    required this.index,
-  });
-
-  @override
-  __LessonBarState createState() => __LessonBarState();
-}
-
-class __LessonBarState extends State<_LessonBar> {
-
-  // late LessonService lessonService;
-  // late ProgressBar progressBar;
-
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   lessonService = Provider.of<LessonService>(context);
-  //   lessonService.currentIndex;
-  // }
+  final List<SectionResponse> secciones;
 
   @override
   Widget build(BuildContext context) {
 
-    return ProgressBar(
-      largo: widget.largo,
-      index: widget.index,
-      ancho: MediaQuery.of(context).size.width*.65,
+    var lessonService = Provider.of<LessonService>(context);
+    var index = lessonService.currentIndex;
+
+    return SafeArea(
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 10),
+        width: MediaQuery.of(context).size.width,
+        height: 60,
+        color: Colors.white,
+        child: Row(
+          children: [
+
+            IconButton(
+              icon: Icon(Icons.close, size: 32,),
+              onPressed: ()=> Navigator.pop(context),
+            ),
+
+            ProgressBar(
+              largo: secciones.length,
+              index: index,
+              ancho: MediaQuery.of(context).size.width*.65,
+            ),
+
+          ],
+        ),
+      ),
     );
   }
 }
