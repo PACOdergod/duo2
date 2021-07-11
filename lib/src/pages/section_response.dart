@@ -9,7 +9,7 @@ import 'package:duo2/src/widgets/principal_button.dart';
 class SectionResponse extends StatefulWidget {
 
   final Quiz currentQuiz;
-  late Map<String, bool> opciones ;
+  late final Map<String, bool> opciones ;
 
   SectionResponse({
     Key? key, 
