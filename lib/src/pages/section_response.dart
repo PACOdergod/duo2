@@ -70,6 +70,7 @@ class _SectionResponseState extends State<SectionResponse> {
               widget.opciones[key] = false;
               widget.respsUser.add(key);
             });
+            print("option");
 
             Singleton().respuesta.add(key);
           }

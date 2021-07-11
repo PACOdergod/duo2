@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
         "registrar":(_)=> RegistrarPage(),
         "final": (_)=> FinalPage()
       },
-      initialRoute: "login",
+      initialRoute: "lesson",
     );
   }
 }

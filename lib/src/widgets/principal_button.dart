@@ -13,7 +13,6 @@ class PrincipalButton extends StatefulWidget {
   final double elevation;
   final Color borderColor;
   final FontWeight textWeight;
-  final double? paddingh;
   
   PrincipalButton({
     this.text, 
@@ -26,7 +25,6 @@ class PrincipalButton extends StatefulWidget {
     this.elevation = 5,
     this.borderColor = Colors.green, 
     this.textWeight = FontWeight.bold,
-    this.paddingh = 10
   });
 
   @override
@@ -69,7 +67,7 @@ class _PrincipalButtonState extends State<PrincipalButton> {
         ],
       ),
       margin: EdgeInsets.only(bottom: widget.elevation),
-      padding: EdgeInsets.symmetric(horizontal: 10),
+      padding: EdgeInsets.symmetric(horizontal: 20),
 
       decoration: BoxDecoration(
         border: Border.all(color: widget.borderColor, width: 3),

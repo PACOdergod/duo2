@@ -24,6 +24,7 @@ class BoxDescription extends StatelessWidget {
       ),
 
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           _levels(context, id),
           PrincipalButton(

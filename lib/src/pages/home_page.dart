@@ -41,7 +41,6 @@ class _HomePageState extends State<HomePage> {
 
     );
   }
-
 }
 
 class _Modules extends StatelessWidget {

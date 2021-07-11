@@ -18,13 +18,13 @@ class LessonPage extends StatelessWidget{
   Widget build(BuildContext context) {
 
     final lesson = LessonController.getLesson();
-    var idModule = Get.arguments;
-    print(idModule);
+    // var idModule = Get.arguments;
+    // print(idModule);
 
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (_)=> new LessonService(lesson, idModule),
+          create: (_)=> new LessonService(lesson, "basico"),
           lazy: false,
         )
       ],
