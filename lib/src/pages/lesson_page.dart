@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:duo2/src/controllers/lesson_controller.dart';
 import 'package:duo2/src/services/lesson_service.dart';
 import 'package:duo2/src/models/leccion_mode.dart';
-import 'package:duo2/src/quiz/section_response.dart';
+import 'package:duo2/src/quiz/quiz_section.dart';
 
 import 'package:duo2/src/widgets/progress_bar.dart';
 import 'package:duo2/src/widgets/slide_widgets.dart';
