@@ -9,7 +9,7 @@ import 'package:duo2/src/widgets/principal_button.dart';
 class SectionResponse extends StatefulWidget {
 
   final Quiz currentQuiz;
-  late Map<String, bool> opciones ;
+  late final Map<String, bool> opciones ;
 
   SectionResponse({
     Key? key, 
@@ -159,33 +159,33 @@ class _SectionResponseState extends State<SectionResponse> {
 
   Container _comprobar(BuildContext context) {
     final lessonService = Provider.of<LessonService>(context,listen: false);
+    
     return Container(
       width: MediaQuery.of(context).size.width,
-      child: GestureDetector(
+      
+      child: Center(
         child: PrincipalButton(
           text: "COMPROBAR",
-          marginv: 0,
-          marginh: 15,
+          ancho: MediaQuery.of(context).size.width*.9,
+          onTap: lessonService.indexSig,
         ),
-
-        onTap: lessonService.indexSig,
       ),
     );
   }
 }
 
-PrincipalButton _option(String text) {
-  return PrincipalButton(
-    color: Colors.white,
-    borderColor: Colors.black12,
-    textColor: Colors.black,
-    text: text,
-    // textWeight: FontWeight.normal,
-    paddingh: 10,
-    autoajustar: false,
+Widget _option(String text) {
+  return Container(
+    margin: EdgeInsets.all(5),
+    child: PrincipalButton(
+      color: Colors.white,
+      borderColor: Colors.black12,
+      textColor: Colors.black,
+      text: text,
+    ),
   );
-}
 
+}
 
 class Singleton {
   static final Singleton _singleton = Singleton._internal();

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 
-class PrincipalButton extends StatelessWidget {
+class PrincipalButton extends StatefulWidget {
 
   final String? text;
   final double? textSize;
@@ -9,95 +9,125 @@ class PrincipalButton extends StatelessWidget {
   final Color? color;
   final Widget? icon;
   final Function()? onTap;
-  final double? paddingh;
-  final double porcentajeAncho;
+  final double? ancho;
+  final double elevation;
   final Color borderColor;
-  final double marginh;
-  final double marginv;
   final FontWeight textWeight;
-  final bool autoajustar;
-
+  final double? paddingh;
+  
   PrincipalButton({
     this.text, 
     this.textColor, 
-    this.color, 
+    this.textSize = 20,
+    this.color = Colors.green,
     this.icon,
-    this.onTap, 
+    this.onTap,
+    this.ancho,
+    this.elevation = 5,
     this.borderColor = Colors.green, 
-    this.paddingh, 
-    this.porcentajeAncho = 0.9, 
-    this.textSize = 20, 
-    this.marginh = 5, 
-    this.marginv = 5,
     this.textWeight = FontWeight.bold,
-    this.autoajustar = true
+    this.paddingh = 10
   });
+
+  @override
+  _PrincipalButtonState createState() => _PrincipalButtonState();
+}
+
+class _PrincipalButtonState extends State<PrincipalButton> {
+  bool presionado = false;
 
   @override
   Widget build(BuildContext context) {
 
     return GestureDetector(
+      onTapDown: (_)=> setState(()=> presionado = true ),
+      onTapUp:   (_)=> setState(()=> presionado = false),
 
-      child: Container( 
-        //TODO: arreglar esto
-        child: autoajustar 
-        ? Center(child: tituloButton(),)
-        : Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [tituloButton()],
-        ),
+      onTap: widget.onTap,
+      
+
+      child: Container(
+        height: 65,
+        width: widget.ancho,
+        // alignment: Alignment.center,
         
-        width: autoajustar?MediaQuery.of(context).size.width*.9:null,
-        height: 60,
-        margin: EdgeInsets.symmetric(
-          horizontal: this.marginh, 
-          vertical: this.marginv
-        ),
-        padding:EdgeInsets.symmetric(horizontal: 20),
-
-        decoration: BoxDecoration(
-          border: Border.all(color: borderColor, width: 2),
-          borderRadius: BorderRadius.circular(20),
-          color: color??Colors.green,
-          
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black12, 
-              offset: Offset.fromDirection(1.5, 3)
-            )
-          ]
-        ),
+        child: presionado ? _secundario() : _principal(),
+        
       ),
       
-      onTap: this.onTap,
     );
   }
 
+  //TODO: refactorizar la pagina
+
+  Container _principal() {
+    return Container(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          tituloButton(),
+        ],
+      ),
+      margin: EdgeInsets.only(bottom: widget.elevation),
+      padding: EdgeInsets.symmetric(horizontal: 10),
+
+      decoration: BoxDecoration(
+        border: Border.all(color: widget.borderColor, width: 3),
+        borderRadius: BorderRadius.circular(20),
+        color: widget.color,
+        boxShadow: [
+          BoxShadow(
+            offset: Offset(0,widget.elevation), 
+            color: Colors.black12),
+        ]
+      ),
+    );
+  }
+
+  Container _secundario() {
+    return Container(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          tituloButton(),
+        ],
+      ),
+      margin: EdgeInsets.only(top: widget.elevation),
+      padding: EdgeInsets.symmetric(horizontal: 10),
+
+
+      decoration: BoxDecoration(
+        border: Border.all(color: widget.borderColor, width: 2),
+        borderRadius: BorderRadius.circular(20),
+        color: widget.color,
+        
+      ),
+    );
+  }
+  
+
   Widget tituloButton() {
 
-    if (icon == null) return texto();
+    if (widget.icon == null) return texto();
 
     else return Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
             width: 30,
-            child: icon!
+            child: widget.icon!
           ),
-          // SizedBox(width: 5),
           texto(),
         ],
       );
   }
 
-
-  Text texto() {
-    return Text( text??"LOGIN", 
-      style: TextStyle(
-        fontSize: this.textSize, 
-        color: textColor??Colors.white,
-        fontWeight: this.textWeight
-      ),
-    );
-  }
+  Text texto()=> Text( widget.text??"LOGIN", 
+    style: TextStyle(
+      fontSize: this.widget.textSize, 
+      color: widget.textColor??Colors.white,
+      fontWeight: this.widget.textWeight
+    ),
+  );
+  
 }

@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 import 'package:duo2/src/controllers/lesson_controller.dart';
@@ -17,11 +18,13 @@ class LessonPage extends StatelessWidget{
   Widget build(BuildContext context) {
 
     final lesson = LessonController.getLesson();
+    var idModule = Get.arguments;
+    print(idModule);
 
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (_)=> new LessonService(lesson),
+          create: (_)=> new LessonService(lesson, idModule),
           lazy: false,
         )
       ],

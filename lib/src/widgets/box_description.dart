@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
+import 'package:duo2/src/pages/lesson_page.dart';
 import 'package:duo2/src/controllers/advance_controller.dart';
 import 'package:duo2/src/widgets/principal_button.dart';
 
@@ -26,24 +27,21 @@ class BoxDescription extends StatelessWidget {
         children: [
           _levels(context, id),
           PrincipalButton(
-            porcentajeAncho: .9,
-            marginh: 0,
+            ancho: MediaQuery.of(context).size.width*.9,
             color: Colors.blue,
             borderColor: Colors.black12,
             text: "APUNTES",
             //TODO crear la pagina de apuntes
           ),
           PrincipalButton(
-            porcentajeAncho: .9,
-            marginh: 0,
+            ancho: MediaQuery.of(context).size.width*.9,
             color: Colors.white,
             borderColor: Colors.black12,
             text: "EMPEZAR",
             textColor: Colors.black,
             onTap: () {
               Navigator.pop(context); //cerrar el dialog
-              // Get.to(()=> LessonAuxiliar(), arguments: id);
-              Navigator.of(context).pushNamed('lesson');
+              Get.to(()=> LessonPage(), arguments: id);
             },
           )
 

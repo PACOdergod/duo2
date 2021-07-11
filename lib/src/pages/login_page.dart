@@ -14,7 +14,7 @@ class LoginPage extends StatelessWidget {
 
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(Icons.ac_unit, color: Colors.black),
+          icon: Icon(Icons.close, color: Colors.black),
           onPressed: ()=> Navigator.pop(context),
         ),
         backgroundColor: Colors.white,
@@ -123,21 +123,6 @@ class _LoginWith extends StatelessWidget {
   }
 }
 
-
-class _IngresarButton extends StatelessWidget {
-
-  @override
-  Widget build(BuildContext context) {
-    return PrincipalButton(
-      text: "INGRESAR",
-      onTap: (){
-        // TODO: verificar que los compos sean validos y el usuario este registrado
-        Get.to(()=> HomePage());
-      },
-    );
-  }
-}
-
 class _LoginWithButton extends StatelessWidget {
 
   final String text;
@@ -157,17 +142,31 @@ class _LoginWithButton extends StatelessWidget {
     return PrincipalButton(
       text: this.text,
       textSize: 15,
-      porcentajeAncho: 0.4,
-      paddingh: 5,
+      ancho: MediaQuery.of(context).size.width*.4,
       color: Colors.white,
       textColor: this.textColor,
-      borderColor: Colors.grey[300]!,
+      borderColor: Colors.black12,
       icon: this.icon,
-      marginh: 0,
       onTap: this.onTap,
     );
   }
 }
+
+class _IngresarButton extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context) {
+    return PrincipalButton(
+      text: "INGRESAR",
+      ancho: MediaQuery.of(context).size.width*.9,
+      onTap: (){
+        // TODO: verificar que los compos sean validos y el usuario este registrado
+        Get.to(()=> HomePage());
+      },
+    );
+  }
+}
+
 
 class _Footer extends StatelessWidget {
 

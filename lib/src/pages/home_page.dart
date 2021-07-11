@@ -39,19 +39,6 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
 
-      // bottomNavigationBar: BottomNavigationBar(
-      //   items: [
-      //     BottomNavigationBarItem(
-      //       icon: Icon(Icons.home),
-      //       label: "hola"
-      //     ),
-      //     BottomNavigationBarItem(
-      //       icon: Icon(Icons.ac_unit),
-      //       label: "hola"
-      //     ),
-      //   ] 
-      // ),
-
     );
   }
 
