@@ -10,6 +10,7 @@ class PrincipalButton extends StatelessWidget {
   final Widget? icon;
   final Function()? onTap;
   final double? paddingh;
+  final double? ancho;
   final double porcentajeAncho;
   final Color borderColor;
   final double marginh;
@@ -24,13 +25,14 @@ class PrincipalButton extends StatelessWidget {
     this.icon,
     this.onTap, 
     this.borderColor = Colors.green, 
-    this.paddingh, 
+    this.paddingh,
     this.porcentajeAncho = 0.9, 
     this.textSize = 20, 
     this.marginh = 5, 
     this.marginv = 5,
     this.textWeight = FontWeight.bold,
-    this.autoajustar = true
+    this.autoajustar = false,
+    this.ancho,
   });
 
   @override
@@ -39,21 +41,19 @@ class PrincipalButton extends StatelessWidget {
     return GestureDetector(
 
       child: Container( 
-        //TODO: arreglar esto
-        child: autoajustar 
-        ? Center(child: tituloButton(),)
-        : Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [tituloButton()],
-        ),
+        //TODO: considerar quitar autoajustar y solo tener la opcion de 
+        // enciar el ancho
+        child: tituloButton(),
+        alignment: Alignment.center,
+       
         
-        width: autoajustar?MediaQuery.of(context).size.width*.9:null,
+        width: MediaQuery.of(context).size.width*porcentajeAncho,
         height: 60,
         margin: EdgeInsets.symmetric(
           horizontal: this.marginh, 
           vertical: this.marginv
         ),
-        padding:EdgeInsets.symmetric(horizontal: 20),
+        // padding:EdgeInsets.symmetric(horizontal: 5),
 
         decoration: BoxDecoration(
           border: Border.all(color: borderColor, width: 2),
