@@ -162,10 +162,11 @@ class _SectionResponseState extends State<SectionResponse> {
     return Container(
       width: MediaQuery.of(context).size.width,
       child: GestureDetector(
-        child: PrincipalButton(
-          text: "COMPROBAR",
-          marginv: 0,
-          marginh: 15,
+        child: Center(
+          child: PrincipalButton(
+            text: "COMPROBAR",
+            ancho: MediaQuery.of(context).size.width*.9,
+          ),
         ),
 
         onTap: lessonService.indexSig,
@@ -180,8 +181,6 @@ PrincipalButton _option(String text) {
     borderColor: Colors.black12,
     textColor: Colors.black,
     text: text,
-    // textWeight: FontWeight.normal,
-    paddingh: 10,
   );
 }
 

@@ -26,16 +26,14 @@ class BoxDescription extends StatelessWidget {
         children: [
           _levels(context, id),
           PrincipalButton(
-            porcentajeAncho: .9,
-            marginh: 0,
+            ancho: MediaQuery.of(context).size.width*.9,
             color: Colors.blue,
             borderColor: Colors.black12,
             text: "APUNTES",
             //TODO crear la pagina de apuntes
           ),
           PrincipalButton(
-            porcentajeAncho: .9,
-            marginh: 0,
+            ancho: MediaQuery.of(context).size.width*.9,
             color: Colors.white,
             borderColor: Colors.black12,
             text: "EMPEZAR",

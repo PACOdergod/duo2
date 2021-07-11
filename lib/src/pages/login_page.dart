@@ -38,7 +38,7 @@ class LoginPage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  // _LoginWith(),
+                  _LoginWith(),
                   SizedBox(height: 10),
                   _Footer()
                 ],
@@ -88,41 +88,69 @@ class _Body extends StatelessWidget {
   }
 }
 
-// class _LoginWith extends StatelessWidget {
+class _LoginWith extends StatelessWidget {
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return Row(
-//       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-//       children: [
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
 
-//         _LoginWithButton(
-//           text: "FACEBOOK",
-//           icon: Icon(Icons.facebook, color: Colors.blue[700],),
-//           textColor: Colors.blue[700]!,
-//           onTap: (){
-//             //TODO llamar a firebase para registrar usuario
-//             Get.to(()=> HomePage());
-//           },
-//         ),
+        _LoginWithButton(
+          text: "FACEBOOK",
+          icon: Icon(Icons.facebook, color: Colors.blue[700],),
+          textColor: Colors.blue[700]!,
+          onTap: (){
+            //TODO llamar a firebase para registrar usuario
+            Get.to(()=> HomePage());
+          },
+        ),
 
-//         _LoginWithButton(
-//           text: "GOOGLE",
-//           icon: Container(
-//             color: Colors.white,
-//             child: Image.asset('assets/google.jpeg')
-//           ),
-//           textColor: Colors.black87,
-//           onTap: (){
-//             //TODO llamar a firebase para registrar usuario
-//             Get.to(()=> HomePage());
-//           },
-//         )
-//       ],
-//     );
-//   }
-// }
+        _LoginWithButton(
+          text: "GOOGLE",
+          icon: Container(
+            color: Colors.white,
+            child: Image.asset('assets/google.jpeg')
+          ),
+          textColor: Colors.black87,
+          onTap: (){
+            //TODO llamar a firebase para registrar usuario
+            Get.to(()=> HomePage());
+          },
+        )
+      ],
+    );
+  }
+}
 
+class _LoginWithButton extends StatelessWidget {
+
+  final String text;
+  final Widget icon;
+  final Color textColor;
+  final Function()? onTap;
+
+  const _LoginWithButton({
+    required this.text, 
+    required this.icon, 
+    required this.textColor, 
+    this.onTap
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return PrincipalButton(
+      text: this.text,
+      textSize: 15,
+      ancho: MediaQuery.of(context).size.width*.4,
+      color: Colors.white,
+      textColor: this.textColor,
+      borderColor: Colors.black12,
+      icon: this.icon,
+      onTap: this.onTap,
+    );
+  }
+}
 
 class _IngresarButton extends StatelessWidget {
 
@@ -139,37 +167,6 @@ class _IngresarButton extends StatelessWidget {
   }
 }
 
-// class _LoginWithButton extends StatelessWidget {
-
-//   final String text;
-//   final Widget icon;
-//   final Color textColor;
-//   final Function()? onTap;
-
-//   const _LoginWithButton({
-//     required this.text, 
-//     required this.icon, 
-//     required this.textColor, 
-//     this.onTap
-//   });
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return PrincipalButton(
-//       text: this.text,
-//       textSize: 15,
-//       porcentajeAncho: 0.4,
-//       // paddingh: 5,
-//       color: Colors.white,
-//       textColor: this.textColor,
-//       borderColor: Colors.grey[300]!,
-//       icon: this.icon,
-//       marginh: 0,
-//       onTap: this.onTap,
-//       autoajustar: false,
-//     );
-//   }
-// }
 
 class _Footer extends StatelessWidget {
 

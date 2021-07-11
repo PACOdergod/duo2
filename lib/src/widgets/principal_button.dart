@@ -9,33 +9,21 @@ class PrincipalButton extends StatefulWidget {
   final Color? color;
   final Widget? icon;
   final Function()? onTap;
-  final double? paddingh;
   final double? ancho;
   final double elevation;
-  //TODO: eliminar el porcentaje ancho 
-  // ahora simepre que se mande a llamar hay que especificar el ancho
-  final double porcentajeAncho;
   final Color borderColor;
-  //TODO: eliminar margin
-  final double marginh;
-  final double marginv;
   final FontWeight textWeight;
   
   PrincipalButton({
     this.text, 
     this.textColor, 
-    this.color, 
+    this.textSize = 20,
+    this.color = Colors.green,
     this.icon,
     this.onTap,
-    // TODO: debe ser requerido
     this.ancho = 100,
     this.elevation = 5,
     this.borderColor = Colors.green, 
-    this.paddingh,
-    this.porcentajeAncho = 0.9, 
-    this.textSize = 20, 
-    this.marginh = 5, 
-    this.marginv = 5,
     this.textWeight = FontWeight.bold,
   });
 
@@ -50,6 +38,11 @@ class _PrincipalButtonState extends State<PrincipalButton> {
   Widget build(BuildContext context) {
 
     return GestureDetector(
+      onTapDown: (_)=> setState(()=> presionado = true ),
+      onTapUp:   (_)=> setState(()=> presionado = false),
+
+      onTap: widget.onTap,
+      
 
       child: Container(
         height: 70,
@@ -68,57 +61,50 @@ class _PrincipalButtonState extends State<PrincipalButton> {
           ],
         ),
       ),
-
-      onTapDown: (details) {
-        setState(()=> presionado = true);
-      },
-      onTapUp: (details) {
-        setState(()=> presionado = false);
-      },
-
+      
     );
   }
 
-  Container _principal(double marginTop)=> _formaBoton(
-    child: tituloButton(),
-    elevation: marginTop,
-    color: Colors.green
-  );
-  
-  _sombra()=> _formaBoton( color: Colors.black26, elevation: widget.elevation );
-  
-  Container _formaBoton({
-    Widget? child,
-    Color? color = Colors.green,
-    double elevation = 5
-  }) {
+  Container _principal(double marginTop) {
     return Container(
-      child: child,
+      child: tituloButton(),
       alignment: Alignment.center,
       width: this.widget.ancho,
       height: 60,
-      margin: EdgeInsets.only(top: elevation),
+      margin: EdgeInsets.only(top: marginTop),
+
       decoration: BoxDecoration(
+        border: Border.all(color: widget.borderColor, width: 2),
         borderRadius: BorderRadius.circular(20),
-        color: color,
+        color: widget.color,
       ),
     );
   }
 
-
+  Container _sombra() {
+    return Container(
+      width: this.widget.ancho,
+      height: 60,
+      margin: EdgeInsets.only(top: widget.elevation),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+        color: Colors.black12,
+      ),
+    );
+  }
+  
 
   Widget tituloButton() {
 
     if (widget.icon == null) return texto();
 
     else return Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
             width: 30,
             child: widget.icon!
           ),
-          // SizedBox(width: 5),
           texto(),
         ],
       );
