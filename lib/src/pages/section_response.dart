@@ -148,10 +148,10 @@ class _SectionResponseState extends State<SectionResponse> {
           ),
 
           
-          // Positioned(
-          //   bottom: 10,
-          //   child: _comprobar(context)
-          // )
+          Positioned(
+            bottom: 10,
+            child: _comprobar(context)
+          )
         ]
       ),
     );
@@ -175,19 +175,16 @@ class _SectionResponseState extends State<SectionResponse> {
 }
 
 Widget _option(String text) {
-  return PrincipalButton(
-    color: Colors.white,
-    borderColor: Colors.black12,
-    textColor: Colors.black,
-    text: text,
-    autoajustar: true,
+  return Container(
+    margin: EdgeInsets.all(5),
+    child: PrincipalButton(
+      color: Colors.white,
+      borderColor: Colors.black12,
+      textColor: Colors.black,
+      text: text,
+    ),
   );
 
-  // return Container(
-  //   child: Text(text),
-  //   color: Colors.blue,
-  //   padding: EdgeInsets.all(10),
-  // );
 }
 
 class Singleton {

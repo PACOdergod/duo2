@@ -13,7 +13,7 @@ class PrincipalButton extends StatefulWidget {
   final double elevation;
   final Color borderColor;
   final FontWeight textWeight;
-  final bool autoajustar;
+  final double? paddingh;
   
   PrincipalButton({
     this.text, 
@@ -26,7 +26,7 @@ class PrincipalButton extends StatefulWidget {
     this.elevation = 5,
     this.borderColor = Colors.green, 
     this.textWeight = FontWeight.bold,
-    this.autoajustar = false
+    this.paddingh = 10
   });
 
   @override
@@ -47,68 +47,60 @@ class _PrincipalButtonState extends State<PrincipalButton> {
       
 
       child: Container(
-        height: 70,
-        color: Colors.blue,
+        height: 65,
+        width: widget.ancho,
+        // alignment: Alignment.center,
         
-        padding: EdgeInsets.symmetric(horizontal: 10),
+        child: presionado ? _secundario() : _principal(),
         
-        child: _principal(widget.elevation)
-        // Container(
-    //   child: tituloButton(),
-    //   height: 60,
-    //   margin: EdgeInsets.only(
-    //     top: widget.elevation,
-    //   ),
-
-    //   decoration: BoxDecoration(
-    //     border: Border.all(color: widget.borderColor, width: 2),
-    //     borderRadius: BorderRadius.circular(20),
-    //     color: widget.color,
-    //   ),
-    // ),
-        // Stack(
-          
-        //   children: [
-
-        //     presionado ? _principal(widget.elevation) : _sombra(),
-
-        //     presionado 
-        //       ? Opacity(
-        //         opacity: 0,
-        //         child: _principal(0))
-        //       : _principal(0),
-
-        //   ],
-        // ),
       ),
       
     );
   }
 
-  Container _principal(double marginTop) {
+  //TODO: refactorizar la pagina
+
+  Container _principal() {
     return Container(
-      child: tituloButton(),
-      height: 60,
-      margin: EdgeInsets.only(
-        top: marginTop,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          tituloButton(),
+        ],
       ),
+      margin: EdgeInsets.only(bottom: widget.elevation),
+      padding: EdgeInsets.symmetric(horizontal: 10),
+
+      decoration: BoxDecoration(
+        border: Border.all(color: widget.borderColor, width: 3),
+        borderRadius: BorderRadius.circular(20),
+        color: widget.color,
+        boxShadow: [
+          BoxShadow(
+            offset: Offset(0,widget.elevation), 
+            color: Colors.black12),
+        ]
+      ),
+    );
+  }
+
+  Container _secundario() {
+    return Container(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          tituloButton(),
+        ],
+      ),
+      margin: EdgeInsets.only(top: widget.elevation),
+      padding: EdgeInsets.symmetric(horizontal: 10),
+
 
       decoration: BoxDecoration(
         border: Border.all(color: widget.borderColor, width: 2),
         borderRadius: BorderRadius.circular(20),
         color: widget.color,
-      ),
-    );
-  }
-
-  Container _sombra() {
-    return Container(
-      height: 60,
-      margin: EdgeInsets.only( top: widget.elevation,),
-
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
-        color: Colors.black12,
+        
       ),
     );
   }
@@ -130,13 +122,12 @@ class _PrincipalButtonState extends State<PrincipalButton> {
       );
   }
 
-  Text texto() {
-    return Text( widget.text??"LOGIN", 
-      style: TextStyle(
-        fontSize: this.widget.textSize, 
-        color: widget.textColor??Colors.white,
-        fontWeight: this.widget.textWeight
-      ),
-    );
-  }
+  Text texto()=> Text( widget.text??"LOGIN", 
+    style: TextStyle(
+      fontSize: this.widget.textSize, 
+      color: widget.textColor??Colors.white,
+      fontWeight: this.widget.textWeight
+    ),
+  );
+  
 }

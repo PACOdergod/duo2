@@ -23,6 +23,7 @@ class FinalPage extends StatelessWidget {
           ),
           Text(idModule),
           PrincipalButton(
+            ancho: MediaQuery.of(context).size.width*.9,
             text: "Continuar",
             onTap: (){
               Navigator.of(context).pushNamed('home');
