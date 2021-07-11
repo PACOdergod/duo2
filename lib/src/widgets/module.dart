@@ -1,3 +1,4 @@
+import 'package:duo2/src/utils/module_utils.dart';
 import 'package:flutter/material.dart';
 
 import 'package:duo2/src/widgets/radia_progress.dart';
@@ -43,17 +44,9 @@ class Module extends StatelessWidget {
     );
   }
 
-  final List<Color> colorsLevels = [
-    Colors.purple[200]!,
-    Colors.lightBlue[400]!,
-    Colors.green
-  ];
+  Container _iconoModule(int? level) { 
 
-  Container _iconoModule(int? level) {
-
-    if(level==null) level = colorsLevels.length-1; 
-    if(level==colorsLevels.length) level = colorsLevels.length-1; 
-    if(level>colorsLevels.length) level = colorsLevels.length-1; 
+    var color = ModuleUtils.colorLevel(level);
 
     return Container(
       height: radio*.8,
@@ -61,7 +54,7 @@ class Module extends StatelessWidget {
       margin: EdgeInsets.all(radio*.1),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(radio),
-        color: colorsLevels[level],
+        color: color,
       ),
       child: Icon(icon, size: radio*.65,),
     );
