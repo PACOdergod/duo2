@@ -1,41 +1,55 @@
 import 'package:flutter/material.dart';
 
-
-//TODO: vendria bien con el animatedSwitch
 class ProgressBar extends StatefulWidget {
 
   final int largo;
   final int index;
   final double ancho;
+  final Color color;
 
   const ProgressBar({
     required this.largo,
     required this.index,
     this.ancho = 250,
+    this.color = Colors.green,
   });
 
   @override
   _ProgressBarState createState() => _ProgressBarState();
 }
+//TODO: mejorar la animacion
 
-class _ProgressBarState extends State<ProgressBar> {
+class _ProgressBarState extends State<ProgressBar> 
+  with SingleTickerProviderStateMixin
+{
 
   late int index;
+  late int indexAnterior;
+  late AnimationController controller;
 
-  aumentarIndex(){
-    setState(() {
-      index++;
-    });
+  @override
+  void initState() {
+    super.initState();
+    indexAnterior = 0;
+    controller = AnimationController(
+      vsync: this,
+      duration: Duration(seconds: 1)
+    );
   }
 
   @override
   Widget build(BuildContext context) {
 
-    index = widget.index;
-    double sizeOcupado = (widget.index*widget.ancho)/widget.largo;
+    controller.forward(from: 0.0);
+
+    final diferenciaAnimar = widget.index - indexAnterior;
+    double factorUnidad = widget.ancho/widget.largo;
+
+    indexAnterior = widget.index;
 
     return Stack(
       children: [
+
         Container(
           height: 20,
           width: this.widget.ancho,
@@ -45,17 +59,25 @@ class _ProgressBarState extends State<ProgressBar> {
           ),
         ),
 
-        AnimatedSwitcher(
-          duration: Duration(seconds: 1),
-          child: Container(
-            height: 20,
-            width: sizeOcupado,
-            decoration: BoxDecoration(
-              color: Colors.green,
-              borderRadius: BorderRadius.circular(10)
-            ),
-          ),
+        
+        AnimatedBuilder(
+          animation: controller,
+          builder: (BuildContext context, Widget? child) { 
+            return Container(
+              height: 20,
+              
+              width: (widget.index - diferenciaAnimar)*factorUnidad 
+              + (diferenciaAnimar*controller.value)*factorUnidad,
+
+              decoration: BoxDecoration(
+                color: widget.color,
+                borderRadius: BorderRadius.circular(10)
+              ),
+            );
+          },
+          
         ),
+        
       ],
     );
   }

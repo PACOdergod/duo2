@@ -8,17 +8,17 @@ class ExamplePage extends StatefulWidget {
   _ExamplePageState createState() => _ExamplePageState();
 }
 
-class _ExamplePageState extends State<ExamplePage> {
+class _ExamplePageState extends State<ExamplePage> 
+with SingleTickerProviderStateMixin
+{
 
   int index = 0;
-  int tam = 10;
+  int tam = 5;
   late double ancho = MediaQuery.of(context).size.width;
-  late double sizeOcupado;
 
 
   @override
   Widget build(BuildContext context) {
-    sizeOcupado = (index*ancho)/tam;
 
     return Scaffold(
       floatingActionButton: FloatingActionButton(
@@ -31,27 +31,10 @@ class _ExamplePageState extends State<ExamplePage> {
       ),
 
       body: Center(
-        child: Stack(
-        children: [
-          Container(
-            height: 20,
-            width: ancho,
-            decoration: BoxDecoration(
-              color: Colors.black12,
-              borderRadius: BorderRadius.circular(10)
-            ),
-          ),
-
-          Container(
-            height: 20,
-            width: sizeOcupado,
-            decoration: BoxDecoration(
-              color: Colors.green,
-              borderRadius: BorderRadius.circular(10)
-            ),
-          ),
-        ],
-    ),
+        child: ProgressBar(
+          index: index,
+          largo: tam,
+        ),
       )
    );
   }
