@@ -23,13 +23,13 @@ class _HomePageState extends State<HomePage> {
 
     return Scaffold(
 
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.plus_one),
-        onPressed: () {
-          // advanceController.aumentarLessonsDone("basico");
-          // advanceController.coronasUser++;
-        },
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   child: Icon(Icons.plus_one),
+      //   onPressed: () {
+      //     advanceController.aumentarLessonsDone("basico");
+      //     advanceController.coronasUser++;
+      //   },
+      // ),
       
       body: Container(
         color: Colors.white,
