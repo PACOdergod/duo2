@@ -7,12 +7,15 @@ import 'package:duo2/src/widgets/principal_button.dart';
 
 class FinalPage extends StatelessWidget {
 
-  final idModule = Get.arguments;
+  // final idModule = Get.arguments;
   final advanceController = Get.find<AdvanceController>();
 
 
   @override
   Widget build(BuildContext context) {
+
+    final idModule =ModalRoute.of(context)!.settings.arguments as String;
+
     return Scaffold(
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,

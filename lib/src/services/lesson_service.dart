@@ -1,8 +1,9 @@
-import 'package:duo2/src/pages/final_page.dart';
 import 'package:flutter/widgets.dart';
 
+// import 'package:get/get.dart';
+
+// import 'package:duo2/src/pages/final_page.dart';
 import 'package:duo2/src/models/leccion_mode.dart';
-import 'package:get/get.dart';
 
 class LessonService with ChangeNotifier {
   
@@ -14,9 +15,11 @@ class LessonService with ChangeNotifier {
 
   Quiz get currentQuiz => lesson.quizes[currentIndex];
 
-  void indexSig(){
+  void indexSig(BuildContext context){
     if (currentIndex == lesson.quizes.length-1) {
-      Get.to(()=> FinalPage(), arguments: idModule);
+      // Get.to(()=> FinalPage(), arguments: idModule);
+      Navigator.of(context).pushNamed('final', arguments: idModule);
+
       return;
     }
     currentIndex++;

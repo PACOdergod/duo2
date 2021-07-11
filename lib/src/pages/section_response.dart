@@ -168,7 +168,7 @@ class _SectionResponseState extends State<SectionResponse> {
         child: PrincipalButton(
           text: "COMPROBAR",
           ancho: MediaQuery.of(context).size.width*.9,
-          onTap: lessonService.indexSig
+          onTap: ()=>lessonService.indexSig(context)
         ),
       ),
     );
