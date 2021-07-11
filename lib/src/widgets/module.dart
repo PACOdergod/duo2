@@ -11,11 +11,11 @@ class Module extends StatelessWidget {
   final int? level;
   final IconData? icon;
 
-  const Module({
+  Module({
     this.radio = 120,
     this.porcentaje = 0,
     this.icon, 
-    this.level,
+    this.level = 0,
   });
 
   @override
@@ -28,10 +28,10 @@ class Module extends StatelessWidget {
         children: [
           RadialProgress(
             procentaje: this.porcentaje, 
-            colorPrimario: Colors.green
+            colorPrimario: Colors.orange
           ),
 
-          _iconoModule(),
+          _iconoModule(this.level),
 
           Positioned(
             bottom: 0,
@@ -43,14 +43,25 @@ class Module extends StatelessWidget {
     );
   }
 
-  Container _iconoModule({Color? color}) {
+  final List<Color> colorsLevels = [
+    Colors.purple[200]!,
+    Colors.lightBlue[400]!,
+    Colors.green
+  ];
+
+  Container _iconoModule(int? level) {
+
+    if(level==null) level = colorsLevels.length-1; 
+    if(level==colorsLevels.length) level = colorsLevels.length-1; 
+    if(level>colorsLevels.length) level = colorsLevels.length-1; 
+
     return Container(
       height: radio*.8,
       width: radio*.8,
       margin: EdgeInsets.all(radio*.1),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(radio),
-        color: color??Colors.purple[200],
+        color: colorsLevels[level],
       ),
       child: Icon(icon, size: radio*.65,),
     );
@@ -86,5 +97,5 @@ class Module extends StatelessWidget {
         ),
       ),
     );
-  } 
+  }
 }

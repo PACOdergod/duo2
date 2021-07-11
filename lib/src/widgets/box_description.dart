@@ -10,7 +10,9 @@ class BoxDescription extends StatelessWidget {
 
   final String id;
 
-  const BoxDescription(this.id);
+  BoxDescription(this.id);
+
+  final advanceController = Get.find<AdvanceController>();
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +35,8 @@ class BoxDescription extends StatelessWidget {
             borderColor: Colors.black12,
             text: "APUNTES",
             //TODO crear la pagina de apuntes
+            // TODO: quitar esto
+            onTap: ()=>advanceController.aumentarLessonsDone(id),
           ),
           PrincipalButton(
             ancho: MediaQuery.of(context).size.width*.9,

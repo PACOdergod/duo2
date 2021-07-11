@@ -3,7 +3,6 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 class RadialProgress extends StatefulWidget {
-  // RadialProgress({Key key}) : super(key: key);
 
   final procentaje;
   final colorPrimario;
@@ -82,7 +81,7 @@ class _MiRadialPainter extends CustomPainter {
     //arco
     final lapizArco = new Paint()
       ..strokeWidth = 7
-      ..color = Colors.orange
+      ..color = this.colorPrimario
       // ..shader = gradiente.createShader(rect)
       ..style = PaintingStyle.stroke;
 

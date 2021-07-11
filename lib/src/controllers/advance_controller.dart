@@ -6,7 +6,7 @@ class AdvanceController extends GetxController{
   var levels = {
     "basico" : Level(
       id: "basico", 
-      levelUser: 0,
+      levelUser: 1,
       totalLevels: 5, 
       lessonsDone: 0,
       totalLessons:5

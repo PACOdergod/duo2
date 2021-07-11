@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
         "registrar":(_)=> RegistrarPage(),
         "final": (_)=> FinalPage(),
       },
-      initialRoute: "lesson",
+      initialRoute: "home",
     );
   }
 }

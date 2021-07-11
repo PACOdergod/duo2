@@ -67,23 +67,23 @@ class _Modules extends StatelessWidget {
         ),
         _myTitle("Basico"),
 
-        SizedBox(height: 20),
+        // SizedBox(height: 20),
 
-        Module(
-          level: advanceController.getNivel("letras"),
-          porcentaje: advanceController.getPorcentaje("letras"),
-        ),
-        _myTitle("Letras"),
+        // Module(
+        //   level: advanceController.getNivel("letras"),
+        //   porcentaje: advanceController.getPorcentaje("letras"),
+        // ),
+        // _myTitle("Letras"),
 
-        SizedBox(height: 20),
+        // SizedBox(height: 20),
 
-        Module(),
-        _myTitle("Colores"),
+        // Module(),
+        // _myTitle("Colores"),
 
-        SizedBox(height: 20),
-        Module(),
-        SizedBox(height: 20),
-        Module(),
+        // SizedBox(height: 20),
+        // Module(),
+        // SizedBox(height: 20),
+        // Module(),
 
       ],
     ),);
@@ -131,7 +131,9 @@ _myAlert(BuildContext context, String id) {
     },
     transitionBuilder: (context, anim1, anim2, child) {
       return SlideTransition(
-        position: Tween(begin: Offset(0, 1), end: Offset(0, 0)).animate(anim1),
+        position: Tween(
+          begin: Offset(0, 1), 
+          end: Offset(0, 0)).animate(anim1),
         child: child,
       );
     },
