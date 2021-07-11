@@ -182,7 +182,6 @@ PrincipalButton _option(String text) {
     text: text,
     // textWeight: FontWeight.normal,
     paddingh: 10,
-    autoajustar: false,
   );
 }
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 
-class PrincipalButton extends StatelessWidget {
+class PrincipalButton extends StatefulWidget {
 
   final String? text;
   final double? textSize;
@@ -11,19 +11,25 @@ class PrincipalButton extends StatelessWidget {
   final Function()? onTap;
   final double? paddingh;
   final double? ancho;
+  final double elevation;
+  //TODO: eliminar el porcentaje ancho 
+  // ahora simepre que se mande a llamar hay que especificar el ancho
   final double porcentajeAncho;
   final Color borderColor;
+  //TODO: eliminar margin
   final double marginh;
   final double marginv;
   final FontWeight textWeight;
-  final bool autoajustar;
-
+  
   PrincipalButton({
     this.text, 
     this.textColor, 
     this.color, 
     this.icon,
-    this.onTap, 
+    this.onTap,
+    // TODO: debe ser requerido
+    this.ancho = 100,
+    this.elevation = 5,
     this.borderColor = Colors.green, 
     this.paddingh,
     this.porcentajeAncho = 0.9, 
@@ -31,58 +37,86 @@ class PrincipalButton extends StatelessWidget {
     this.marginh = 5, 
     this.marginv = 5,
     this.textWeight = FontWeight.bold,
-    this.autoajustar = false,
-    this.ancho,
   });
+
+  @override
+  _PrincipalButtonState createState() => _PrincipalButtonState();
+}
+
+class _PrincipalButtonState extends State<PrincipalButton> {
+  bool presionado = false;
 
   @override
   Widget build(BuildContext context) {
 
     return GestureDetector(
 
-      child: Container( 
-        //TODO: considerar quitar autoajustar y solo tener la opcion de 
-        // enciar el ancho
-        child: tituloButton(),
-        alignment: Alignment.center,
-       
-        
-        width: MediaQuery.of(context).size.width*porcentajeAncho,
-        height: 60,
-        margin: EdgeInsets.symmetric(
-          horizontal: this.marginh, 
-          vertical: this.marginv
-        ),
-        // padding:EdgeInsets.symmetric(horizontal: 5),
-
-        decoration: BoxDecoration(
-          border: Border.all(color: borderColor, width: 2),
-          borderRadius: BorderRadius.circular(20),
-          color: color??Colors.green,
+      child: Container(
+        height: 70,
+        child: Stack(
           
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black12, 
-              offset: Offset.fromDirection(1.5, 3)
-            )
-          ]
+          children: [
+
+            presionado ? _principal(widget.elevation) : _sombra(),
+
+            presionado 
+              ? Opacity(
+                opacity: 0,
+                child: _principal(0))
+              : _principal(0),
+
+          ],
         ),
       ),
-      
-      onTap: this.onTap,
+
+      onTapDown: (details) {
+        setState(()=> presionado = true);
+      },
+      onTapUp: (details) {
+        setState(()=> presionado = false);
+      },
+
     );
   }
 
+  Container _principal(double marginTop)=> _formaBoton(
+    child: tituloButton(),
+    elevation: marginTop,
+    color: Colors.green
+  );
+  
+  _sombra()=> _formaBoton( color: Colors.black26, elevation: widget.elevation );
+  
+  Container _formaBoton({
+    Widget? child,
+    Color? color = Colors.green,
+    double elevation = 5
+  }) {
+    return Container(
+      child: child,
+      alignment: Alignment.center,
+      width: this.widget.ancho,
+      height: 60,
+      margin: EdgeInsets.only(top: elevation),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+        color: color,
+      ),
+    );
+  }
+
+
+
   Widget tituloButton() {
 
-    if (icon == null) return texto();
+    if (widget.icon == null) return texto();
 
     else return Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Container(
             width: 30,
-            child: icon!
+            child: widget.icon!
           ),
           // SizedBox(width: 5),
           texto(),
@@ -90,13 +124,12 @@ class PrincipalButton extends StatelessWidget {
       );
   }
 
-
   Text texto() {
-    return Text( text??"LOGIN", 
+    return Text( widget.text??"LOGIN", 
       style: TextStyle(
-        fontSize: this.textSize, 
-        color: textColor??Colors.white,
-        fontWeight: this.textWeight
+        fontSize: this.widget.textSize, 
+        color: widget.textColor??Colors.white,
+        fontWeight: this.widget.textWeight
       ),
     );
   }
