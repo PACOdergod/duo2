@@ -159,17 +159,16 @@ class _SectionResponseState extends State<SectionResponse> {
 
   Container _comprobar(BuildContext context) {
     final lessonService = Provider.of<LessonService>(context,listen: false);
+    
     return Container(
       width: MediaQuery.of(context).size.width,
-      child: GestureDetector(
-        child: Center(
-          child: PrincipalButton(
-            text: "COMPROBAR",
-            ancho: MediaQuery.of(context).size.width*.9,
-          ),
+      
+      child: Center(
+        child: PrincipalButton(
+          text: "COMPROBAR",
+          ancho: MediaQuery.of(context).size.width*.9,
+          onTap: lessonService.indexSig,
         ),
-
-        onTap: lessonService.indexSig,
       ),
     );
   }
