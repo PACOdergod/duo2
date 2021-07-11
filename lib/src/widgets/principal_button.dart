@@ -13,6 +13,7 @@ class PrincipalButton extends StatefulWidget {
   final double elevation;
   final Color borderColor;
   final FontWeight textWeight;
+  final bool autoajustar;
   
   PrincipalButton({
     this.text, 
@@ -21,10 +22,11 @@ class PrincipalButton extends StatefulWidget {
     this.color = Colors.green,
     this.icon,
     this.onTap,
-    this.ancho = 100,
+    this.ancho,
     this.elevation = 5,
     this.borderColor = Colors.green, 
     this.textWeight = FontWeight.bold,
+    this.autoajustar = false
   });
 
   @override
@@ -46,20 +48,38 @@ class _PrincipalButtonState extends State<PrincipalButton> {
 
       child: Container(
         height: 70,
-        child: Stack(
+        color: Colors.blue,
+        
+        padding: EdgeInsets.symmetric(horizontal: 10),
+        
+        child: _principal(widget.elevation)
+        // Container(
+    //   child: tituloButton(),
+    //   height: 60,
+    //   margin: EdgeInsets.only(
+    //     top: widget.elevation,
+    //   ),
+
+    //   decoration: BoxDecoration(
+    //     border: Border.all(color: widget.borderColor, width: 2),
+    //     borderRadius: BorderRadius.circular(20),
+    //     color: widget.color,
+    //   ),
+    // ),
+        // Stack(
           
-          children: [
+        //   children: [
 
-            presionado ? _principal(widget.elevation) : _sombra(),
+        //     presionado ? _principal(widget.elevation) : _sombra(),
 
-            presionado 
-              ? Opacity(
-                opacity: 0,
-                child: _principal(0))
-              : _principal(0),
+        //     presionado 
+        //       ? Opacity(
+        //         opacity: 0,
+        //         child: _principal(0))
+        //       : _principal(0),
 
-          ],
-        ),
+        //   ],
+        // ),
       ),
       
     );
@@ -68,10 +88,10 @@ class _PrincipalButtonState extends State<PrincipalButton> {
   Container _principal(double marginTop) {
     return Container(
       child: tituloButton(),
-      alignment: Alignment.center,
-      width: this.widget.ancho,
       height: 60,
-      margin: EdgeInsets.only(top: marginTop),
+      margin: EdgeInsets.only(
+        top: marginTop,
+      ),
 
       decoration: BoxDecoration(
         border: Border.all(color: widget.borderColor, width: 2),
@@ -83,9 +103,9 @@ class _PrincipalButtonState extends State<PrincipalButton> {
 
   Container _sombra() {
     return Container(
-      width: this.widget.ancho,
       height: 60,
-      margin: EdgeInsets.only(top: widget.elevation),
+      margin: EdgeInsets.only( top: widget.elevation,),
+
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
         color: Colors.black12,
