@@ -1,3 +1,4 @@
+import 'package:duo2/src/pages/example.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -24,15 +25,16 @@ class MyApp extends StatelessWidget {
         // fontFamily: 
       ),
       title: 'Material App',
-      routes: {
-        "auth": (_)=> AuthPage(),
-        "login": (_)=> LoginPage(),
-        "home": (_)=> HomePage(),
-        "lesson": (_)=> LessonPage(),
-        "registrar":(_)=> RegistrarPage(),
-        "final": (_)=> FinalPage()
-      },
-      initialRoute: "lesson",
+      home: ExamplePage(),
+      // routes: {
+      //   "auth": (_)=> AuthPage(),
+      //   "login": (_)=> LoginPage(),
+      //   "home": (_)=> HomePage(),
+      //   "lesson": (_)=> LessonPage(),
+      //   "registrar":(_)=> RegistrarPage(),
+      //   "final": (_)=> FinalPage(),
+      // },
+      // initialRoute: "lesson",
     );
   }
 }

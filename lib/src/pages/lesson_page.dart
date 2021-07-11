@@ -93,7 +93,10 @@ class _LessonBodyState extends State<LessonBody> {
                       onPressed: ()=> Navigator.pop(context),
                     ),
 
-                    _LessonBar()
+                    _LessonBar(
+                      largo: lessonService.lesson.quizes.length,
+                      index: index,
+                    )
 
                   ],
                 ),
@@ -102,6 +105,7 @@ class _LessonBodyState extends State<LessonBody> {
 
             SizedBox(height: 10,),
 
+            // Quiz section
             Expanded(
               child: SlideWidgets(
                 index: index,
@@ -118,16 +122,38 @@ class _LessonBodyState extends State<LessonBody> {
   }
 }
 
-class _LessonBar extends StatelessWidget {
+class _LessonBar extends StatefulWidget {
+
+  final int largo;
+  final int index;
+
+  const _LessonBar({
+    required this.largo, 
+    required this.index,
+  });
+
+  @override
+  __LessonBarState createState() => __LessonBarState();
+}
+
+class __LessonBarState extends State<_LessonBar> {
+
+  // late LessonService lessonService;
+  // late ProgressBar progressBar;
+
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   lessonService = Provider.of<LessonService>(context);
+  //   lessonService.currentIndex;
+  // }
 
   @override
   Widget build(BuildContext context) {
 
-    final lessonService = Provider.of<LessonService>(context);
-
     return ProgressBar(
-      largo: lessonService.lesson.quizes.length,
-      index: lessonService.currentIndex+1,
+      largo: widget.largo,
+      index: widget.index,
       ancho: MediaQuery.of(context).size.width*.65,
     );
   }

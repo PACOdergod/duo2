@@ -18,13 +18,20 @@ class ProgressBar extends StatefulWidget {
   _ProgressBarState createState() => _ProgressBarState();
 }
 
-class _ProgressBarState extends State<ProgressBar> 
-  with TickerProviderStateMixin
-{
+class _ProgressBarState extends State<ProgressBar> {
+
+  late int index;
+
+  aumentarIndex(){
+    setState(() {
+      index++;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
 
+    index = widget.index;
     double sizeOcupado = (widget.index*widget.ancho)/widget.largo;
 
     return Stack(
@@ -38,12 +45,15 @@ class _ProgressBarState extends State<ProgressBar>
           ),
         ),
 
-        Container(
-          height: 20,
-          width: sizeOcupado,
-          decoration: BoxDecoration(
-            color: Colors.green,
-            borderRadius: BorderRadius.circular(10)
+        AnimatedSwitcher(
+          duration: Duration(seconds: 1),
+          child: Container(
+            height: 20,
+            width: sizeOcupado,
+            decoration: BoxDecoration(
+              color: Colors.green,
+              borderRadius: BorderRadius.circular(10)
+            ),
           ),
         ),
       ],
