@@ -17,7 +17,7 @@ class ProgressBar extends StatefulWidget {
   @override
   _ProgressBarState createState() => _ProgressBarState();
 }
-//TODO: mejorar la animacion
+//TODO: mejorar la animacion, podria utilizar animatedPosition
 
 class _ProgressBarState extends State<ProgressBar> 
   with SingleTickerProviderStateMixin

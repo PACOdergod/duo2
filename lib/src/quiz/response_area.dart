@@ -1,3 +1,4 @@
+import 'package:duo2/src/widgets/principal_button.dart';
 import 'package:flutter/material.dart';
 
 import 'package:duo2/src/models/leccion_mode.dart';
@@ -25,16 +26,20 @@ class _ResponseAreaState extends State<ResponseArea> {
   final List<String> respsUser = [];
 
     Widget _option(String text) {
+
       return Container(
         color: Colors.blue,
         margin: EdgeInsets.all(5),
         padding: EdgeInsets.all(5),
-        child: Text(text, style: TextStyle(fontSize: 20),)
+        child: 
+        Text(text, style: TextStyle(fontSize: 20),),
+        
         // PrincipalButton(
         //   color: Colors.white,
         //   borderColor: Colors.black12,
         //   textColor: Colors.black,
         //   text: text,
+        //   onTap: null,
         // ),
       );
     }
@@ -49,7 +54,6 @@ class _ResponseAreaState extends State<ResponseArea> {
       var boton = GestureDetector(
         child: _option(respsUser[i]),
         onTap: () {
-          // print("option");
 
           String palabra = respsUser[i];
 
@@ -78,8 +82,6 @@ class _ResponseAreaState extends State<ResponseArea> {
               widget.opciones[key] = false;
               respsUser.add(key);
             });
-            // print("option");
-
           }
         ),
       );

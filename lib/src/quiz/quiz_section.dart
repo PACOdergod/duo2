@@ -7,7 +7,7 @@ import 'package:duo2/src/models/leccion_mode.dart';
 import 'package:duo2/src/services/lesson_service.dart';
 import 'package:duo2/src/widgets/principal_button.dart';
 
-class SectionResponse extends StatefulWidget {
+class SectionResponse extends StatelessWidget {
 
   final Quiz currentQuiz;
 
@@ -16,11 +16,6 @@ class SectionResponse extends StatefulWidget {
     required this.currentQuiz, 
   });
 
-  @override
-  _SectionResponseState createState() => _SectionResponseState();
-}
-
-class _SectionResponseState extends State<SectionResponse> {
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +29,6 @@ class _SectionResponseState extends State<SectionResponse> {
 
       child: Stack(
         children: [
-
           Column(
             children: [
 
@@ -44,7 +38,7 @@ class _SectionResponseState extends State<SectionResponse> {
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 20),
                 width: MediaQuery.of(context).size.width,
-                child: Text( widget.currentQuiz.tipo, 
+                child: Text( currentQuiz.tipo, 
                   style: TextStyle(
                     fontSize: 28, fontWeight: FontWeight.bold,),
                 ),
@@ -56,7 +50,7 @@ class _SectionResponseState extends State<SectionResponse> {
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 20),
                 width: MediaQuery.of(context).size.width,
-                child: Text(widget.currentQuiz.pregunta, 
+                child: Text(currentQuiz.pregunta, 
                   style: TextStyle(fontSize: 20),
                 ),
               ),
@@ -64,7 +58,7 @@ class _SectionResponseState extends State<SectionResponse> {
               SizedBox(height: 10),
 
               ResponseArea(
-                currentQuiz: widget.currentQuiz,
+                currentQuiz: currentQuiz,
               )
 
             ],
