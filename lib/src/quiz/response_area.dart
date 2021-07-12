@@ -40,32 +40,21 @@ class _ResponseAreaState extends State<ResponseArea>
     );
 
     _animation = Tween<Offset>(
-      begin: Offset(0, 0), end: Offset(0, -3))
+      begin: Offset(0, 0), end: Offset(1, 0))
       .animate( _animationController );
 
-    // _animationController.forward().whenComplete(() {
-    //   // put here the stuff you wanna do when animation completed!
-    // });
   }
 
-  final keyText = GlobalKey();
-  late Size size;
   late Offset position;
-  void calculateSizeAndPosition()=>
-    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
-      final box = keyText.currentContext!.findRenderObject() as RenderBox;
-
-      position = box.localToGlobal(Offset.zero);
-      size = box.size;
-      print(position);
-      print(size);
-    });
 
   final List<String> respsUser = [];
   @override
   Widget build(BuildContext context) {
 
     //TODO: esta parte es muy confusa hay que implementar cubit
+
+
+    // Como obtenga el offset absoluto del widget que se agrega
     List<GestureDetector> respuestas = [];
     for (var i = 0; i < respsUser.length; i++) {
       var boton = GestureDetector(
@@ -88,9 +77,9 @@ class _ResponseAreaState extends State<ResponseArea>
       respuestas.add(boton);
     }
 
-    List<Widget> misOpciones = [
-      Demo(text: widget.opciones.keys.toList()[0]),
-    ];
+    // List<Widget> misOpciones = [
+    //   Demo(text: widget.opciones.keys.toList()[0]),
+    // ];
     // widget.opciones.forEach((key, value) {
     //   var boton = value
     //   ? GestureDetector(
@@ -110,10 +99,6 @@ class _ResponseAreaState extends State<ResponseArea>
 
     //   misOpciones.add(boton);
     // });
-
-    //TODO: como puedo saber las coordenadas de un widget
-    // o talvez el offset que hay entre 2 widgets 
-    // no se, solo necesito un offset entre 2 widgets
 
     return Column(
       children: [
@@ -140,19 +125,28 @@ class _ResponseAreaState extends State<ResponseArea>
           width: MediaQuery.of(context).size.width*.85,
           child: Wrap(
             alignment: WrapAlignment.center,
-            children: misOpciones
+            children: [
+              SlideTransition(
+                position: _animation,
+                child: Demo(text: "hola")
+              ),
+            ]
           )
         ),
 
         ElevatedButton(
-          onPressed: calculateSizeAndPosition, 
+          onPressed: (){
+            if(_animationController.isCompleted)
+              _animationController.reverse();
+            else _animationController.forward();
+          }, 
           child: Text("preciona")),
 
         // Center(
         //   child: SlideTransition(
-        //   position: _animation,
-        //   child: Center(child: Text("My Text")),
-        // ),
+        //     position: _animation,
+        //     child: Center(child: Text("My Text")),
+        //   ),
         // )
 
       ],
