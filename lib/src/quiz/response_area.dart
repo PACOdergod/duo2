@@ -32,12 +32,13 @@ class _ResponseAreaState extends State<ResponseArea>
 
   @override
   void initState() {
+    super.initState();
 
     _animationController = AnimationController(
       vsync: this, 
       duration: Duration(seconds: 1)
-    )
-    ;
+    );
+
     _animation = Tween<Offset>(
       begin: Offset(0, 0), end: Offset(0, -3))
       .animate( _animationController );
@@ -47,14 +48,31 @@ class _ResponseAreaState extends State<ResponseArea>
     // });
   }
 
+  final keyText = GlobalKey();
+  late Size size;
+  late Offset position;
+
+  void calculateSizeAndPosition()=>
+    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+      final box = keyText.currentContext!.findRenderObject() as RenderBox;
+
+      position = box.localToGlobal(Offset.zero);
+      size = box.size;
+      print(position);
+      print(size);
+    });
+
   final List<String> respsUser = [];
   @override
   Widget build(BuildContext context) {
+
     //TODO: esta parte es muy confusa hay que implementar cubit
     List<GestureDetector> respuestas = [];
     for (var i = 0; i < respsUser.length; i++) {
       var boton = GestureDetector(
-        child: _option(respsUser[i], _animation),
+        child: Option(
+          text: respsUser[i], 
+          animation:_animation),
         onTap: () {
 
           String palabra = respsUser[i];
@@ -71,25 +89,36 @@ class _ResponseAreaState extends State<ResponseArea>
       respuestas.add(boton);
     }
 
-    List<Widget> misOpciones = [];
-    widget.opciones.forEach((key, value) {
+    List<Widget> misOpciones = [
+      Option(
+        key: keyText,
+        text:widget.opciones.keys.toList()[0], 
+        animation: _animation,
+      ),
+    ];
+    // widget.opciones.forEach((key, value) {
+    //   var boton = value
+    //   ? GestureDetector(
+    //       child: Option(
+    //         key: keyText,
+    //         text:key, 
+    //         animation: _animation,
+    //       ),
+    //       onTap: () {
+    //         // super.setState(() {
+    //         //   widget.opciones[key] = false;
+    //         //   respsUser.add(key);
+    //         // });
+    //       }
+    //   )
+    //   : _sombra(key);
 
-      // TODO: aunque no se vea el boton sigue estando ahi
-      var boton = value
-      ? GestureDetector(
-          child: _option(key, _animation),
-          onTap: () {
-            super.setState(() {
-              widget.opciones[key] = false;
-              respsUser.add(key);
-            });
-          }
-      )
-      : _sombra(key);
+    //   misOpciones.add(boton);
+    // });
 
-      misOpciones.add(boton);
-    });
-
+    //TODO: como puedo saber las coordenadas de un widget
+    // o talvez el offset que hay entre 2 widgets 
+    // no se, solo necesito un offset entre 2 widgets
 
     return Column(
       children: [
@@ -121,7 +150,7 @@ class _ResponseAreaState extends State<ResponseArea>
         ),
 
         ElevatedButton(
-          onPressed: _animationController.forward, 
+          onPressed: calculateSizeAndPosition, 
           child: Text("preciona")),
 
         // Center(
@@ -137,26 +166,37 @@ class _ResponseAreaState extends State<ResponseArea>
 
 }
 
-Widget _option(String text, Animation<Offset> animation) {
+class Option extends StatelessWidget {
 
-  return SlideTransition(
-    position: animation,
-    child: Container(
-      color: Colors.blue,
-      margin: EdgeInsets.all(5),
-      padding: EdgeInsets.all(5),
-      child: 
-      Text(text, style: TextStyle(fontSize: 20),),
-      
-      // PrincipalButton(
-      //   color: Colors.white,
-      //   borderColor: Colors.black12,
-      //   textColor: Colors.black,
-      //   text: text,
-      //   onTap: null,
-      // ),
-    ),
-  );
+  final String text;
+  final Animation<Offset> animation;
+  Option({
+    Key? key, 
+    required this.text, 
+    required this.animation,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SlideTransition(
+      position: animation,
+      child: Container(
+        color: Colors.blue,
+        margin: EdgeInsets.all(5),
+        padding: EdgeInsets.all(5),
+        child: 
+        Text(text, style: TextStyle(fontSize: 20),),
+        
+        // PrincipalButton(
+        //   color: Colors.white,
+        //   borderColor: Colors.black12,
+        //   textColor: Colors.black,
+        //   text: text,
+        //   onTap: null,
+        // ),
+      ),
+    );
+  }
 }
 
 Container _sombra(String key) {
