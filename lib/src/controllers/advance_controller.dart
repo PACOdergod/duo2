@@ -53,4 +53,7 @@ class AdvanceController extends GetxController{
     return l;
   });
 
+
+  RxInt coronasUser = 0.obs;
+
 }

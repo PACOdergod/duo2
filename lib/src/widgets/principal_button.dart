@@ -9,41 +9,51 @@ class PrincipalButton extends StatelessWidget {
   final Color? color;
   final Widget? icon;
   final Function()? onTap;
+  final double? paddingh;
   final double porcentajeAncho;
   final Color borderColor;
-  final double paddingh;
   final double marginh;
   final double marginv;
+  final FontWeight textWeight;
+  final bool autoajustar;
 
-  const PrincipalButton({
+  PrincipalButton({
     this.text, 
     this.textColor, 
     this.color, 
     this.icon,
     this.onTap, 
     this.borderColor = Colors.green, 
+    this.paddingh, 
     this.porcentajeAncho = 0.9, 
     this.textSize = 20, 
-    this.paddingh = 20, 
-    this.marginh = 20, 
-    this.marginv = 8, 
+    this.marginh = 5, 
+    this.marginv = 5,
+    this.textWeight = FontWeight.bold,
+    this.autoajustar = true
   });
 
   @override
   Widget build(BuildContext context) {
 
-    var ancho = MediaQuery.of(context).size.width;
-
     return GestureDetector(
 
       child: Container( 
-        child: tituloButton(),
-
-        width: ancho*porcentajeAncho,
+        //TODO: arreglar esto
+        child: autoajustar 
+        ? Center(child: tituloButton(),)
+        : Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [tituloButton()],
+        ),
+        
+        width: autoajustar?MediaQuery.of(context).size.width*.9:null,
         height: 60,
         margin: EdgeInsets.symmetric(
-          horizontal: this.marginh, vertical: this.marginv),
-        padding: EdgeInsets.symmetric(horizontal: this.paddingh),
+          horizontal: this.marginh, 
+          vertical: this.marginv
+        ),
+        padding:EdgeInsets.symmetric(horizontal: 20),
 
         decoration: BoxDecoration(
           border: Border.all(color: borderColor, width: 2),
@@ -63,13 +73,11 @@ class PrincipalButton extends StatelessWidget {
     );
   }
 
-  Center tituloButton() {
-    if (icon == null) return Center(
-      child: texto()
-    );
-    else return Center(
+  Widget tituloButton() {
 
-      child: Row(
+    if (icon == null) return texto();
+
+    else return Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Container(
@@ -79,8 +87,7 @@ class PrincipalButton extends StatelessWidget {
           // SizedBox(width: 5),
           texto(),
         ],
-      ),
-    ); 
+      );
   }
 
 
@@ -89,7 +96,8 @@ class PrincipalButton extends StatelessWidget {
       style: TextStyle(
         fontSize: this.textSize, 
         color: textColor??Colors.white,
-        fontWeight: FontWeight.bold),
+        fontWeight: this.textWeight
+      ),
     );
   }
 }

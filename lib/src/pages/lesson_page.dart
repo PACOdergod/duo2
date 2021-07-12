@@ -1,94 +1,131 @@
-import 'package:duo2/src/controllers/lesson_controller.dart';
+
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class LessonPage extends StatefulWidget {
+import 'package:duo2/src/controllers/lesson_controller.dart';
+import 'package:duo2/src/services/lesson_service.dart';
+import 'package:duo2/src/models/leccion_mode.dart';
+import 'package:duo2/src/pages/section_response.dart';
 
-  @override
-  _LessonPageState createState() => _LessonPageState();
-}
+import 'package:duo2/src/widgets/progress_bar.dart';
+import 'package:duo2/src/widgets/slide_widgets.dart';
 
-class _LessonPageState extends State<LessonPage> {
+
+class LessonPage extends StatelessWidget{
+
   @override
   Widget build(BuildContext context) {
 
     final lesson = LessonController.getLesson();
-    int numQuiz = 0;
-    var currentQuiz = lesson.quizes[numQuiz];
+
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (_)=> new LessonService(lesson),
+          lazy: false,
+        )
+      ],
+
+      child: LessonBody(
+        lesson: lesson, 
+      ),
+    );
+  }
+}
+
+class LessonBody extends StatefulWidget {
+
+  final Leccion lesson;
+
+  const LessonBody({
+    required this.lesson,
+  });
+
+  @override
+  _LessonBodyState createState() => _LessonBodyState();
+}
+
+class _LessonBodyState extends State<LessonBody> {
+
+  late LessonService lessonService;
+  late List<SectionResponse> secciones;
+  
+  @override
+  Widget build(BuildContext context) {
+
+    lessonService = Provider.of<LessonService>(context);
+    var quizes = lessonService.lesson.quizes;
+    var index = lessonService.currentIndex;
+
+    List<SectionResponse> secciones = [];
+    for (var i = 0; i < quizes.length; i++) {
+      secciones.add(SectionResponse(
+        currentQuiz: quizes[i],
+        key: ValueKey<int>(i),
+      ));
+    }
 
     return Scaffold(
-      appBar: AppBar(
-
-      ),
+    
       body: Container(
-        width: MediaQuery.of(context).size.width,
-        color: Colors.white,
-        padding: EdgeInsets.all(20),
-        child: Column(
-          children: [
 
-            Container(
-              width: MediaQuery.of(context).size.width,
-              child: Text( currentQuiz.tipo, 
-                style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold,),
-              ),
-            ),
+          width: MediaQuery.of(context).size.width,
+          color: Colors.white,
 
-            SizedBox(height: 20),
+          child: Column(
+            children: [
 
-            Container(
-              width: MediaQuery.of(context).size.width,
-              child: Text(currentQuiz.pregunta, 
-                style: TextStyle(fontSize: 20),
-              ),
-            ),
-
-            SizedBox(height: 10),
-            
-            Container(
-              height: 80,
-              decoration: BoxDecoration(
+            //appbar
+            SafeArea(
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 10),
+                width: MediaQuery.of(context).size.width,
+                height: 60,
                 color: Colors.white,
-                border: Border(
-                  bottom: BorderSide(color: Colors.black12, width: 3)
-                )
+                child: Row(
+                  children: [
+
+                    IconButton(
+                      icon: Icon(Icons.close, size: 32,),
+                      onPressed: null,
+                    ),
+
+                    _LessonBar()
+
+                  ],
+                ),
               ),
             ),
 
-            SizedBox(height: 20),
+            SizedBox(height: 10,),
 
-            Container(
-              height: 180,
-              padding: EdgeInsets.all(10),
-              color: Colors.blue,
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-
-                children: [
-                  Option(),
-                  Option(),
-                  
-                ],
-              )
+            Expanded(
+              child: SlideWidgets(
+                index: index,
+                widgets: secciones,
+                ancho: MediaQuery.of(context).size.width,
+              ),
             )
 
           ],
         ),
       )
+      
     );
   }
 }
 
-class Option extends StatelessWidget {
+class _LessonBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 150,
-      height: 50,
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.black),
-        color: Colors.white,
-      ),
+
+    final lessonService = Provider.of<LessonService>(context);
+
+    return ProgressBar(
+      largo: lessonService.lesson.quizes.length,
+      index: lessonService.currentIndex+1,
+      ancho: MediaQuery.of(context).size.width*.65,
     );
   }
 }

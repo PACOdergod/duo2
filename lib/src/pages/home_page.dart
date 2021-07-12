@@ -1,11 +1,12 @@
-import 'package:duo2/src/controllers/advance_controller.dart';
-import 'package:duo2/src/pages/lesson_aux.dart';
-import 'package:duo2/src/pages/lesson_page.dart';
-import 'package:duo2/src/widgets/principal_button.dart';
+import 'package:duo2/src/widgets/home_appbar.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'package:duo2/src/widgets/module.dart';
-import 'package:get/get.dart';
+import 'package:duo2/src/widgets/box_description.dart';
+import 'package:duo2/src/controllers/advance_controller.dart';
+
+
 
 class HomePage extends StatefulWidget {
 
@@ -22,15 +23,13 @@ class _HomePageState extends State<HomePage> {
 
     return Scaffold(
 
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        leading: Icon(Icons.flag),
-        title: Text("appbar"),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.plus_one),
+        onPressed: () {
+          // advanceController.aumentarLessonsDone("numeros")
+          advanceController.coronasUser++;
+        },
       ),
-
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: ()=>advanceController.aumentarPorcentaje("numeros"),
-      // ),
       
       body: Container(
         color: Colors.white,
@@ -39,6 +38,20 @@ class _HomePageState extends State<HomePage> {
           child: _Modules()
         ),
       ),
+
+      // bottomNavigationBar: BottomNavigationBar(
+      //   items: [
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.home),
+      //       label: "hola"
+      //     ),
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.ac_unit),
+      //       label: "hola"
+      //     ),
+      //   ] 
+      // ),
+
     );
   }
 
@@ -53,20 +66,35 @@ class _Modules extends StatelessWidget {
     return Obx(()=> Column(
       children: [
 
-        SizedBox(height: 20),
+        SafeArea(child: HomeAppBar(
+          coronas: advanceController.coronasUser.value,
+        )),
+
+        SizedBox(height: 15),
 
         GestureDetector(
           child: Module(
             level: advanceController.getNivel("numeros"),
             porcentaje: advanceController.getPorcentaje("numeros"),
+            // icon: Icons.home_repair_service
           ),
           onTap: () => _myAlert(context, "numeros")
         ),
+        _myTitle("Numeros"),
 
         SizedBox(height: 20),
-        Module(),
+
+        Module(
+          level: advanceController.getNivel("letras"),
+          porcentaje: advanceController.getPorcentaje("letras"),
+        ),
+        _myTitle("Letras"),
+
         SizedBox(height: 20),
+
         Module(),
+        _myTitle("Colores"),
+
         SizedBox(height: 20),
         Module(),
         SizedBox(height: 20),
@@ -75,6 +103,28 @@ class _Modules extends StatelessWidget {
       ],
     ),);
   }
+
+}
+
+
+_myTitle(String title){
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: [
+      Container(
+        height: 10,
+        width: 10,
+        decoration: BoxDecoration(
+          color: Colors.amber,
+          borderRadius: BorderRadius.circular(10)
+        ),
+      ),
+      SizedBox(width: 5),
+      Text( title, 
+        style: TextStyle( fontSize: 18, fontWeight: FontWeight.bold ),
+      ),
+    ],
+  );
 }
 
 
@@ -103,76 +153,3 @@ _myAlert(BuildContext context, String id) {
   );
 }
 
-class BoxDescription extends StatelessWidget {
-
-  final String id;
-
-  const BoxDescription(this.id);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 225,
-      width: MediaQuery.of(context).size.width*.8,
-      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-      decoration: BoxDecoration(
-        color: Colors.blue,
-        borderRadius: BorderRadius.circular(20)
-      ),
-
-      child: Column(
-        children: [
-          _levels(context, id),
-          PrincipalButton(
-            porcentajeAncho: .9,
-            marginh: 0,
-            color: Colors.blue,
-            borderColor: Colors.black12,
-            text: "APUNTES",
-            //TODO crear la pagina de apuntes
-          ),
-          PrincipalButton(
-            porcentajeAncho: .9,
-            marginh: 0,
-            color: Colors.white,
-            borderColor: Colors.black12,
-            text: "EMPEZAR",
-            textColor: Colors.black,
-            onTap: () {
-              Navigator.pop(context); //cerrar el dialog
-              Get.to(()=> LessonAuxiliar(), arguments: id);
-            },
-          )
-
-        ],
-      ),
-    );
-  }
-}
-
-Column _levels(BuildContext context, String id) {
-
-  final advanceController = Get.find<AdvanceController>();
-
-  String? leccT = '${advanceController.levels[id]?.totalLessons}';
-  String? leccH = '${advanceController.levels[id]?.lessonsDone}';
-  String? nivT = '${advanceController.levels[id]?.totalLevels}';
-  String? nivU = '${advanceController.levels[id]?.levelUser}';
-
-  return Column(
-    children: [
-      Text( "Nivel" +nivU+"/"+nivT,
-        style: TextStyle(
-          fontSize: 20, fontWeight: FontWeight.bold,
-          color: Colors.white
-        )
-      ),
-      Text("Leccion "+leccH+"/"+leccT, 
-        style: TextStyle(
-          fontSize: 17,
-          color: Colors.white
-        )
-      )
-    ],
-  );
-}
