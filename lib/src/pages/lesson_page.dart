@@ -8,7 +8,7 @@ import 'package:duo2/src/services/lesson_service.dart';
 import 'package:duo2/src/models/leccion_mode.dart';
 import 'package:duo2/src/quiz/quiz_section.dart';
 
-import 'package:duo2/src/widgets/progress_bar.dart';
+import 'package:duo2/src/progress_bar/progress_bar.dart';
 import 'package:duo2/src/widgets/slide_widgets.dart';
 
 
