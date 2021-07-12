@@ -51,7 +51,6 @@ class _ResponseAreaState extends State<ResponseArea>
   final keyText = GlobalKey();
   late Size size;
   late Offset position;
-
   void calculateSizeAndPosition()=>
     WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
       final box = keyText.currentContext!.findRenderObject() as RenderBox;
@@ -90,11 +89,7 @@ class _ResponseAreaState extends State<ResponseArea>
     }
 
     List<Widget> misOpciones = [
-      Option(
-        key: keyText,
-        text:widget.opciones.keys.toList()[0], 
-        animation: _animation,
-      ),
+      Demo(text: widget.opciones.keys.toList()[0]),
     ];
     // widget.opciones.forEach((key, value) {
     //   var boton = value
@@ -164,6 +159,30 @@ class _ResponseAreaState extends State<ResponseArea>
     );
   }
 
+}
+
+class Demo extends StatelessWidget {
+  final String text;
+  const Demo({ 
+    Key? key,required  this.text }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      child: Container(
+        padding: EdgeInsets.all(10),
+        margin: EdgeInsets.all(10),
+        color: Colors.green,
+        child: Text(this.text),
+      ),
+      onTap: (){
+        // Obtener el offset obsoluto de este widget
+        final box = context.findRenderObject() as RenderBox;
+        final offset = box.localToGlobal(Offset.zero);
+        print(offset);
+      },
+    );
+  }
 }
 
 class Option extends StatelessWidget {
