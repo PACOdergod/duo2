@@ -12,47 +12,49 @@ class ResponseArea extends StatefulWidget {
   ResponseArea({  
     required this.currentQuiz,
   }){
-    this.opciones = Map.fromIterable(currentQuiz.opciones,
-      key: (item) => item.toString(),
-      value: (item) => true
-    );
+    this.opciones = {"hola": true};
+    // Map.fromIterable(currentQuiz.opciones,
+    //   key: (item) => item.toString(),
+    //   value: (item) => true
+    // );
   }
 
   @override
   _ResponseAreaState createState() => _ResponseAreaState();
 }
 
-class _ResponseAreaState extends State<ResponseArea> {
-  final List<String> respsUser = [];
+class _ResponseAreaState extends State<ResponseArea> 
+  with SingleTickerProviderStateMixin
+{
 
-    Widget _option(String text) {
-
-      return Container(
-        color: Colors.blue,
-        margin: EdgeInsets.all(5),
-        padding: EdgeInsets.all(5),
-        child: 
-        Text(text, style: TextStyle(fontSize: 20),),
-        
-        // PrincipalButton(
-        //   color: Colors.white,
-        //   borderColor: Colors.black12,
-        //   textColor: Colors.black,
-        //   text: text,
-        //   onTap: null,
-        // ),
-      );
-    }
+  late AnimationController _animationController;
+  late Animation<Offset> _animation;
 
   @override
-  Widget build(BuildContext context) {
-    
+  void initState() {
 
+    _animationController = AnimationController(
+      vsync: this, 
+      duration: Duration(seconds: 1)
+    )
+    ;
+    _animation = Tween<Offset>(
+      begin: Offset(0, 0), end: Offset(0, -3))
+      .animate( _animationController );
+
+    // _animationController.forward().whenComplete(() {
+    //   // put here the stuff you wanna do when animation completed!
+    // });
+  }
+
+  final List<String> respsUser = [];
+  @override
+  Widget build(BuildContext context) {
     //TODO: esta parte es muy confusa hay que implementar cubit
     List<GestureDetector> respuestas = [];
     for (var i = 0; i < respsUser.length; i++) {
       var boton = GestureDetector(
-        child: _option(respsUser[i]),
+        child: _option(respsUser[i], _animation),
         onTap: () {
 
           String palabra = respsUser[i];
@@ -69,22 +71,21 @@ class _ResponseAreaState extends State<ResponseArea> {
       respuestas.add(boton);
     }
 
-    List<Opacity> misOpciones = [];
+    List<Widget> misOpciones = [];
     widget.opciones.forEach((key, value) {
 
       // TODO: aunque no se vea el boton sigue estando ahi
-      var boton = Opacity(
-        opacity: value?1:0,
-        child: GestureDetector(
-          child: _option(key),
+      var boton = value
+      ? GestureDetector(
+          child: _option(key, _animation),
           onTap: () {
             super.setState(() {
               widget.opciones[key] = false;
               respsUser.add(key);
             });
           }
-        ),
-      );
+      )
+      : _sombra(key);
 
       misOpciones.add(boton);
     });
@@ -119,7 +120,51 @@ class _ResponseAreaState extends State<ResponseArea> {
           )
         ),
 
+        ElevatedButton(
+          onPressed: _animationController.forward, 
+          child: Text("preciona")),
+
+        // Center(
+        //   child: SlideTransition(
+        //   position: _animation,
+        //   child: Center(child: Text("My Text")),
+        // ),
+        // )
+
       ],
     );
   }
+
+}
+
+Widget _option(String text, Animation<Offset> animation) {
+
+  return SlideTransition(
+    position: animation,
+    child: Container(
+      color: Colors.blue,
+      margin: EdgeInsets.all(5),
+      padding: EdgeInsets.all(5),
+      child: 
+      Text(text, style: TextStyle(fontSize: 20),),
+      
+      // PrincipalButton(
+      //   color: Colors.white,
+      //   borderColor: Colors.black12,
+      //   textColor: Colors.black,
+      //   text: text,
+      //   onTap: null,
+      // ),
+    ),
+  );
+}
+
+Container _sombra(String key) {
+  return Container(
+    child: Text( key, 
+      style: TextStyle(fontSize: 20, color: Colors.black12),),
+    color: Colors.black26,
+    margin: EdgeInsets.all(5),
+    padding: EdgeInsets.all(5),
+  );
 }
