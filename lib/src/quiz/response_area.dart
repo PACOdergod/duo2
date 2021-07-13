@@ -101,6 +101,7 @@ class _ResponseAreaState extends State<ResponseArea>
     // });
 
     return Column(
+
       children: [
         // linear donde se acomodaran las respuestas
         Container(
@@ -121,18 +122,19 @@ class _ResponseAreaState extends State<ResponseArea>
         SizedBox(height: 60),
 
         // OPCIONES
-        Container(
-          width: MediaQuery.of(context).size.width*.85,
-          child: Wrap(
-            alignment: WrapAlignment.center,
-            children: [
-              SlideTransition(
-                position: _animation,
-                child: Demo(text: "hola")
-              ),
-            ]
-          )
-        ),
+        Demo(text: "hola"),
+        // Container(
+        //   width: MediaQuery.of(context).size.width*.85,
+        //   child: Wrap(
+        //     alignment: WrapAlignment.center,
+        //     children: [
+        //       SlideTransition(
+        //         position: _animation,
+        //         child: Demo(text: "hola")
+        //       ),
+        //     ]
+        //   )
+        // ),
 
         ElevatedButton(
           onPressed: (){
