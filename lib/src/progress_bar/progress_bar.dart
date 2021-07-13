@@ -25,7 +25,7 @@ class _ProgressBarState extends State<ProgressBar>
   late int index;
   late int indexAnterior;
   late AnimationController controller;
-  var moveAnimation;
+  late Animation moveAnimation;
 
   @override
   void initState() {
@@ -86,25 +86,24 @@ class _ProgressBarState extends State<ProgressBar>
           },
         ),
 
-        AnimatedBuilder(
-          animation: controller,
-          builder: (BuildContext context, Widget? child) {
-            return Container(
-              margin: EdgeInsets.only(
-                left: (widget.index - diferenciaAnimar)*factorUnidad 
-                + (diferenciaAnimar*moveAnimation.value)*factorUnidad
+        // AnimatedBuilder(
+        //   animation: controller,
+        //   builder: (BuildContext context, Widget? child) {
+        //     return Container(
+        //       margin: EdgeInsets.only(
+        //         left: (widget.index - diferenciaAnimar)*factorUnidad 
+        //         + (diferenciaAnimar*moveAnimation.value)*factorUnidad
                 
-              ),
-              height: 20,
-              width: 20,
-              decoration: BoxDecoration(
-                color: Colors.red,
-                borderRadius: BorderRadius.circular(10)
-              ),
-            );
-          }, 
-        
-        )
+        //       ),
+        //       height: 20,
+        //       width: 20,
+        //       decoration: BoxDecoration(
+        //         color: Colors.red,
+        //         borderRadius: BorderRadius.circular(10)
+        //       ),
+        //     );
+        //   }, 
+        // )
         
       ],
     );
