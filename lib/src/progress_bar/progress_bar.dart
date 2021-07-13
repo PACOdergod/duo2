@@ -17,7 +17,6 @@ class ProgressBar extends StatefulWidget {
   @override
   _ProgressBarState createState() => _ProgressBarState();
 }
-//TODO: mejorar la animacion, podria utilizar animatedPosition
 
 class _ProgressBarState extends State<ProgressBar> 
   with SingleTickerProviderStateMixin
@@ -26,6 +25,7 @@ class _ProgressBarState extends State<ProgressBar>
   late int index;
   late int indexAnterior;
   late AnimationController controller;
+  var moveAnimation;
 
   @override
   void initState() {
@@ -33,8 +33,16 @@ class _ProgressBarState extends State<ProgressBar>
     indexAnterior = 0;
     controller = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 500)
+      duration: Duration(milliseconds: 1000)
     );
+
+    moveAnimation = new Tween(
+      begin: 0,
+      end: 1.0,
+    ).animate(new CurvedAnimation(
+      parent: controller,
+      curve: Curves.elasticOut
+    ));
   }
 
   @override
@@ -53,21 +61,22 @@ class _ProgressBarState extends State<ProgressBar>
         Container(
           height: 20,
           width: this.widget.ancho,
+          margin: EdgeInsets.only(left: 20),
           decoration: BoxDecoration(
             color: Colors.black12,
             borderRadius: BorderRadius.circular(10)
           ),
         ),
-
         
         AnimatedBuilder(
           animation: controller,
           builder: (BuildContext context, Widget? child) { 
             return Container(
-              height: 20,
-              
+              height: 20,                
               width: (widget.index - diferenciaAnimar)*factorUnidad 
-              + (diferenciaAnimar*controller.value)*factorUnidad,
+              + (diferenciaAnimar*moveAnimation.value)*factorUnidad,
+
+              margin: EdgeInsets.only(left: 20),
 
               decoration: BoxDecoration(
                 color: widget.color,
@@ -75,10 +84,30 @@ class _ProgressBarState extends State<ProgressBar>
               ),
             );
           },
-          
         ),
+
+        AnimatedBuilder(
+          animation: controller,
+          builder: (BuildContext context, Widget? child) {
+            return Container(
+              margin: EdgeInsets.only(
+                left: (widget.index - diferenciaAnimar)*factorUnidad 
+                + (diferenciaAnimar*moveAnimation.value)*factorUnidad
+                
+              ),
+              height: 20,
+              width: 20,
+              decoration: BoxDecoration(
+                color: Colors.red,
+                borderRadius: BorderRadius.circular(10)
+              ),
+            );
+          }, 
+        
+        )
         
       ],
     );
+    
   }
 }
