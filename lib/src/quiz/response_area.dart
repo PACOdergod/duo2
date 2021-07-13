@@ -45,6 +45,8 @@ class _ResponseAreaState extends State<ResponseArea>
 
   }
 
+  GlobalKey keyColumna = GlobalKey();
+
   late Offset position;
 
   final List<String> respsUser = [];
@@ -101,6 +103,7 @@ class _ResponseAreaState extends State<ResponseArea>
     // });
 
     return Column(
+      key: keyColumna,
 
       children: [
         // linear donde se acomodaran las respuestas
@@ -122,7 +125,7 @@ class _ResponseAreaState extends State<ResponseArea>
         SizedBox(height: 60),
 
         // OPCIONES
-        Demo(text: "hola"),
+        Demo(text: "hola", keyColumna: keyColumna,),
         // Container(
         //   width: MediaQuery.of(context).size.width*.85,
         //   child: Wrap(
@@ -159,8 +162,11 @@ class _ResponseAreaState extends State<ResponseArea>
 
 class Demo extends StatelessWidget {
   final String text;
+  final GlobalKey keyColumna;
   const Demo({ 
-    Key? key,required  this.text }) : super(key: key);
+    Key? key,
+    required this.text, 
+    required this.keyColumna }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -176,6 +182,12 @@ class Demo extends StatelessWidget {
         final box = context.findRenderObject() as RenderBox;
         final offset = box.localToGlobal(Offset.zero);
         print(offset);
+
+        // obtener el offset de la columna
+        final boxC = keyColumna.currentContext!.findRenderObject() as RenderBox;
+        final offsetC = boxC.localToGlobal(Offset.zero);
+        print(offsetC);
+
       },
     );
   }
