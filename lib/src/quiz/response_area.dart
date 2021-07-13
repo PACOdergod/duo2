@@ -216,7 +216,7 @@ class Demo extends StatelessWidget {
     return GestureDetector(
       child: Container(
         padding: EdgeInsets.all(10),
-        margin: EdgeInsets.all(10),
+        // margin: EdgeInsets.all(10),
         color: Colors.green,
         child: Text(this.text),
       ),
@@ -224,6 +224,7 @@ class Demo extends StatelessWidget {
         // Obtener el offset obsoluto de este widget
         final box = context.findRenderObject() as RenderBox;
         final offset = box.localToGlobal(Offset.zero);
+        final tam = box.size;
         print(offset);
 
         // obtener el offset de la columna
@@ -231,7 +232,7 @@ class Demo extends StatelessWidget {
         final offsetC = boxC.localToGlobal(Offset.zero);
         print(offsetC);
 
-        responseService.animar();
+        responseService.animar(offset-offsetC, tam);
       },
     );
   }

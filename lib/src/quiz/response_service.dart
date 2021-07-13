@@ -6,10 +6,15 @@ class ResponseService with ChangeNotifier {
 
   var _animacion = Container();
   Widget get animacion=> _animacion;
-  animar(){
+
+  animar(Offset offset, Size size){
     _animacion = Container(
-      height: 100,
-      width: 100,
+      margin: EdgeInsets.only(
+        top: offset.dy,
+        left: offset.dx
+      ),
+      height: size.height,
+      width: size.width,
       color: Colors.red,
     );
 
