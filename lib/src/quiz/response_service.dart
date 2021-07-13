@@ -4,21 +4,11 @@ import 'package:flutter/material.dart';
 
 class ResponseService with ChangeNotifier {
 
-  var _animacion = Container();
-  Widget get animacion=> _animacion;
+  final Map<String, bool> opciones;
+  List<GestureDetector> respuestas = [];
+  final List<String> respsUser = [];
 
-  animar(Offset offset, Size size){
-    _animacion = Container(
-      margin: EdgeInsets.only(
-        top: offset.dy,
-        left: offset.dx
-      ),
-      height: size.height,
-      width: size.width,
-      color: Colors.red,
-    );
+  ResponseService(this.opciones);
 
-    notifyListeners();
-  }
 
 }

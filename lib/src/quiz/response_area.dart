@@ -55,9 +55,6 @@ class _ResponseAreaState extends State<ResponseArea>
   @override
   Widget build(BuildContext context) {
 
-    //TODO: esta parte es muy confusa hay que implementar cubit
-
-
     // Como obtenga el offset absoluto del widget que se agrega
     List<GestureDetector> respuestas = [];
     for (var i = 0; i < respsUser.length; i++) {
@@ -106,7 +103,9 @@ class _ResponseAreaState extends State<ResponseArea>
 
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_)=>new ResponseService(), lazy: false,)
+        ChangeNotifierProvider(
+          create: (_)=>new ResponseService(widget.opciones),
+          lazy: false,)
       ],
       child: Stack(
         children: [
@@ -196,7 +195,7 @@ class Cuerpo extends StatelessWidget {
           ],
         ),
 
-        responseService.animacion
+        // TODO aqui ire la animacion
       ],
     );
   }
@@ -232,7 +231,6 @@ class Demo extends StatelessWidget {
         final offsetC = boxC.localToGlobal(Offset.zero);
         print(offsetC);
 
-        responseService.animar(offset-offsetC, tam);
       },
     );
   }
