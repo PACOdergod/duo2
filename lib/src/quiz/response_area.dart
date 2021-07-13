@@ -1,7 +1,9 @@
+import 'package:duo2/src/quiz/response_service.dart';
 import 'package:duo2/src/widgets/principal_button.dart';
 import 'package:flutter/material.dart';
 
 import 'package:duo2/src/models/leccion_mode.dart';
+import 'package:provider/provider.dart';
 
 
 class ResponseArea extends StatefulWidget {
@@ -102,62 +104,102 @@ class _ResponseAreaState extends State<ResponseArea>
     //   misOpciones.add(boton);
     // });
 
-    return Column(
-      key: keyColumna,
-
-      children: [
-        // linear donde se acomodaran las respuestas
-        Container(
-          margin: EdgeInsets.symmetric(horizontal: 20),
-          height: 80,
-          decoration: BoxDecoration(
-            color: Colors.white,
-            border: Border(
-              bottom: BorderSide(color: Colors.black12, width: 3)
-            )
-          ),
-
-          child: Row(
-            children: respuestas
-          ),
-        ),
-
-        SizedBox(height: 60),
-
-        // OPCIONES
-        Demo(text: "hola", keyColumna: keyColumna,),
-        // Container(
-        //   width: MediaQuery.of(context).size.width*.85,
-        //   child: Wrap(
-        //     alignment: WrapAlignment.center,
-        //     children: [
-        //       SlideTransition(
-        //         position: _animation,
-        //         child: Demo(text: "hola")
-        //       ),
-        //     ]
-        //   )
-        // ),
-
-        ElevatedButton(
-          onPressed: (){
-            if(_animationController.isCompleted)
-              _animationController.reverse();
-            else _animationController.forward();
-          }, 
-          child: Text("preciona")),
-
-        // Center(
-        //   child: SlideTransition(
-        //     position: _animation,
-        //     child: Center(child: Text("My Text")),
-        //   ),
-        // )
-
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_)=>new ResponseService(), lazy: false,)
       ],
+      child: Stack(
+        children: [
+          Cuerpo(
+            keyColumna: keyColumna, 
+            respuestas: respuestas, 
+            animationController: _animationController),
+            
+        ],
+      ),
     );
   }
 
+}
+
+class Cuerpo extends StatelessWidget {
+  const Cuerpo({
+    Key? key,
+    required this.keyColumna,
+    required this.respuestas,
+    required AnimationController animationController,
+  }) : _animationController = animationController, super(key: key);
+
+  final GlobalKey<State<StatefulWidget>> keyColumna;
+  final List<GestureDetector> respuestas;
+  final AnimationController _animationController;
+
+  @override
+  Widget build(BuildContext context) {
+
+    final responseService = Provider.of<ResponseService>(context);
+
+    return Stack(
+      children: [
+        Column(
+          key: keyColumna,
+
+          children: [
+            // linear donde se acomodaran las respuestas
+            Container(
+              margin: EdgeInsets.symmetric(horizontal: 20),
+              height: 80,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                border: Border(
+                  bottom: BorderSide(color: Colors.black12, width: 3)
+                )
+              ),
+
+              child: Row(
+                children: respuestas
+              ),
+            ),
+
+            SizedBox(height: 60),
+
+            // OPCIONES
+            Demo(text: "hola", keyColumna: keyColumna,),
+            // Container(
+            //   width: MediaQuery.of(context).size.width*.85,
+            //   child: Wrap(
+            //     alignment: WrapAlignment.center,
+            //     children: [
+            //       SlideTransition(
+            //         position: _animation,
+            //         child: Demo(text: "hola")
+            //       ),
+            //     ]
+            //   )
+            // ),
+
+            ElevatedButton(
+              onPressed: (){
+                if(_animationController.isCompleted)
+                  _animationController.reverse();
+                else _animationController.forward();
+              }, 
+              child: Text("preciona")),
+
+            // Center(
+            //   child: SlideTransition(
+            //     position: _animation,
+            //     child: Center(child: Text("My Text")),
+            //   ),
+            // )
+
+          ],
+        ),
+
+        responseService.animacion
+      ],
+    );
+  }
 }
 
 class Demo extends StatelessWidget {
@@ -170,6 +212,7 @@ class Demo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final responseService = Provider.of<ResponseService>(context, listen: false);
     return GestureDetector(
       child: Container(
         padding: EdgeInsets.all(10),
@@ -188,6 +231,7 @@ class Demo extends StatelessWidget {
         final offsetC = boxC.localToGlobal(Offset.zero);
         print(offsetC);
 
+        responseService.animar();
       },
     );
   }
