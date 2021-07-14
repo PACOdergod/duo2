@@ -1,21 +1,32 @@
+import 'package:duo2/src/quiz/quiz_botones.dart';
 
 import 'package:flutter/material.dart';
+
+
 
 class ResponseService with ChangeNotifier {
 
   final Map<String, bool> opciones;
 
   ResponseService(this.opciones){
-
+    int i = 0;
     opciones.forEach((key, value) {
-      var boton = Opcion(text: key, mostrar: value);
+      var boton = Opcion(text: key, mostrar: value, index: i,);
       misOpciones.add(boton);
+      i++;
     });
-
   }
 
   List<Respuesta> misRespuestas = [];
-  List<Opcion> misOpciones = [];
+  List<Option> misOpciones = [];
+
+  late GlobalKey keyColumna;
+
+
+  void quitarRespuesta( int index, Size tam ){
+    misOpciones[index] = Sombra(tam: tam, index: index);
+    notifyListeners();
+  }
 
 
   void addRespuesta(String res){
@@ -31,75 +42,21 @@ class ResponseService with ChangeNotifier {
     notifyListeners();
   }
 
-  Widget animacion = Container();
+  seleccionoOpcion( Offset positionI, Offset positionF, Container widget ){
 
-  seleccionoOpcion(Offset position, Opcion widget){
-    widget.color = Colors.black;
     animacion = Container(
       child: widget,
+      color: Colors.black,
       margin: EdgeInsets.only(
-        top: position.dy,
-        left: position.dx
+        top: positionI.dy,
+        left: positionI.dx
       ),
     );
 
     notifyListeners();
   }
-    
-}
 
-class Opcion extends StatelessWidget {
 
-  Opcion({
-    Key? key, 
-    required this.text,
-    this.mostrar = true,
-    this.color = Colors.blue
-  });
+  Widget animacion = Container();
 
-  final String text;
-  bool mostrar;
-  Color color;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Text(text),
-      color: this.color,
-      padding: EdgeInsets.all(10),
-    );
-  }
-}
-
-class Respuesta extends StatelessWidget {
-
-  Respuesta({
-    Key? key, 
-    required this.text,
-    this.mostrar = true,
-    this.color = Colors.blue
-  });
-
-  final String text;
-  bool mostrar;
-  Color color;
-
-  void getPosition(BuildContext context){
-     // Obtener el offset obsoluto de este widget
-    final box =  context.findRenderObject() as RenderBox;
-    final offset = box.localToGlobal(Offset.zero);
-    final tam = box.size;
-    print(offset);
-    print(tam);
-  }
-  
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Text(text),
-      color: this.color,
-      padding: EdgeInsets.all(10),
-    );
-  }
 }

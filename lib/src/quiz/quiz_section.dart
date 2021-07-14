@@ -70,7 +70,7 @@ class SectionResponse extends StatelessWidget {
                     lazy: false,)
                 ],
                 child: ResponseArea(
-                  currentQuiz: currentQuiz,
+                  // currentQuiz: currentQuiz,
                 ),
               )
 

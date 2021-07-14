@@ -1,17 +1,11 @@
-import 'package:duo2/src/quiz/response_service.dart';
-import 'package:duo2/src/widgets/principal_button.dart';
+import 'package:duo2/src/quiz/quiz_botones.dart';
 import 'package:flutter/material.dart';
-
-import 'package:duo2/src/models/leccion_mode.dart';
 import 'package:provider/provider.dart';
+
+import 'package:duo2/src/quiz/response_service.dart';
 
 
 class ResponseArea extends StatefulWidget {
-
-  final Quiz currentQuiz;
-
-  ResponseArea({ required this.currentQuiz });
-
   @override
   _ResponseAreaState createState() => _ResponseAreaState();
 }
@@ -29,16 +23,6 @@ class _ResponseAreaState extends State<ResponseArea> {
           children: [
 
             Cuerpo(),
-              
-            // TODO: aqui ira la animacion
-            // Container(
-            //   margin: EdgeInsets.only(
-            //     top: 140,
-            //     left: 60.5
-            //   ),
-            //   height: 39, width: 47,
-            //   color: Colors.red,
-            // )
 
             responseService.animacion
 
@@ -58,6 +42,7 @@ class Cuerpo extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final responseService = Provider.of<ResponseService>(context);
+    responseService.keyColumna = keyColumna;
 
     return Stack(
 
@@ -86,17 +71,7 @@ class Cuerpo extends StatelessWidget {
 
             // OPCIONES
             Wrap (
-              children: responseService.misOpciones.map((e) =>
-              // TODO con el opacity aunq no se vea sigue detectando 
-                Opacity(
-                  opacity: e.mostrar? 1 : 0,
-                  child: BotonOpcion(
-                    responseService: responseService,
-                    e: e,
-                    keyColumna: keyColumna,
-                  ),
-                )
-              ).toList(),
+              children: responseService.misOpciones
             )
           ],
         ),
