@@ -113,7 +113,7 @@ class BotonOpcion extends StatelessWidget {
         // final offsetC = boxC.localToGlobal(Offset.zero);
 
         // responseService.seleccionoOpcion(offset - offsetC, e);
-        responseService.addRespuesta(e.text);
+        // responseService.addRespuesta(e.text);
       },
     );
   }

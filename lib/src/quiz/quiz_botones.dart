@@ -13,12 +13,10 @@ abstract class Option extends StatelessWidget{
     Key? key, 
     this.text,
     required this.index,
-    this.mostrar = true,
     this.color = Colors.blue
   });
 
   String? text;
-  bool mostrar;
   Color color;
   int index;
 }
@@ -55,11 +53,13 @@ class Opcion extends Option{
         final box = context.findRenderObject() as RenderBox;
         final offset = box.localToGlobal(Offset.zero);
         final tam = box.size;
-        print(offset);
-        print(tam);
+        // print(offset);
+        // print(tam);
 
         final service = Provider.of<ResponseService>(context, listen: false);
-        service.quitarRespuesta(index, tam);
+        service.addRespuesta(text, index, tam);
+
+        //TODO: llamar a activar la animacion
 
       },
     );
@@ -72,17 +72,14 @@ class Sombra extends Option {
     Key? key, 
     required this.tam,
     required this.index,
-    this.mostrar = true,
     this.color = Colors.blue
   }) : super(
     index: index
   );
 
-  bool mostrar;
   Color color;
   Size tam;
   int index;
-
 
   @override
   Widget build(BuildContext context) {
@@ -92,21 +89,21 @@ class Sombra extends Option {
       color: Colors.black,
     );
   }
-
 }
+
 
 class Respuesta extends StatefulWidget {
 
   Respuesta({
     Key? key, 
     required this.text,
-    this.mostrar = true,
+    required this.index,
     this.color = Colors.blue
   });
 
   final String text;
-  bool mostrar;
   Color color;
+  int index;
 
   @override
   _RespuestaState createState() => _RespuestaState();
@@ -114,29 +111,40 @@ class Respuesta extends StatefulWidget {
 
 class _RespuestaState extends State<Respuesta>  with AfterLayoutMixin{
 
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      child: Container(
+        child: Text(widget.text),
+        color: this.widget.color,
+        padding: EdgeInsets.all(10),
+      ),
+
+      onTap: (){
+        // llamar a  quitar respuesta
+        final service = Provider.of<ResponseService>(context, listen: false);
+
+        service.quitarRespuesta(widget.index, widget.text);
+
+      },
+    );
+  }
+
+  @override
+  void afterFirstLayout(BuildContext context) {
+    final service = Provider.of<ResponseService>(context, listen: false);
+    var res = getPosition(context);
+
+    //cuando se agrega una respuesta se debe enviar su posicion
+    // al provider para que sea la posicion final
+ 
+  }
+
   Tuple2<Offset, Size> getPosition(BuildContext context){
     final box =  context.findRenderObject() as RenderBox;
     final offset = box.localToGlobal(Offset.zero);
     final tam = box.size;
 
     return Tuple2<Offset, Size>(offset, tam);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Text(widget.text),
-      color: this.widget.color,
-      padding: EdgeInsets.all(10),
-    );
-  }
-
-  @override
-  void afterFirstLayout(BuildContext context) {
-
-    final service = Provider.of<ResponseService>(context, listen: false);
-    var res = getPosition(context);
-
-    
   }
 }
