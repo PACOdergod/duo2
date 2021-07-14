@@ -1,12 +1,17 @@
+import 'package:after_layout/after_layout.dart';
 import 'package:duo2/src/quiz/quiz_botones.dart';
 
 import 'package:flutter/material.dart';
+
+import 'animacion.dart';
 
 
 
 class ResponseService with ChangeNotifier {
 
   final Map<String, bool> opciones;
+  // TODO: en vez de andar construyendo una opcion en cada cambio
+  // todos los metodos tomaran de esta lista las opciones que necesiten
   List<Opcion> totalOpciones = [];
 
   ResponseService(this.opciones){
@@ -19,12 +24,10 @@ class ResponseService with ChangeNotifier {
     });
   }
 
-
   List<Respuesta> misRespuestas = [];
   List<Option> misOpciones = [];
 
   late GlobalKey keyColumna;
-
 
   void addRespuesta(String res, int index, Size tam){
     misRespuestas.add(Respuesta(text: res, index: index,));
@@ -41,23 +44,15 @@ class ResponseService with ChangeNotifier {
     notifyListeners();
   }
 
+
+
   seleccionoOpcion( Offset positionI, Container widget ){
     // obtener el offset de la columna
     final boxC = keyColumna.currentContext!.findRenderObject()
       as RenderBox;
     final offsetC = boxC.localToGlobal(Offset.zero);
 
-    // animacion = Container(
-    //   child: widget,
-    //   margin: EdgeInsets.only(
-    //     top: positionI.dy - offsetC.dy,
-    //     left: positionI.dx - offsetC.dx
-    //   ),
-    // );
-
     posicionInicial = positionI - offsetC;
-
-    // notifyListeners();
   }
 
   late Offset posicionInicial;
@@ -69,19 +64,16 @@ class ResponseService with ChangeNotifier {
 
     Offset posicionFinal = positionI - offsetC;
 
-    animacionf = Container(
-      child: widget,
-      margin: EdgeInsets.only(
-        top: positionI.dy - offsetC.dy,
-        left: positionI.dx - offsetC.dx
-      ),
+    animacionf = new Animacion(
+      inicio: posicionInicial, 
+      fin: posicionFinal
     );
 
     notifyListeners();
   }
 
-
-  Widget animacion = Container();
   Widget animacionf = Container();
 
 }
+
+

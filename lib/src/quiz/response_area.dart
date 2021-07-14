@@ -24,9 +24,7 @@ class _ResponseAreaState extends State<ResponseArea> {
 
             Cuerpo(),
 
-            responseService.animacion,
             responseService.animacionf,
-
           ],
         ),
       );
