@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 
 import 'package:duo2/src/controllers/advance_controller.dart';
 
+import 'package:duo2/src/quiz/demo_quiz.dart';
 import 'package:duo2/src/pages/auth_page.dart';
 import 'package:duo2/src/pages/final_page.dart';
 import 'package:duo2/src/pages/home_page.dart';
@@ -25,15 +26,16 @@ class MyApp extends StatelessWidget {
         // fontFamily: 
       ),
       title: 'Material App',
-      routes: {
-        "auth": (_)=> AuthPage(),
-        "login": (_)=> LoginPage(),
-        "home": (_)=> HomePage(),
-        "lesson": (_)=> LessonPage(),
-        "registrar":(_)=> RegistrarPage(),
-        "final": (_)=> FinalPage(),
-      },
-      initialRoute: "lesson",
+      home: DemoQuiz(),
+      // routes: {
+      //   "auth":      (_)=> AuthPage(),
+      //   "login":     (_)=> LoginPage(),
+      //   "home":      (_)=> HomePage(),
+      //   "lesson":    (_)=> LessonPage(),
+      //   "registrar": (_)=> RegistrarPage(),
+      //   "final":     (_)=> FinalPage(),
+      // },
+      // initialRoute: "lesson",
     );
   }
 }

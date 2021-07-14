@@ -114,7 +114,7 @@ class Respuesta extends StatefulWidget {
   _RespuestaState createState() => _RespuestaState();
 }
 
-class _RespuestaState extends State<Respuesta>  with AfterLayoutMixin{
+class _RespuestaState extends State<Respuesta> with AfterLayoutMixin{
 
   @override
   Widget build(BuildContext context) {
@@ -142,7 +142,7 @@ class _RespuestaState extends State<Respuesta>  with AfterLayoutMixin{
 
     service.addPosicionFinal(res.item1, Container(
           child: Text(widget.text),
-          color: Colors.red,
+          color: Colors.blue,
           padding: EdgeInsets.all(10),
         ));
  

@@ -47,21 +47,27 @@ class ResponseService with ChangeNotifier {
       as RenderBox;
     final offsetC = boxC.localToGlobal(Offset.zero);
 
-    animacion = Container(
-      child: widget,
-      margin: EdgeInsets.only(
-        top: positionI.dy - offsetC.dy,
-        left: positionI.dx - offsetC.dx
-      ),
-    );
+    // animacion = Container(
+    //   child: widget,
+    //   margin: EdgeInsets.only(
+    //     top: positionI.dy - offsetC.dy,
+    //     left: positionI.dx - offsetC.dx
+    //   ),
+    // );
 
-    notifyListeners();
+    posicionInicial = positionI - offsetC;
+
+    // notifyListeners();
   }
+
+  late Offset posicionInicial;
 
   addPosicionFinal( Offset positionI, Container widget ){
     final boxC = keyColumna.currentContext!.findRenderObject()
       as RenderBox;
     final offsetC = boxC.localToGlobal(Offset.zero);
+
+    Offset posicionFinal = positionI - offsetC;
 
     animacionf = Container(
       child: widget,
