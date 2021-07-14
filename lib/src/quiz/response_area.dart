@@ -125,22 +125,20 @@ class BotonOpcion extends StatelessWidget {
       child: e,
       onTap: (){
 
-        // Obtener el offset obsoluto de este widget
-        final box = context.findRenderObject() as RenderBox;
-        final offset = box.localToGlobal(Offset.zero);
+        // // Obtener el offset obsoluto de este widget
+        // final box = context.findRenderObject() as RenderBox;
+        // final offset = box.localToGlobal(Offset.zero);
         // final tam = box.size;
         // print(offset);
         // print(tam);
 
-        // obtener el offset de la columna
-        final boxC = keyColumna.currentContext!.findRenderObject()
-         as RenderBox;
-        final offsetC = boxC.localToGlobal(Offset.zero);
-        // print(offsetC);
+        // // obtener el offset de la columna
+        // final boxC = keyColumna.currentContext!.findRenderObject()
+        //  as RenderBox;
+        // final offsetC = boxC.localToGlobal(Offset.zero);
 
-        responseService.seleccionoOpcion(offset - offsetC, e);
-
-        // responseService.addRespuesta(e.text);
+        // responseService.seleccionoOpcion(offset - offsetC, e);
+        responseService.addRespuesta(e.text);
       },
     );
   }
