@@ -53,13 +53,18 @@ class Opcion extends Option{
         final box = context.findRenderObject() as RenderBox;
         final offset = box.localToGlobal(Offset.zero);
         final tam = box.size;
-        // print(offset);
-        // print(tam);
 
         final service = Provider.of<ResponseService>(context, listen: false);
         service.addRespuesta(text, index, tam);
 
+
         //TODO: llamar a activar la animacion
+        service.seleccionoOpcion(offset, Container(
+          child: Text(text),
+          color: Colors.red,
+          padding: EdgeInsets.all(10),
+        ),);
+
 
       },
     );
@@ -121,11 +126,8 @@ class _RespuestaState extends State<Respuesta>  with AfterLayoutMixin{
       ),
 
       onTap: (){
-        // llamar a  quitar respuesta
         final service = Provider.of<ResponseService>(context, listen: false);
-
         service.quitarRespuesta(widget.index, widget.text);
-
       },
     );
   }
@@ -137,6 +139,12 @@ class _RespuestaState extends State<Respuesta>  with AfterLayoutMixin{
 
     //cuando se agrega una respuesta se debe enviar su posicion
     // al provider para que sea la posicion final
+
+    service.addPosicionFinal(res.item1, Container(
+          child: Text(widget.text),
+          color: Colors.red,
+          padding: EdgeInsets.all(10),
+        ));
  
   }
 

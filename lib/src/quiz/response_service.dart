@@ -42,12 +42,32 @@ class ResponseService with ChangeNotifier {
   }
 
   seleccionoOpcion( Offset positionI, Container widget ){
+    // obtener el offset de la columna
+    final boxC = keyColumna.currentContext!.findRenderObject()
+      as RenderBox;
+    final offsetC = boxC.localToGlobal(Offset.zero);
+
     animacion = Container(
       child: widget,
-      color: Colors.black,
       margin: EdgeInsets.only(
-        top: positionI.dy,
-        left: positionI.dx
+        top: positionI.dy - offsetC.dy,
+        left: positionI.dx - offsetC.dx
+      ),
+    );
+
+    notifyListeners();
+  }
+
+  addPosicionFinal( Offset positionI, Container widget ){
+    final boxC = keyColumna.currentContext!.findRenderObject()
+      as RenderBox;
+    final offsetC = boxC.localToGlobal(Offset.zero);
+
+    animacionf = Container(
+      child: widget,
+      margin: EdgeInsets.only(
+        top: positionI.dy - offsetC.dy,
+        left: positionI.dx - offsetC.dx
       ),
     );
 
@@ -56,5 +76,6 @@ class ResponseService with ChangeNotifier {
 
 
   Widget animacion = Container();
+  Widget animacionf = Container();
 
 }
