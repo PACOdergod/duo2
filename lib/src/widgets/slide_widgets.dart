@@ -23,7 +23,6 @@ class _SlideWidgetsState extends State<SlideWidgets>
 {
 
   List<Widget> widgets = [];
-
   late AnimationController controller;
 
   @override
@@ -35,15 +34,17 @@ class _SlideWidgetsState extends State<SlideWidgets>
     );
 
     widgets = [
-      Container(
-        height: 100,
-        width: widget.ancho,
-        color: Colors.transparent,
-      ),
+      // Container(
+      //   height: 100,
+      //   width: widget.ancho,
+      //   color: Colors.transparent,
+      // ),
       ...widget.widgets
     ];
     // widgets.insert(0, );
   }
+
+  bool isFirst = true;
 
   @override
   void dispose() {
@@ -54,7 +55,11 @@ class _SlideWidgetsState extends State<SlideWidgets>
   @override
   Widget build(BuildContext context) {
 
-    controller.forward(from: 0.0);
+    // TODO: como puedo hacer que el primer slide no se anime
+    // isFirst 
+    //   ? controller.forward(from: 1) 
+    //   : controller.forward(from: 0);
+    // isFirst = false;
 
     return Stack(
       children: [

@@ -86,6 +86,7 @@ Container _comprobar(BuildContext context) {
       child: PrincipalButton(
         text: "COMPROBAR",
         ancho: MediaQuery.of(context).size.width*.9,
+        // TODO: llamar al provider para que verifique la respuesta
         onTap: ()=>lessonService.indexSig(context)
       ),
     ),
