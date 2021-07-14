@@ -1,5 +1,3 @@
-
-import 'package:duo2/src/models/leccion_mode.dart';
 import 'package:flutter/material.dart';
 
 class ResponseService with ChangeNotifier {
@@ -35,25 +33,42 @@ class ResponseService with ChangeNotifier {
 
     notifyListeners();
   }
+
+  Widget animacion = Container();
+
+  seleccionoOpcion(Offset position, Opcion widget){
+    widget.color = Colors.black;
+    animacion = Container(
+      child: widget,
+      margin: EdgeInsets.only(
+        top: position.dy,
+        left: position.dx
+      ),
+    );
+
+    notifyListeners();
+  }
     
 }
 
 class Opcion extends StatelessWidget {
 
-  final String text;
   Opcion({
     Key? key, 
     required this.text,
-    this.mostrar = true
+    this.mostrar = true,
+    this.color = Colors.blue
   });
 
+  final String text;
   bool mostrar;
+  Color color;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       child: Text(text),
-      color: Colors.blue,
+      color: this.color,
       padding: EdgeInsets.all(10),
     );
   }

@@ -9,17 +9,8 @@ import 'package:provider/provider.dart';
 class ResponseArea extends StatefulWidget {
 
   final Quiz currentQuiz;
-  late final Map<String, bool> opciones;
 
-  ResponseArea({  
-    required this.currentQuiz,
-  }){
-    this.opciones = 
-    Map.fromIterable(currentQuiz.opciones,
-      key: (item) => item.toString(),
-      value: (item) => true
-    );
-  }
+  ResponseArea({ required this.currentQuiz });
 
   @override
   _ResponseAreaState createState() => _ResponseAreaState();
@@ -27,39 +18,41 @@ class ResponseArea extends StatefulWidget {
 
 class _ResponseAreaState extends State<ResponseArea> {
 
-  GlobalKey keyColumna = GlobalKey();
-  late Offset position;
-
   @override
   Widget build(BuildContext context) {
 
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(
-          create: (_)=>new ResponseService(widget.opciones),
-          lazy: false,)
-      ],
-      child: Stack(
-        children: [
-          Cuerpo(
-            keyColumna: keyColumna, 
-          ),
-            
-          // TODO: aqui ira la animacion
-        ],
-      ),
-    );
+    final responseService = Provider.of<ResponseService>(context);
+
+    return Container(
+        color: Colors.amber[100],
+        child: Stack(
+          children: [
+
+            Cuerpo(),
+              
+            // TODO: aqui ira la animacion
+            // Container(
+            //   margin: EdgeInsets.only(
+            //     top: 140,
+            //     left: 60.5
+            //   ),
+            //   height: 39, width: 47,
+            //   color: Colors.red,
+            // )
+
+            responseService.animacion
+
+          ],
+        ),
+      );
   }
 
 }
 
-class Cuerpo extends StatelessWidget {
-  const Cuerpo({
-    Key? key,
-    required this.keyColumna,
-  }) : super(key: key);
 
-  final GlobalKey<State<StatefulWidget>> keyColumna;
+class Cuerpo extends StatelessWidget {
+
+  final GlobalKey keyColumna = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
@@ -67,6 +60,7 @@ class Cuerpo extends StatelessWidget {
     final responseService = Provider.of<ResponseService>(context);
 
     return Stack(
+
       children: [
         Column(
           key: keyColumna,
@@ -92,14 +86,14 @@ class Cuerpo extends StatelessWidget {
 
             // OPCIONES
             Wrap (
-              children: responseService.misOpciones.map((e) => 
+              children: responseService.misOpciones.map((e) =>
+              // TODO con el opacity aunq no se vea sigue detectando 
                 Opacity(
                   opacity: e.mostrar? 1 : 0,
-                  child: GestureDetector(
-                    child: e,
-                    onTap: (){
-                      responseService.addRespuesta(e.text);
-                    },
+                  child: BotonOpcion(
+                    responseService: responseService,
+                    e: e,
+                    keyColumna: keyColumna,
                   ),
                 )
               ).toList(),
@@ -107,43 +101,47 @@ class Cuerpo extends StatelessWidget {
           ],
         ),
 
-        // TODO aqui ire la animacion
       ],
     );
   }
 }
 
-// class Demo extends StatelessWidget {
-//   final String text;
-//   final GlobalKey keyColumna;
-//   const Demo({ 
-//     Key? key,
-//     required this.text, 
-//     required this.keyColumna }) : super(key: key);
+class BotonOpcion extends StatelessWidget {
 
-//   @override
-//   Widget build(BuildContext context) {
-//     final responseService = Provider.of<ResponseService>(context, listen: false);
-//     return GestureDetector(
-//       child: Container(
-//         padding: EdgeInsets.all(10),
-//         // margin: EdgeInsets.all(10),
-//         color: Colors.green,
-//         child: Text(this.text),
-//       ),
-//       onTap: (){
-//         // Obtener el offset obsoluto de este widget
-//         final box = context.findRenderObject() as RenderBox;
-//         final offset = box.localToGlobal(Offset.zero);
-//         final tam = box.size;
-//         print(offset);
+  const BotonOpcion({
+    Key? key,
+    required this.responseService,
+    required this.e,
+    required this.keyColumna,
+  }) : super(key: key);
 
-//         // obtener el offset de la columna
-//         final boxC = keyColumna.currentContext!.findRenderObject() as RenderBox;
-//         final offsetC = boxC.localToGlobal(Offset.zero);
-//         print(offsetC);
+  final ResponseService responseService;
+  final Opcion e;
+  final GlobalKey keyColumna;
 
-//       },
-//     );
-//   }
-// }
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      child: e,
+      onTap: (){
+
+        // Obtener el offset obsoluto de este widget
+        final box = context.findRenderObject() as RenderBox;
+        final offset = box.localToGlobal(Offset.zero);
+        // final tam = box.size;
+        // print(offset);
+        // print(tam);
+
+        // obtener el offset de la columna
+        final boxC = keyColumna.currentContext!.findRenderObject()
+         as RenderBox;
+        final offsetC = boxC.localToGlobal(Offset.zero);
+        // print(offsetC);
+
+        responseService.seleccionoOpcion(offset - offsetC, e);
+
+        // responseService.addRespuesta(e.text);
+      },
+    );
+  }
+}
