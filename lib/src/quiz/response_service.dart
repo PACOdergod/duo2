@@ -6,7 +6,6 @@ import 'animacion.dart';
 import 'package:duo2/src/quiz/quiz_botones.dart';
 
 
-
 class ResponseService with ChangeNotifier {
 
   final Map<String, bool> opciones;
@@ -17,7 +16,7 @@ class ResponseService with ChangeNotifier {
     int i = 0;
     opciones.forEach((key, value) {
       totalOpciones.add(EjemploBoton(text: key));
-      var boton = Opcion(text: key, index: i);
+      var boton = Opcion(index: i, boton: totalOpciones[i],);
       misOpciones.add(boton);
       i++;
     });
@@ -28,23 +27,21 @@ class ResponseService with ChangeNotifier {
 
   late GlobalKey keyColumna;
 
-  void addRespuesta(String res, int index, Size tam){
-    misRespuestas.add(Respuesta(text: res, index: index,));
+  void addRespuesta(int index, Size tam){
+    misRespuestas.add(Respuesta(text: "hola", index: index,));
     misOpciones[index] = Sombra(tam: tam, index: index);
     notifyListeners();
   }
 
   void quitarRespuesta(int index, String text){
-    //TODO: deben ser 2 funciones para que se mande a llamar 
-    // agregar opcion despues de terminar la animacion
     misRespuestas.removeWhere((element) => element.text == text);
-    misOpciones[index] = Opcion(text: text, index: index);
+    misOpciones[index] = Opcion(index: index, boton: totalOpciones[index],);
 
     notifyListeners();
   }
 
 
-  seleccionoOpcion( Offset positionI, Container widget ){
+  seleccionoOpcion( Offset positionI, Widget widget ){
     // obtener el offset de la columna
     final boxC = keyColumna.currentContext!.findRenderObject()
       as RenderBox;

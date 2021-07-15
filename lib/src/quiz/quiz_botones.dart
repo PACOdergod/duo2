@@ -23,28 +23,21 @@ class Opcion extends Option{
 
   Opcion({
     Key? key, 
-    required this.text,
     required this.index,
-    this.mostrar = true,
+    required this.boton,
     this.color = Colors.blue
   }) : super(
-    text: text,
     index: index
   );
 
-  final String text;
-  bool mostrar;
   Color color;
   int index;
+  Widget boton;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      child: Container(
-        child: Text(text),
-        color: this.color,
-        padding: EdgeInsets.all(10),
-      ),
+      child: boton,
 
       onTap: () {
 
@@ -54,14 +47,10 @@ class Opcion extends Option{
         final tam = box.size;
 
         final service = Provider.of<ResponseService>(context, listen: false);
-        service.addRespuesta(text, index, tam);
+        service.addRespuesta(index, tam);
         service.empezar = true;
 
-        service.seleccionoOpcion(offset, Container(
-          child: Text(text),
-          color: Colors.red,
-          padding: EdgeInsets.all(10),
-        ),);
+        service.seleccionoOpcion(offset, boton,);
 
       },
     );
@@ -100,11 +89,9 @@ class Respuesta extends StatefulWidget {
     Key? key, 
     required this.text,
     required this.index,
-    this.color = Colors.blue
   });
 
   final String text;
-  Color color;
   int index;
 
   @override
@@ -117,14 +104,13 @@ class _RespuestaState extends State<Respuesta> with AfterLayoutMixin{
 
   @override
   Widget build(BuildContext context) {
+
+    final service = Provider.of<ResponseService>(context, listen: false);
+
     return Opacity(
       opacity: opacidad,
       child: GestureDetector(
-        child: Container(
-          child: Text(widget.text),
-          color: this.widget.color,
-          padding: EdgeInsets.all(10),
-        ),
+        child: service.totalOpciones[widget.index],
 
         onTap: (){
           final service = Provider.of<ResponseService>(context, listen: false);
@@ -139,7 +125,7 @@ class _RespuestaState extends State<Respuesta> with AfterLayoutMixin{
     
     final service = Provider.of<ResponseService>(context, listen: false);
     var res = getPosition(context);
-    service.addPosicionFinal(res.item1);
+    service.addPosicionFinal(res);
 
     // await Future.delayed(Duration(seconds: 2));
     // setState(() {
@@ -147,12 +133,11 @@ class _RespuestaState extends State<Respuesta> with AfterLayoutMixin{
     // });
   }
 
-  Tuple2<Offset, Size> getPosition(BuildContext context){
+  Offset getPosition(BuildContext context){
     final box =  context.findRenderObject() as RenderBox;
     final offset = box.localToGlobal(Offset.zero);
-    final tam = box.size;
-
-    return Tuple2<Offset, Size>(offset, tam);
+    // final tam = box.size;
+    return offset;
   }
 }
 
@@ -165,7 +150,7 @@ class EjemploBoton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: Text(text),
-      color: Colors.blue,
+      color: Colors.red,
       padding: EdgeInsets.all(10),
     );
   }
