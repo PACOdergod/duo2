@@ -1,15 +1,16 @@
-import 'package:duo2/src/widgets/progress_bar.dart';
 import 'package:flutter/material.dart';
 
+import 'progress_bar.dart';
 
-class ExamplePage extends StatefulWidget {
+
+class ProgressPage extends StatefulWidget {
 
   @override
-  _ExamplePageState createState() => _ExamplePageState();
+  _ProgressPageState createState() => _ProgressPageState();
 }
 
-class _ExamplePageState extends State<ExamplePage> 
-with SingleTickerProviderStateMixin
+class _ProgressPageState extends State<ProgressPage> 
+  with SingleTickerProviderStateMixin
 {
 
   int index = 0;
@@ -38,4 +39,5 @@ with SingleTickerProviderStateMixin
       )
    );
   }
+  
 }
