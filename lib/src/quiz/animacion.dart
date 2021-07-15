@@ -46,9 +46,6 @@ class _AnimacionState extends State<Animacion> with AfterLayoutMixin{
     setState(() {
       position = widget.fin;
     });
-
-    // final service = Provider.of<ResponseService>(context, listen: false);
-    //     service.deleteAnimation();
   }
 }
 

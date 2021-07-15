@@ -49,6 +49,7 @@ class Opcion extends Option{
       ),
 
       onTap: () {
+
         // Obtener el offset obsoluto de este widget
         final box = context.findRenderObject() as RenderBox;
         final offset = box.localToGlobal(Offset.zero);
@@ -56,7 +57,7 @@ class Opcion extends Option{
 
         final service = Provider.of<ResponseService>(context, listen: false);
         service.addRespuesta(text, index, tam);
-
+        service.empezar = true;
 
         //TODO: llamar a activar la animacion
         service.seleccionoOpcion(offset, Container(
@@ -64,7 +65,6 @@ class Opcion extends Option{
           color: Colors.red,
           padding: EdgeInsets.all(10),
         ),);
-
 
       },
     );
@@ -118,6 +118,7 @@ class _RespuestaState extends State<Respuesta> with AfterLayoutMixin{
 
   @override
   Widget build(BuildContext context) {
+
     return GestureDetector(
       child: Container(
         child: Text(widget.text),
@@ -138,11 +139,7 @@ class _RespuestaState extends State<Respuesta> with AfterLayoutMixin{
     final service = Provider.of<ResponseService>(context, listen: false);
     var res = getPosition(context);
 
-    service.addPosicionFinal(res.item1, Container(
-      child: Text(widget.text),
-      color: Colors.blue,
-      padding: EdgeInsets.all(10),
-    ));
+    service.addPosicionFinal(res.item1);
  
   }
 

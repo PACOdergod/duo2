@@ -55,24 +55,31 @@ class ResponseService with ChangeNotifier {
   }
 
   late Offset posicionInicial;
+  late Offset posicionFinal;
+  late bool empezar;
 
-  addPosicionFinal( Offset positionI, Container widget ){
+  addPosicionFinal( Offset positionI ){
     final boxC = keyColumna.currentContext!.findRenderObject()
       as RenderBox;
     final offsetC = boxC.localToGlobal(Offset.zero);
 
-    Offset posicionFinal = positionI - offsetC;
+    posicionFinal = positionI - offsetC;
+    if(empezar) _iniciarAnimacion();
 
+    empezar = false;
+  }
+
+  _iniciarAnimacion() async {
     animacionf = new Animacion(
       inicio: posicionInicial, 
       fin: posicionFinal
     );
 
     notifyListeners();
-  }
 
-  deleteAnimation(){
-    animacionf = Container();
+    await Future.delayed(Duration(seconds: 2));
+    animacionf = new Container();
+    notifyListeners();
   }
 
   Widget animacionf = Container();
