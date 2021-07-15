@@ -17,14 +17,16 @@ class _ResponseAreaState extends State<ResponseArea> {
 
     final responseService = Provider.of<ResponseService>(context);
 
+    //TODO quitar este container
     return Container(
-        color: Colors.amber[100],
+        // color: Colors.amber[100],
         child: Stack(
           children: [
 
             Cuerpo(),
 
             responseService.animacionf,
+
           ],
         ),
       );
@@ -61,7 +63,12 @@ class Cuerpo extends StatelessWidget {
               ),
 
               child: Row(
-                children: responseService.misRespuestas
+                children: responseService.misRespuestas.map((e) => 
+                Container(
+                  child: e,
+                  margin: EdgeInsets.all(10),
+                )
+              ).toList()
               ),
             ),
 
@@ -69,7 +76,12 @@ class Cuerpo extends StatelessWidget {
 
             // OPCIONES
             Wrap (
-              children: responseService.misOpciones
+              children: responseService.misOpciones.map((e) => 
+                Container(
+                  child: e,
+                  margin: EdgeInsets.all(10),
+                )
+              ).toList()
             )
           ],
         ),

@@ -63,6 +63,9 @@ class ResponseService with ChangeNotifier {
     posicionFinal = position - offsetC;
     if(empezar) iniciarAnimacion();
 
+    // print("Inicial" + posicionInicial.toString());
+    // print("Final" + posicionFinal.toString());
+
     empezar = false;
   }
 
