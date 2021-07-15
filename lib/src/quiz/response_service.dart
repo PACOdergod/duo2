@@ -10,16 +10,15 @@ import 'package:duo2/src/quiz/quiz_botones.dart';
 class ResponseService with ChangeNotifier {
 
   final Map<String, bool> opciones;
-  // TODO: en vez de andar construyendo una opcion en cada cambio
-  // todos los metodos tomaran de esta lista las opciones que necesiten
-  List<Opcion> totalOpciones = [];
+
+  List<EjemploBoton> totalOpciones = [];
 
   ResponseService(this.opciones){
     int i = 0;
     opciones.forEach((key, value) {
-      var boton = Opcion(text: key, index: i,);
+      totalOpciones.add(EjemploBoton(text: key));
+      var boton = Opcion(text: key, index: i);
       misOpciones.add(boton);
-      totalOpciones.add(boton);
       i++;
     });
   }
@@ -64,12 +63,12 @@ class ResponseService with ChangeNotifier {
     final offsetC = boxC.localToGlobal(Offset.zero);
 
     posicionFinal = positionI - offsetC;
-    if(empezar) _iniciarAnimacion();
+    if(empezar) iniciarAnimacion();
 
     empezar = false;
   }
 
-  _iniciarAnimacion() async {
+  iniciarAnimacion() async {
     animacionf = new Animacion(
       inicio: posicionInicial, 
       fin: posicionFinal

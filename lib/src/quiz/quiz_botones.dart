@@ -13,11 +13,9 @@ abstract class Option extends StatelessWidget{
     Key? key, 
     this.text,
     required this.index,
-    this.color = Colors.blue
   });
 
   String? text;
-  Color color;
   int index;
 }
 
@@ -59,7 +57,6 @@ class Opcion extends Option{
         service.addRespuesta(text, index, tam);
         service.empezar = true;
 
-        //TODO: llamar a activar la animacion
         service.seleccionoOpcion(offset, Container(
           child: Text(text),
           color: Colors.red,
@@ -116,31 +113,38 @@ class Respuesta extends StatefulWidget {
 
 class _RespuestaState extends State<Respuesta> with AfterLayoutMixin{
 
+  double opacidad = 1;
+
   @override
   Widget build(BuildContext context) {
+    return Opacity(
+      opacity: opacidad,
+      child: GestureDetector(
+        child: Container(
+          child: Text(widget.text),
+          color: this.widget.color,
+          padding: EdgeInsets.all(10),
+        ),
 
-    return GestureDetector(
-      child: Container(
-        child: Text(widget.text),
-        color: this.widget.color,
-        padding: EdgeInsets.all(10),
+        onTap: (){
+          final service = Provider.of<ResponseService>(context, listen: false);
+          service.quitarRespuesta(widget.index, widget.text);
+        },
       ),
-
-      onTap: (){
-        final service = Provider.of<ResponseService>(context, listen: false);
-        service.quitarRespuesta(widget.index, widget.text);
-      },
     );
   }
 
   @override
-  void afterFirstLayout(BuildContext context) {
+  void afterFirstLayout(BuildContext context) async {
     
     final service = Provider.of<ResponseService>(context, listen: false);
     var res = getPosition(context);
-
     service.addPosicionFinal(res.item1);
- 
+
+    // await Future.delayed(Duration(seconds: 2));
+    // setState(() {
+    //   opacidad = 1;
+    // });
   }
 
   Tuple2<Offset, Size> getPosition(BuildContext context){
@@ -149,5 +153,20 @@ class _RespuestaState extends State<Respuesta> with AfterLayoutMixin{
     final tam = box.size;
 
     return Tuple2<Offset, Size>(offset, tam);
+  }
+}
+
+class EjemploBoton extends StatelessWidget {
+
+  final String text;
+  const EjemploBoton({Key? key,required this.text}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Text(text),
+      color: Colors.blue,
+      padding: EdgeInsets.all(10),
+    );
   }
 }
