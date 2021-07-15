@@ -1,9 +1,9 @@
-import 'package:after_layout/after_layout.dart';
-import 'package:duo2/src/quiz/quiz_botones.dart';
 
 import 'package:flutter/material.dart';
+import 'package:after_layout/after_layout.dart';
 
 import 'animacion.dart';
+import 'package:duo2/src/quiz/quiz_botones.dart';
 
 
 
@@ -45,7 +45,6 @@ class ResponseService with ChangeNotifier {
   }
 
 
-
   seleccionoOpcion( Offset positionI, Container widget ){
     // obtener el offset de la columna
     final boxC = keyColumna.currentContext!.findRenderObject()
@@ -70,6 +69,10 @@ class ResponseService with ChangeNotifier {
     );
 
     notifyListeners();
+  }
+
+  deleteAnimation(){
+    animacionf = Container();
   }
 
   Widget animacionf = Container();

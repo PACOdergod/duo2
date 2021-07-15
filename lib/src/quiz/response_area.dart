@@ -29,7 +29,6 @@ class _ResponseAreaState extends State<ResponseArea> {
         ),
       );
   }
-
 }
 
 
@@ -76,44 +75,6 @@ class Cuerpo extends StatelessWidget {
         ),
 
       ],
-    );
-  }
-}
-
-class BotonOpcion extends StatelessWidget {
-
-  const BotonOpcion({
-    Key? key,
-    required this.responseService,
-    required this.e,
-    required this.keyColumna,
-  }) : super(key: key);
-
-  final ResponseService responseService;
-  final Opcion e;
-  final GlobalKey keyColumna;
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      child: e,
-      onTap: (){
-
-        // // Obtener el offset obsoluto de este widget
-        // final box = context.findRenderObject() as RenderBox;
-        // final offset = box.localToGlobal(Offset.zero);
-        // final tam = box.size;
-        // print(offset);
-        // print(tam);
-
-        // // obtener el offset de la columna
-        // final boxC = keyColumna.currentContext!.findRenderObject()
-        //  as RenderBox;
-        // final offsetC = boxC.localToGlobal(Offset.zero);
-
-        // responseService.seleccionoOpcion(offset - offsetC, e);
-        // responseService.addRespuesta(e.text);
-      },
     );
   }
 }

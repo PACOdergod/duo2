@@ -1,5 +1,7 @@
 import 'package:after_layout/after_layout.dart';
+import 'package:duo2/src/quiz/response_service.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Animacion extends StatefulWidget {
 
@@ -44,6 +46,9 @@ class _AnimacionState extends State<Animacion> with AfterLayoutMixin{
     setState(() {
       position = widget.fin;
     });
+
+    // final service = Provider.of<ResponseService>(context, listen: false);
+    //     service.deleteAnimation();
   }
 }
 

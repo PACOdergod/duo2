@@ -134,17 +134,15 @@ class _RespuestaState extends State<Respuesta> with AfterLayoutMixin{
 
   @override
   void afterFirstLayout(BuildContext context) {
+    
     final service = Provider.of<ResponseService>(context, listen: false);
     var res = getPosition(context);
 
-    //cuando se agrega una respuesta se debe enviar su posicion
-    // al provider para que sea la posicion final
-
     service.addPosicionFinal(res.item1, Container(
-          child: Text(widget.text),
-          color: Colors.blue,
-          padding: EdgeInsets.all(10),
-        ));
+      child: Text(widget.text),
+      color: Colors.blue,
+      padding: EdgeInsets.all(10),
+    ));
  
   }
 
