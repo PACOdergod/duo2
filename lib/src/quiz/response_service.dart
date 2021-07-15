@@ -8,6 +8,7 @@ import 'package:duo2/src/quiz/quiz_botones.dart';
 
 class ResponseService with ChangeNotifier {
 
+  // TODO: Cambiar esto, solo debe recibir una lista de strings
   final Map<String, bool> opciones;
 
   List<EjemploBoton> totalOpciones = [];
@@ -16,7 +17,7 @@ class ResponseService with ChangeNotifier {
     int i = 0;
     opciones.forEach((key, value) {
       totalOpciones.add(EjemploBoton(text: key));
-      var boton = Opcion(index: i, boton: totalOpciones[i],);
+      var boton = Opcion(index: i);
       misOpciones.add(boton);
       i++;
     });
@@ -28,38 +29,38 @@ class ResponseService with ChangeNotifier {
   late GlobalKey keyColumna;
 
   void addRespuesta(int index, Size tam){
-    misRespuestas.add(Respuesta(text: "hola", index: index,));
+    misRespuestas.add(Respuesta( index: index ));
     misOpciones[index] = Sombra(tam: tam, index: index);
     notifyListeners();
   }
 
-  void quitarRespuesta(int index, String text){
-    misRespuestas.removeWhere((element) => element.text == text);
-    misOpciones[index] = Opcion(index: index, boton: totalOpciones[index],);
-
+  void quitarRespuesta(int index){
+    misRespuestas.removeWhere((element) => element.index == index);
+    misOpciones[index] = Opcion(index: index);
     notifyListeners();
   }
 
 
-  seleccionoOpcion( Offset positionI, Widget widget ){
+  seleccionoOpcion( Offset positionI, int index ){
     // obtener el offset de la columna
-    final boxC = keyColumna.currentContext!.findRenderObject()
-      as RenderBox;
+    final boxC = keyColumna.currentContext!.findRenderObject() as RenderBox;
     final offsetC = boxC.localToGlobal(Offset.zero);
 
     posicionInicial = positionI - offsetC;
+    indexBotonAnimar = index;
   }
 
   late Offset posicionInicial;
   late Offset posicionFinal;
   late bool empezar;
+  late int indexBotonAnimar;
 
-  addPosicionFinal( Offset positionI ){
+  addPosicionFinal( Offset position ){
     final boxC = keyColumna.currentContext!.findRenderObject()
       as RenderBox;
     final offsetC = boxC.localToGlobal(Offset.zero);
 
-    posicionFinal = positionI - offsetC;
+    posicionFinal = position - offsetC;
     if(empezar) iniciarAnimacion();
 
     empezar = false;
@@ -68,7 +69,8 @@ class ResponseService with ChangeNotifier {
   iniciarAnimacion() async {
     animacionf = new Animacion(
       inicio: posicionInicial, 
-      fin: posicionFinal
+      fin: posicionFinal,
+      boton: totalOpciones[indexBotonAnimar],
     );
 
     notifyListeners();

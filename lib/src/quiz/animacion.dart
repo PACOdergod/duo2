@@ -7,13 +7,13 @@ class Animacion extends StatefulWidget {
 
   final Offset inicio;
   final Offset fin;
+  final Widget boton;
 
-  const Animacion({
-    Key? key, 
+  Animacion({
     required this.inicio, 
-    required this.fin,
-
-  }) : super(key: key);
+    required this.fin, 
+    required this.boton,
+  });
 
   @override
   _AnimacionState createState() => _AnimacionState();
@@ -37,7 +37,7 @@ class _AnimacionState extends State<Animacion> with AfterLayoutMixin{
         top: position.dy,
         left: position.dx
       ),
-      child: Demo(),
+      child: widget.boton,
     );
   }
 
@@ -46,16 +46,5 @@ class _AnimacionState extends State<Animacion> with AfterLayoutMixin{
     setState(() {
       position = widget.fin;
     });
-  }
-}
-
-class Demo extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Text("hola"),
-      color: Colors.red,
-      padding: EdgeInsets.all(10),
-    );
   }
 }

@@ -24,7 +24,6 @@ class Opcion extends Option{
   Opcion({
     Key? key, 
     required this.index,
-    required this.boton,
     this.color = Colors.blue
   }) : super(
     index: index
@@ -32,12 +31,14 @@ class Opcion extends Option{
 
   Color color;
   int index;
-  Widget boton;
 
   @override
   Widget build(BuildContext context) {
+
+    final service = Provider.of<ResponseService>(context, listen: false);
+
     return GestureDetector(
-      child: boton,
+      child: service.totalOpciones[index],
 
       onTap: () {
 
@@ -50,7 +51,7 @@ class Opcion extends Option{
         service.addRespuesta(index, tam);
         service.empezar = true;
 
-        service.seleccionoOpcion(offset, boton,);
+        service.seleccionoOpcion(offset, this.index);
 
       },
     );
@@ -87,11 +88,9 @@ class Respuesta extends StatefulWidget {
 
   Respuesta({
     Key? key, 
-    required this.text,
     required this.index,
   });
 
-  final String text;
   int index;
 
   @override
@@ -114,7 +113,7 @@ class _RespuestaState extends State<Respuesta> with AfterLayoutMixin{
 
         onTap: (){
           final service = Provider.of<ResponseService>(context, listen: false);
-          service.quitarRespuesta(widget.index, widget.text);
+          service.quitarRespuesta(widget.index);
         },
       ),
     );

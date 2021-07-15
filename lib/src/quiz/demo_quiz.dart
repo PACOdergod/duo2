@@ -25,6 +25,7 @@ class _DemoQuizState extends State<DemoQuiz> {
           animar ? new Animacion(
             inicio: inicial,
             fin: fin,
+            boton: Container(),
           ) 
           : Container(),
         ],
