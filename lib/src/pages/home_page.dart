@@ -1,7 +1,7 @@
-import 'package:duo2/src/widgets/home_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import 'package:duo2/src/widgets/home_appbar.dart';
 import 'package:duo2/src/widgets/module.dart';
 import 'package:duo2/src/widgets/box_description.dart';
 import 'package:duo2/src/controllers/advance_controller.dart';
