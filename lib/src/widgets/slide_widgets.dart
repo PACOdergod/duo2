@@ -24,7 +24,6 @@ class _SlideWidgetsState extends State<SlideWidgets>
   with SingleTickerProviderStateMixin
 {
 
-  List<Widget> widgets = [];
   late AnimationController controller;
 
   @override
@@ -43,6 +42,7 @@ class _SlideWidgetsState extends State<SlideWidgets>
   }
 
   bool primero = true;
+  List<Widget> widgets = [];
 
   @override
   Widget build(BuildContext context) {
@@ -62,6 +62,8 @@ class _SlideWidgetsState extends State<SlideWidgets>
           .animate(CurvedAnimation(
             parent: controller, 
             curve: Curves.easeInOutSine)),
+            // TODO no debe crear una nueva instancia de quiz section
+            // ya que esta ya existe
           child: new QuizSection(currentQuiz: widget.quizes[widget.index]),
         ),
 
