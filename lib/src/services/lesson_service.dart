@@ -27,10 +27,4 @@ class LessonService with ChangeNotifier {
     notifyListeners();
   } 
 
-
-  seccion(){
-    QuizSection(currentQuiz: lesson.quizes[currentIndex]);
-    notifyListeners();
-  }
-
 }

@@ -73,10 +73,12 @@ class _LessonBodyState extends State<LessonBody> {
             SizedBox(height: 10,),
 
             // Quiz section
-            // TODO: debe hacer un slide entre las 2 secciones sin crear 
-            // la segunda
             Expanded(
-              child: lessonService.seccion()
+              child: SlideWidgets(
+                ancho: MediaQuery.of(context).size.width, 
+                index: index,
+                quizes: quizes,
+              )
             )
 
           ],
