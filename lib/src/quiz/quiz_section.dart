@@ -21,8 +21,6 @@ class QuizSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final responseService = Provider.of<ResponseService>(context);
-    responseService.keyColumna = keyColumna;
 
     return BlocProvider(
       create: (context) => new QuizCubit(currentQuiz.opciones),
@@ -65,40 +63,37 @@ class QuizSection extends StatelessWidget {
                   SizedBox(height: 10),
 
                   // linear donde se acomodaran las respuestas
-                  Container(
-                    margin: EdgeInsets.symmetric(horizontal: 20),
-                    height: 80,
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        border: Border(
-                            bottom:
-                                BorderSide(color: Colors.black12, width: 3))),
-                    child: Row(
-                        children: state.misRespuestas
-                            .map((e) => Container(
-                                  child: e,
-                                  margin: EdgeInsets.all(10),
-                                ))
-                            .toList()),
-                  ),
+                  // Container(
+                  //   margin: EdgeInsets.symmetric(horizontal: 20),
+                  //   height: 80,
+                  //   decoration: BoxDecoration(
+                  //       color: Colors.white,
+                  //       border: Border(
+                  //           bottom:
+                  //               BorderSide(color: Colors.black12, width: 3))),
+                  //   child: Row(
+                  //       children: state.misRespuestas
+                  //           .map((e) => Container(
+                  //                 child: e,
+                  //                 margin: EdgeInsets.all(10),
+                  //               ))
+                  //           .toList()),
+                  // ),
 
-                  SizedBox(height: 60),
+                  // SizedBox(height: 60),
 
-                  // OPCIONES
-                  Wrap(
-                      children: state.misOpciones
-                          .map((e) => Container(
-                                child: e,
-                                margin: EdgeInsets.all(10),
-                              ))
-                          .toList()),
+                  // // OPCIONES
+                  // Wrap(
+                  //     children: state.misOpciones
+                  //         .map((e) => Container(
+                  //               child: e,
+                  //               margin: EdgeInsets.all(10),
+                  //             ))
+                  //         .toList()),
 
                   Expanded(child: Container()),
 
-                  Container(
-                    child: _comprobar(context),
-                    margin: EdgeInsets.only(bottom: 10),
-                  )
+                  state.comprobar(context),
                 ],
               ),
             ]),
@@ -109,17 +104,3 @@ class QuizSection extends StatelessWidget {
   }
 }
 
-Container _comprobar(BuildContext context) {
-  final lessonService = Provider.of<LessonService>(context, listen: false);
-
-  return Container(
-    width: MediaQuery.of(context).size.width,
-    child: Center(
-      child: PrincipalButton(
-          text: "COMPROBAR",
-          ancho: MediaQuery.of(context).size.width * .9,
-          // TODO: llamar al provider para que verifique la respuesta
-          onTap: () => lessonService.indexSig(context)),
-    ),
-  );
-}

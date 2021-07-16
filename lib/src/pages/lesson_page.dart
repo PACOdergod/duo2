@@ -76,16 +76,7 @@ class _LessonBodyState extends State<LessonBody> {
             // TODO: debe hacer un slide entre las 2 secciones sin crear 
             // la segunda
             Expanded(
-              child: MultiProvider(
-                providers: [
-                  ChangeNotifierProvider(
-                    create: (_)=>new ResponseService(
-                      quizes[0].opciones
-                    ),
-                    lazy: false,)
-                ],
-                child: QuizSection(currentQuiz: quizes[0])
-              ),
+              child: lessonService.seccion()
             )
 
           ],

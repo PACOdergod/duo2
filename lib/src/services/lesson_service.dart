@@ -1,3 +1,4 @@
+import 'package:duo2/src/quiz/quiz_section.dart';
 import 'package:flutter/widgets.dart';
 
 // import 'package:get/get.dart';
@@ -25,5 +26,11 @@ class LessonService with ChangeNotifier {
     currentIndex++;
     notifyListeners();
   } 
+
+
+  seccion(){
+    QuizSection(currentQuiz: lesson.quizes[currentIndex]);
+    notifyListeners();
+  }
 
 }
