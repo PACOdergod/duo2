@@ -8,15 +8,14 @@ import 'package:duo2/src/quiz/quiz_botones.dart';
 
 class ResponseService with ChangeNotifier {
 
-  // TODO: Cambiar esto, solo debe recibir una lista de strings
-  final Map<String, bool> opciones;
+  final List<String> options;
 
   List<EjemploBoton> totalOpciones = [];
 
-  ResponseService(this.opciones){
+  ResponseService(this.options){
     int i = 0;
-    opciones.forEach((key, value) {
-      totalOpciones.add(EjemploBoton(text: key));
+    options.forEach((opcion) {
+      totalOpciones.add(EjemploBoton(text: opcion));
       var boton = Opcion(index: i);
       misOpciones.add(boton);
       i++;

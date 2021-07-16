@@ -1,9 +1,9 @@
-import 'package:duo2/src/quiz/response_area.dart';
-import 'package:duo2/src/quiz/response_service.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:provider/provider.dart';
+
+import 'package:duo2/src/quiz/response_area.dart';
+import 'package:duo2/src/quiz/response_service.dart';
 
 import 'package:duo2/src/models/leccion_mode.dart';
 import 'package:duo2/src/services/lesson_service.dart';
@@ -20,12 +20,6 @@ class SectionResponse extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    Map<String, bool> opciones = Map.fromIterable(
-      currentQuiz.opciones,
-      key: (item) => item.toString(),
-      value: (item) => true
-    );
 
     return Container(
       color: Colors.white,
@@ -65,7 +59,7 @@ class SectionResponse extends StatelessWidget {
                 providers: [
                   ChangeNotifierProvider(
                     create: (_)=>new ResponseService(
-                      opciones
+                      currentQuiz.opciones
                     ),
                     lazy: false,)
                 ],

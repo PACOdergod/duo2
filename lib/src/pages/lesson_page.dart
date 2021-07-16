@@ -1,4 +1,5 @@
 
+import 'package:duo2/src/quiz/lesson_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
@@ -6,7 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:duo2/src/controllers/lesson_controller.dart';
 import 'package:duo2/src/services/lesson_service.dart';
 import 'package:duo2/src/models/leccion_mode.dart';
-import 'package:duo2/src/quiz/quiz_section.dart';
+import 'package:duo2/src/quiz/section_response.dart';
 
 import 'package:duo2/src/progress_bar/progress_bar.dart';
 import 'package:duo2/src/widgets/slide_widgets.dart';
@@ -79,7 +80,7 @@ class _LessonBodyState extends State<LessonBody> {
             children: [
 
             //appbar
-            _LessonAppbar(secciones: secciones),
+            LessonAppbar(secciones: secciones),
 
             SizedBox(height: 10,),
 
@@ -96,47 +97,6 @@ class _LessonBodyState extends State<LessonBody> {
         ),
       )
       
-    );
-  }
-}
-
-class _LessonAppbar extends StatelessWidget {
-  const _LessonAppbar({
-    Key? key,
-    required this.secciones,
-  }) : super(key: key);
-
-  final List<SectionResponse> secciones;
-
-  @override
-  Widget build(BuildContext context) {
-
-    var lessonService = Provider.of<LessonService>(context);
-    var index = lessonService.currentIndex;
-
-    return SafeArea(
-      child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 10),
-        width: MediaQuery.of(context).size.width,
-        height: 60,
-        color: Colors.white,
-        child: Row(
-          children: [
-
-            IconButton(
-              icon: Icon(Icons.close, size: 32,),
-              onPressed: ()=> Navigator.pop(context),
-            ),
-
-            ProgressBar(
-              largo: secciones.length,
-              index: index,
-              ancho: MediaQuery.of(context).size.width*.65,
-            ),
-
-          ],
-        ),
-      ),
     );
   }
 }
