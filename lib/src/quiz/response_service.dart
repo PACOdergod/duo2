@@ -28,7 +28,7 @@ class ResponseService with ChangeNotifier {
   late GlobalKey keyColumna;
 
   void addRespuesta(int index, Size tam){
-    misRespuestas.add(Respuesta( index: index ));
+    misRespuestas.add( Respuesta( index: index ) );
     misOpciones[index] = Sombra(tam: tam, index: index);
     notifyListeners();
   }
