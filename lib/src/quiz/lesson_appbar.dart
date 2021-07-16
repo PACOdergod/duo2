@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:duo2/src/progress_bar/progress_bar.dart';
-import 'package:duo2/src/quiz/quiz:section.dart';
+import 'package:duo2/src/quiz/quiz_section.dart';
 import 'package:duo2/src/services/lesson_service.dart';
 
 class LessonAppbar extends StatelessWidget {
   const LessonAppbar({
     Key? key,
-    required this.secciones,
+    required this.tam,
   }) : super(key: key);
 
-  final List<QuizSection> secciones;
+  final int tam;
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +34,7 @@ class LessonAppbar extends StatelessWidget {
             ),
 
             ProgressBar(
-              largo: secciones.length,
+              largo: tam,
               index: index,
               ancho: MediaQuery.of(context).size.width*.65,
             ),

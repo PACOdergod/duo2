@@ -1,5 +1,6 @@
 
 import 'package:duo2/src/quiz/lesson_appbar.dart';
+import 'package:duo2/src/quiz/response_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
@@ -7,7 +8,7 @@ import 'package:provider/provider.dart';
 import 'package:duo2/src/controllers/lesson_controller.dart';
 import 'package:duo2/src/services/lesson_service.dart';
 import 'package:duo2/src/models/leccion_mode.dart';
-import 'package:duo2/src/quiz/quiz:section.dart';
+import 'package:duo2/src/quiz/quiz_section.dart';
 
 import 'package:duo2/src/widgets/slide_widgets.dart';
 
@@ -48,7 +49,6 @@ class LessonBody extends StatefulWidget {
 class _LessonBodyState extends State<LessonBody> {
 
   late LessonService lessonService;
-  late List<QuizSection> secciones;
   
   @override
   Widget build(BuildContext context) {
@@ -68,7 +68,7 @@ class _LessonBodyState extends State<LessonBody> {
             children: [
 
             //appbar
-            LessonAppbar(secciones: secciones),
+            LessonAppbar(tam: quizes.length,),
 
             SizedBox(height: 10,),
 
@@ -76,7 +76,16 @@ class _LessonBodyState extends State<LessonBody> {
             // TODO: debe hacer un slide entre las 2 secciones sin crear 
             // la segunda
             Expanded(
-              child: QuizSection(currentQuiz: quizes[0]),
+              child: MultiProvider(
+                providers: [
+                  ChangeNotifierProvider(
+                    create: (_)=>new ResponseService(
+                      quizes[0].opciones
+                    ),
+                    lazy: false,)
+                ],
+                child: QuizSection(currentQuiz: quizes[0])
+              ),
             )
 
           ],

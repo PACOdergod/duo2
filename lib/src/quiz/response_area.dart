@@ -17,7 +17,6 @@ class _ResponseAreaState extends State<ResponseArea> {
 
     final responseService = Provider.of<ResponseService>(context);
 
-    //TODO quitar este container
     return Stack(
       children: [
 

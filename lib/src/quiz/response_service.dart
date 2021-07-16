@@ -60,7 +60,7 @@ class ResponseService with ChangeNotifier {
     final offsetC = boxC.localToGlobal(Offset.zero);
 
     posicionFinal = position - offsetC;
-    if(empezar) iniciarAnimacion();
+    // if(empezar) iniciarAnimacion();
 
     // print("Inicial" + posicionInicial.toString());
     // print("Final" + posicionFinal.toString());

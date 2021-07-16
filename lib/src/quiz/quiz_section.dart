@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
 
-import 'package:duo2/src/quiz/response_area.dart';
-import 'package:duo2/src/quiz/response_service.dart';
 
+import 'package:duo2/src/quiz/response_service.dart';
 import 'package:duo2/src/models/leccion_mode.dart';
 import 'package:duo2/src/services/lesson_service.dart';
 import 'package:duo2/src/widgets/principal_button.dart';
@@ -18,8 +17,13 @@ class QuizSection extends StatelessWidget {
     required this.currentQuiz, 
   });
 
+  final GlobalKey keyColumna = GlobalKey();
+
   @override
   Widget build(BuildContext context) {
+
+    final responseService = Provider.of<ResponseService>(context);
+    responseService.keyColumna = keyColumna;
 
     return Container(
       color: Colors.white,
@@ -55,25 +59,51 @@ class QuizSection extends StatelessWidget {
 
               SizedBox(height: 10),
 
-              MultiProvider(
-                providers: [
-                  ChangeNotifierProvider(
-                    create: (_)=>new ResponseService(
-                      currentQuiz.opciones
-                    ),
-                    lazy: false,)
-                ],
-                child: ResponseArea(),
+              // linear donde se acomodaran las respuestas
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: 20),
+                height: 80,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  border: Border(
+                    bottom: BorderSide(color: Colors.black12, width: 3)
+                  )
+                ),
+
+                child: Row(
+                  children: responseService.misRespuestas.map((e) => 
+                    Container(
+                      child: e,
+                      margin: EdgeInsets.all(10),
+                    )
+                  ).toList()
+                ),
+              ),
+
+              SizedBox(height: 60),
+
+              // OPCIONES
+              Wrap (
+                children: responseService.misOpciones.map((e) => 
+                  Container(
+                    child: e,
+                    margin: EdgeInsets.all(10),
+                  )
+                ).toList()
+              ),
+
+              Expanded(child: Container()),
+
+              Container(
+                child: _comprobar(context),
+                margin: EdgeInsets.only(
+                  bottom: 10
+                ),
               )
 
             ],
           ),
 
-          
-          Positioned(
-            bottom: 10,
-            child: _comprobar(context)
-          )
         ]
       ),
     );
