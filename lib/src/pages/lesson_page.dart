@@ -7,9 +7,8 @@ import 'package:provider/provider.dart';
 import 'package:duo2/src/controllers/lesson_controller.dart';
 import 'package:duo2/src/services/lesson_service.dart';
 import 'package:duo2/src/models/leccion_mode.dart';
-import 'package:duo2/src/quiz/section_response.dart';
+import 'package:duo2/src/quiz/quiz:section.dart';
 
-import 'package:duo2/src/progress_bar/progress_bar.dart';
 import 'package:duo2/src/widgets/slide_widgets.dart';
 
 
@@ -40,10 +39,7 @@ class LessonPage extends StatelessWidget{
 class LessonBody extends StatefulWidget {
 
   final Leccion lesson;
-
-  const LessonBody({
-    required this.lesson,
-  });
+  const LessonBody({ required this.lesson });
 
   @override
   _LessonBodyState createState() => _LessonBodyState();
@@ -52,7 +48,7 @@ class LessonBody extends StatefulWidget {
 class _LessonBodyState extends State<LessonBody> {
 
   late LessonService lessonService;
-  late List<SectionResponse> secciones;
+  late List<QuizSection> secciones;
   
   @override
   Widget build(BuildContext context) {
@@ -61,16 +57,8 @@ class _LessonBodyState extends State<LessonBody> {
     var quizes = lessonService.lesson.quizes;
     var index = lessonService.currentIndex;
 
-    List<SectionResponse> secciones = [];
-    for (var i = 0; i < quizes.length; i++) {
-      secciones.add(SectionResponse(
-        currentQuiz: quizes[i],
-        key: ValueKey<int>(i),
-      ));
-    }
 
     return Scaffold(
-    
       body: Container(
 
           width: MediaQuery.of(context).size.width,
@@ -85,12 +73,10 @@ class _LessonBodyState extends State<LessonBody> {
             SizedBox(height: 10,),
 
             // Quiz section
+            // TODO: debe hacer un slide entre las 2 secciones sin crear 
+            // la segunda
             Expanded(
-              child: SlideWidgets(
-                index: index,
-                widgets: secciones,
-                ancho: MediaQuery.of(context).size.width,
-              ),
+              child: QuizSection(currentQuiz: quizes[0]),
             )
 
           ],

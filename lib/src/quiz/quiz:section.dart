@@ -9,11 +9,11 @@ import 'package:duo2/src/models/leccion_mode.dart';
 import 'package:duo2/src/services/lesson_service.dart';
 import 'package:duo2/src/widgets/principal_button.dart';
 
-class SectionResponse extends StatelessWidget {
+class QuizSection extends StatelessWidget {
 
   final Quiz currentQuiz;
 
-  SectionResponse({
+  QuizSection({
     Key? key, 
     required this.currentQuiz, 
   });

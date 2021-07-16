@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:duo2/src/progress_bar/progress_bar.dart';
-import 'package:duo2/src/quiz/section_response.dart';
+import 'package:duo2/src/quiz/quiz:section.dart';
 import 'package:duo2/src/services/lesson_service.dart';
 
 class LessonAppbar extends StatelessWidget {
@@ -11,7 +11,7 @@ class LessonAppbar extends StatelessWidget {
     required this.secciones,
   }) : super(key: key);
 
-  final List<SectionResponse> secciones;
+  final List<QuizSection> secciones;
 
   @override
   Widget build(BuildContext context) {
