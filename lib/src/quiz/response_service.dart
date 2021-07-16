@@ -42,11 +42,11 @@ class ResponseService with ChangeNotifier {
 
   seleccionoOpcion( Offset positionI, int index ){
     // obtener el offset de la columna
-    final boxC = keyColumna.currentContext!.findRenderObject() as RenderBox;
-    final offsetC = boxC.localToGlobal(Offset.zero);
+    // final boxC = keyColumna.currentContext!.findRenderObject() as RenderBox;
+    // final offsetC = boxC.localToGlobal(Offset.zero);
 
-    posicionInicial = positionI - offsetC;
-    indexBotonAnimar = index;
+    // posicionInicial = positionI - offsetC;
+    // indexBotonAnimar = index;
   }
 
   late Offset posicionInicial;
@@ -55,11 +55,11 @@ class ResponseService with ChangeNotifier {
   late int indexBotonAnimar;
 
   addPosicionFinal( Offset position ){
-    final boxC = keyColumna.currentContext!.findRenderObject()
-      as RenderBox;
-    final offsetC = boxC.localToGlobal(Offset.zero);
+    // final boxC = keyColumna.currentContext!.findRenderObject()
+    //   as RenderBox;
+    // final offsetC = boxC.localToGlobal(Offset.zero);
 
-    posicionFinal = position - offsetC;
+    // posicionFinal = position - offsetC;
     // if(empezar) iniciarAnimacion();
 
     // print("Inicial" + posicionInicial.toString());
