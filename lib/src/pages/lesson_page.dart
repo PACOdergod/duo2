@@ -74,11 +74,7 @@ class _LessonBodyState extends State<LessonBody> {
 
             // Quiz section
             Expanded(
-              child: SlideWidgets(
-                ancho: MediaQuery.of(context).size.width, 
-                index: index,
-                quizes: quizes,
-              )
+              child: QuizSection(currentQuiz: quizes[index],)
             )
 
           ],
