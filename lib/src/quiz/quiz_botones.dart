@@ -1,3 +1,4 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tuple/tuple.dart';
 import 'package:provider/provider.dart';
 
@@ -5,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:after_layout/after_layout.dart';
 
 import 'package:duo2/src/quiz/response_service.dart';
+
+import 'cubit/quiz_cubit.dart';
 
 
 abstract class Option extends StatelessWidget{
@@ -24,21 +27,19 @@ class Opcion extends Option{
   Opcion({
     Key? key, 
     required this.index,
-    this.color = Colors.blue
   }) : super(
     index: index
   );
 
-  Color color;
   int index;
 
   @override
   Widget build(BuildContext context) {
 
-    final service = Provider.of<ResponseService>(context, listen: false);
+    final service = BlocProvider.of<QuizCubit>(context);
 
     return GestureDetector(
-      child: service.totalOpciones[index],
+      child: service.state.totalOpciones[index],
 
       onTap: () {
 
@@ -47,11 +48,11 @@ class Opcion extends Option{
         final offset = box.localToGlobal(Offset.zero);
         final tam = box.size;
 
-        final service = Provider.of<ResponseService>(context, listen: false);
-        service.addRespuesta(index, tam);
-        service.empezar = true;
+        // final service = Provider.of<ResponseService>(context, listen: false);
+        // service.addRespuesta(index, tam);
+        // service.empezar = true;
 
-        service.seleccionoOpcion(offset, this.index);
+        // service.seleccionoOpcion(offset, this.index);
 
       },
     );

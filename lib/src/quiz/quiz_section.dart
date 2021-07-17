@@ -107,17 +107,17 @@ class _Cuerpo extends StatelessWidget {
         SizedBox(height: 60),
 
         // // OPCIONES
-        // Wrap(
-        //     children: state.misOpciones
-        //         .map((e) => Container(
-        //               child: e,
-        //               margin: EdgeInsets.all(10),
-        //             ))
-        //         .toList()),
+        Wrap(
+          children: state.misOpciones.map((e) => 
+            Container(
+              child: e,
+              margin: EdgeInsets.all(10)
+            )).toList()
+        ),
 
         Expanded(child: Container()),
 
-        state.comprobar(context),
+        state.boton,
       ],
     );
   }

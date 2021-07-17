@@ -10,8 +10,33 @@ abstract class QuizState {
   List<Respuesta> misRespuestas = [];
   List<Option> misOpciones = [];
 
-  Container comprobar(BuildContext context) {
-    final lessonService = Provider.of<LessonService>(context, listen: false);
+  late Widget boton;
+
+}
+
+class QuizInitial extends QuizState {
+
+  QuizInitial(List<String> options) : super(options) {
+    int i = 0;
+    options.forEach((opcion) {
+      totalOpciones.add(EjemploBoton(text: opcion));
+      var boton = Opcion(index: i);
+      misOpciones.add(boton);
+      i++;
+    });
+  }
+
+  @override
+  Widget get boton => Comprobar();
+}
+
+
+class Comprobar extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context) {
+
+  final lessonService = Provider.of<LessonService>(context, listen: false);
 
     return Container(
       margin: EdgeInsets.only(
@@ -29,19 +54,5 @@ abstract class QuizState {
         ),
       ),
     );
-  }
-
-}
-
-class QuizInitial extends QuizState {
-
-  QuizInitial(List<String> options) : super(options) {
-    int i = 0;
-    options.forEach((opcion) {
-      totalOpciones.add(EjemploBoton(text: opcion));
-      var boton = Opcion(index: i);
-      misOpciones.add(boton);
-      i++;
-    });
   }
 }
