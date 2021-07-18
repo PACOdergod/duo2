@@ -10,5 +10,36 @@ part 'quiz_state.dart';
 
 class QuizCubit extends Cubit<QuizState> {
   final List<String> options;
-  QuizCubit(this.options) : super(QuizInitial(options));
+  List<EjemploBoton> totalOpciones = [];
+
+  QuizCubit(this.options) : super(QuizInitial(options)){
+    options.forEach((opcion) {
+      totalOpciones.add(EjemploBoton(text: opcion));
+    });
+  }
+
+  agregarRespuesta(int index, Size size){
+    var newOptions = this.state.misOpciones;
+    newOptions[index] = Sombra(tam: size, index: index);
+
+    var newResponses = this.state.misRespuestas;
+    newResponses.add(Respuesta(index: index));
+
+    emit(QuizWithResponses(newResponses, newOptions));
+  }
+
+  quitarRespuesta(int index){
+    var newOptions = this.state.misOpciones;
+    newOptions[index] = Opcion(index: index);
+
+    var newResponses = this.state.misRespuestas;
+    newResponses.removeWhere((respuesta) => respuesta.index == index);
+
+    if (newResponses.isEmpty)
+      emit(QuizWithoutResponses(newResponses, newOptions));
+
+    else
+      emit(QuizWithResponses(newResponses, newOptions));
+
+  }
 }

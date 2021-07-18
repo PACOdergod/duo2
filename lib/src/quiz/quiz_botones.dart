@@ -1,3 +1,5 @@
+import 'package:duo2/src/services/lesson_service.dart';
+import 'package:duo2/src/widgets/principal_button.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tuple/tuple.dart';
 import 'package:provider/provider.dart';
@@ -36,10 +38,10 @@ class Opcion extends Option{
   @override
   Widget build(BuildContext context) {
 
-    final service = BlocProvider.of<QuizCubit>(context);
+    final cubit = BlocProvider.of<QuizCubit>(context);
 
     return GestureDetector(
-      child: service.state.totalOpciones[index],
+      child: cubit.totalOpciones[index],
 
       onTap: () {
 
@@ -48,12 +50,7 @@ class Opcion extends Option{
         final offset = box.localToGlobal(Offset.zero);
         final tam = box.size;
 
-        // final service = Provider.of<ResponseService>(context, listen: false);
-        // service.addRespuesta(index, tam);
-        // service.empezar = true;
-
-        // service.seleccionoOpcion(offset, this.index);
-
+        cubit.agregarRespuesta(index, tam);
       },
     );
   }
@@ -98,47 +95,44 @@ class Respuesta extends StatefulWidget {
   _RespuestaState createState() => _RespuestaState();
 }
 
-class _RespuestaState extends State<Respuesta> with AfterLayoutMixin{
+class _RespuestaState extends State<Respuesta> {
 
   double opacidad = 1;
 
   @override
   Widget build(BuildContext context) {
 
-    final service = Provider.of<ResponseService>(context, listen: false);
+    final cubit = BlocProvider.of<QuizCubit>(context);
 
     return Opacity(
       opacity: opacidad,
       child: GestureDetector(
-        child: service.totalOpciones[widget.index],
+        child: cubit.totalOpciones[widget.index],
 
-        onTap: (){
-          final service = Provider.of<ResponseService>(context, listen: false);
-          service.quitarRespuesta(widget.index);
-        },
+        onTap: ()=> cubit.quitarRespuesta(widget.index)
       ),
     );
   }
 
-  @override
-  void afterFirstLayout(BuildContext context) async {
+  // @override
+  // void afterFirstLayout(BuildContext context) async {
     
-    final service = Provider.of<ResponseService>(context, listen: false);
-    var res = getPosition(context);
-    service.addPosicionFinal(res);
+  //   final service = Provider.of<ResponseService>(context, listen: false);
+  //   var res = getPosition(context);
+  //   service.addPosicionFinal(res);
 
-    // await Future.delayed(Duration(seconds: 2));
-    // setState(() {
-    //   opacidad = 1;
-    // });
-  }
+  //   // await Future.delayed(Duration(seconds: 2));
+  //   // setState(() {
+  //   //   opacidad = 1;
+  //   // });
+  // }
 
-  Offset getPosition(BuildContext context){
-    final box =  context.findRenderObject() as RenderBox;
-    final offset = box.localToGlobal(Offset.zero);
-    // final tam = box.size;
-    return offset;
-  }
+  // Offset getPosition(BuildContext context){
+  //   final box =  context.findRenderObject() as RenderBox;
+  //   final offset = box.localToGlobal(Offset.zero);
+  //   // final tam = box.size;
+  //   return offset;
+  // }
 }
 
 class EjemploBoton extends StatelessWidget {
@@ -152,6 +146,32 @@ class EjemploBoton extends StatelessWidget {
       child: Text(text),
       color: Colors.red,
       padding: EdgeInsets.all(10),
+    );
+  }
+}
+
+class Comprobar extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context) {
+
+  final lessonService = Provider.of<LessonService>(context, listen: false);
+
+    return Container(
+      margin: EdgeInsets.only(
+        bottom: 10
+      ),
+      width: MediaQuery.of(context).size.width,
+      child: Center(
+        child: PrincipalButton(
+            text: "SIGUIENTE",
+            ancho: MediaQuery.of(context).size.width * .9,
+            onTap: () {
+            // TODO: llamar al provider para que verifique la respuesta
+              lessonService.indexSig(context);
+            }
+        ),
+      ),
     );
   }
 }

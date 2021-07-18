@@ -3,10 +3,7 @@ part of 'quiz_cubit.dart';
 
 @immutable
 abstract class QuizState {
-  final List<String> options;
-  QuizState(this.options);
 
-  List<EjemploBoton> totalOpciones = [];
   List<Respuesta> misRespuestas = [];
   List<Option> misOpciones = [];
 
@@ -16,10 +13,9 @@ abstract class QuizState {
 
 class QuizInitial extends QuizState {
 
-  QuizInitial(List<String> options) : super(options) {
+  QuizInitial(List<String> options) {
     int i = 0;
     options.forEach((opcion) {
-      totalOpciones.add(EjemploBoton(text: opcion));
       var boton = Opcion(index: i);
       misOpciones.add(boton);
       i++;
@@ -27,32 +23,31 @@ class QuizInitial extends QuizState {
   }
 
   @override
+  Widget get boton => Container();
+}
+
+class QuizWithResponses extends QuizState {
+  QuizWithResponses(
+    List<Respuesta> newRespuestas, 
+    List<Option> newOpciones
+  ){
+    misRespuestas = newRespuestas;
+    misOpciones = newOpciones;
+  }
+
+  @override
   Widget get boton => Comprobar();
 }
 
-
-class Comprobar extends StatelessWidget {
+class QuizWithoutResponses extends QuizState {
+  QuizWithoutResponses(
+    List<Respuesta> newRespuestas, 
+    List<Option> newOpciones
+  ){
+    misRespuestas = newRespuestas;
+    misOpciones = newOpciones;
+  }
 
   @override
-  Widget build(BuildContext context) {
-
-  final lessonService = Provider.of<LessonService>(context, listen: false);
-
-    return Container(
-      margin: EdgeInsets.only(
-        bottom: 10
-      ),
-      width: MediaQuery.of(context).size.width,
-      child: Center(
-        child: PrincipalButton(
-            text: "SIGUIENTE",
-            ancho: MediaQuery.of(context).size.width * .9,
-            onTap: () {
-            // TODO: llamar al provider para que verifique la respuesta
-              lessonService.indexSig(context);
-            }
-        ),
-      ),
-    );
-  }
+  Widget get boton => Container();
 }
