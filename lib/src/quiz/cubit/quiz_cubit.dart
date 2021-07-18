@@ -42,4 +42,9 @@ class QuizCubit extends Cubit<QuizState> {
       emit(QuizWithResponses(newResponses, newOptions));
 
   }
+
+  comprobarRespuesta(){
+    //TODO comprobar que la respuesta sea correcta
+    emit(QuizCorrect(state.misRespuestas, state.misOpciones));
+  }
 }

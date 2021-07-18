@@ -150,12 +150,64 @@ class EjemploBoton extends StatelessWidget {
   }
 }
 
-class Comprobar extends StatelessWidget {
+class Siguiente extends StatefulWidget {
+
+  @override
+  _SiguienteState createState() => _SiguienteState();
+}
+class _SiguienteState extends State<Siguiente> with AfterLayoutMixin{
+
+  double alto = 0;
 
   @override
   Widget build(BuildContext context) {
 
   final lessonService = Provider.of<LessonService>(context, listen: false);
+
+    return Stack(
+      alignment: Alignment.bottomCenter,
+      children: [
+
+        AnimatedContainer(
+          duration: Duration(milliseconds: 200),
+          width: MediaQuery.of(context).size.width,
+          height: alto,
+          color: Colors.green[400], 
+        ),
+
+
+        Container(
+          margin: EdgeInsets.only(
+            bottom: 10
+          ),
+          width: MediaQuery.of(context).size.width,
+          child: Center(
+            child: PrincipalButton(
+              text: "SIGUIENTE",
+              ancho: MediaQuery.of(context).size.width * .9,
+              onTap: () {
+                lessonService.indexSig(context);
+              }
+            ),
+          ),
+        ),
+      ],
+      
+    );
+  }
+
+  @override
+  void afterFirstLayout(BuildContext context) {
+    setState(() => alto = 150);
+  }
+}
+
+class Comprobar extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context) {
+
+    final cubit = BlocProvider.of<QuizCubit>(context);
 
     return Container(
       margin: EdgeInsets.only(
@@ -164,12 +216,35 @@ class Comprobar extends StatelessWidget {
       width: MediaQuery.of(context).size.width,
       child: Center(
         child: PrincipalButton(
-            text: "SIGUIENTE",
-            ancho: MediaQuery.of(context).size.width * .9,
-            onTap: () {
-            // TODO: llamar al provider para que verifique la respuesta
-              lessonService.indexSig(context);
-            }
+          text: "COMPROBAR",
+          ancho: MediaQuery.of(context).size.width * .9,
+          onTap: () {
+            cubit.comprobarRespuesta();
+          }
+        ),
+      ),
+    );
+  }
+}
+
+class BotonNull extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+
+    //TODO modificar el principal boton para su elevation = 0
+
+    return Container(
+      margin: EdgeInsets.only(
+        bottom: 10
+      ),
+      width: MediaQuery.of(context).size.width,
+      child: Center(
+        child: PrincipalButton(
+          text: "COMPROBAR",
+          ancho: MediaQuery.of(context).size.width * .9,
+          color: Colors.grey,
+          borderColor: Colors.grey,
+          elevation: 0,
         ),
       ),
     );

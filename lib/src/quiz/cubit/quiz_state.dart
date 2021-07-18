@@ -23,7 +23,7 @@ class QuizInitial extends QuizState {
   }
 
   @override
-  Widget get boton => Container();
+  Widget get boton => BotonNull();
 }
 
 class QuizWithResponses extends QuizState {
@@ -49,5 +49,18 @@ class QuizWithoutResponses extends QuizState {
   }
 
   @override
-  Widget get boton => Container();
+  Widget get boton => BotonNull();
+}
+
+class QuizCorrect extends QuizState {
+  QuizCorrect(
+    List<Respuesta> newRespuestas, 
+    List<Option> newOpciones
+  ){
+    misRespuestas = newRespuestas;
+    misOpciones = newOpciones;
+  }
+
+  @override
+  Widget get boton => Siguiente();
 }
