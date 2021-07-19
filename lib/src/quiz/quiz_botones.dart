@@ -95,9 +95,9 @@ class Respuesta extends StatefulWidget {
   _RespuestaState createState() => _RespuestaState();
 }
 
-class _RespuestaState extends State<Respuesta> {
+class _RespuestaState extends State<Respuesta> with AfterLayoutMixin{
 
-  double opacidad = 1;
+  double opacidad = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -112,6 +112,13 @@ class _RespuestaState extends State<Respuesta> {
         onTap: ()=> cubit.quitarRespuesta(widget.index)
       ),
     );
+  }
+
+  @override
+  void afterFirstLayout(BuildContext context) {
+    Future.delayed(Duration(milliseconds: 100), (){
+      setState(()=> opacidad = 1);
+    });
   }
 
   // @override
@@ -162,7 +169,6 @@ class _SiguienteState extends State<Siguiente> with AfterLayoutMixin{
   @override
   Widget build(BuildContext context) {
 
-    final lessonService = Provider.of<LessonService>(context, listen: false);
     final cubit = BlocProvider.of<QuizCubit>(context, listen: false);
 
     return Stack(
@@ -188,7 +194,6 @@ class _SiguienteState extends State<Siguiente> with AfterLayoutMixin{
               ancho: MediaQuery.of(context).size.width * .9,
               onTap: () {
                 cubit.nextQuiz();
-                lessonService.indexSig(context);
               }
             ),
           ),
@@ -208,7 +213,7 @@ class Comprobar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
+    final lessonService = Provider.of<LessonService>(context, listen: false);
     final cubit = BlocProvider.of<QuizCubit>(context, listen: false);
 
     return Container(
@@ -222,6 +227,7 @@ class Comprobar extends StatelessWidget {
           ancho: MediaQuery.of(context).size.width * .9,
           onTap: () {
             cubit.comprobarRespuesta();
+            lessonService.indexSig(context);
           }
         ),
       ),
