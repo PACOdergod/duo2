@@ -33,10 +33,12 @@ class QuizSection extends StatelessWidget {
             color: Colors.white,
             width: MediaQuery.of(context).size.width,
             child: Stack(children: [
+              
               _Cuerpo(
                 currentQuiz: currentQuiz,
                 state: state,
               ),
+              
             ]),
           );
         },

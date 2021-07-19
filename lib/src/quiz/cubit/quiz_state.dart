@@ -5,7 +5,7 @@ part of 'quiz_cubit.dart';
 abstract class QuizState {
   List<Option> misOpciones = [];
   late List<Respuesta> misRespuestas = [];
-  late Widget boton;
+  late final Widget boton;
   final Quiz currentQuiz;
 
   QuizState(this.currentQuiz);
@@ -70,6 +70,12 @@ class QuizCorrect extends QuizState {
 
   @override
   Widget get boton => Siguiente();
+}
+
+class AnimateAddResponse extends QuizState {
+  AnimateAddResponse(Quiz currentQuiz) : super(currentQuiz);
+
+  
 }
 
 class NewQuiz extends QuizState {
