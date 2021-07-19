@@ -17,7 +17,7 @@ class QuizCubit extends Cubit<QuizState> {
   late Quiz currentQuiz;
 
   QuizCubit(this.quizes, this.indexQuiz) 
-  : super(QuizInitial(quizes[indexQuiz]))
+  : super(NewQuiz(quizes[indexQuiz]))
   {
 
     quizes[indexQuiz].opciones.forEach((opcion) {

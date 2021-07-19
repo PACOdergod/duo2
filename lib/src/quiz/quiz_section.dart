@@ -1,3 +1,4 @@
+import 'package:after_layout/after_layout.dart';
 import 'package:duo2/src/quiz/cubit/quiz_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -33,11 +34,14 @@ class QuizSection extends StatelessWidget {
             color: Colors.white,
             width: MediaQuery.of(context).size.width,
             child: Stack(children: [
-              
-              _Cuerpo(
-                currentQuiz: currentQuiz,
-                state: state,
-              ),
+
+              if (state is NewQuiz) 
+                SlideWidgets()
+
+              else _Cuerpo(
+                  currentQuiz: currentQuiz,
+                  state: state,
+                ),
               
             ]),
           );
@@ -46,6 +50,86 @@ class QuizSection extends StatelessWidget {
     );
   }
 }
+
+class SlideWidgets extends StatefulWidget {
+
+  final Duration duracion;
+
+  const SlideWidgets({
+    this.duracion = const Duration(milliseconds: 1000),
+  });
+
+  @override
+  _SlideWidgetsState createState() => _SlideWidgetsState();
+}
+
+class _SlideWidgetsState extends State<SlideWidgets> 
+  with SingleTickerProviderStateMixin, AfterLayoutMixin
+{
+
+  late AnimationController controller;
+
+  @override
+  void initState() {
+    super.initState();
+    controller = AnimationController(
+      vsync: this, 
+      duration: widget.duracion,
+    );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    controller.dispose();
+  }
+
+  bool primero = true;
+  List<Widget> widgets = [];
+
+  @override
+  Widget build(BuildContext context) {
+
+    return Stack(
+      children: [
+
+        SlideTransition(
+          position: Tween(begin: Offset(0, 0), end: Offset(-1, 0))
+          .animate(CurvedAnimation(
+            parent: controller, 
+            curve: Curves.easeInOutSine)),
+          child: 
+          Container(
+            width: 100,
+            height: 100,
+            color: Colors.blue,
+          )
+        ),
+
+        SlideTransition(
+          position: Tween(begin: Offset(1, 0), end: Offset(0, 0))
+          .animate(CurvedAnimation(
+            parent: controller, 
+            curve: Curves.easeInOutSine)),
+          child: 
+          Container(
+            width: 100,
+            height: 100,
+            color: Colors.blue,
+          )
+        )
+
+      ],
+    );
+    
+  }
+
+  @override
+  void afterFirstLayout(BuildContext context) {
+    controller.forward(from: 0);
+  }
+}
+
 
 class _Cuerpo extends StatelessWidget {
   const _Cuerpo({

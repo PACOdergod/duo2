@@ -80,6 +80,8 @@ class AnimateAddResponse extends QuizState {
 
 class NewQuiz extends QuizState {
 
+  // final QuizState currentQuizSate;
+
   NewQuiz(Quiz currentQuiz) 
   : super(currentQuiz)
   {

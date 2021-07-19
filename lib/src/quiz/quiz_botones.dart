@@ -192,9 +192,7 @@ class _SiguienteState extends State<Siguiente> with AfterLayoutMixin{
             child: PrincipalButton(
               text: "SIGUIENTE",
               ancho: MediaQuery.of(context).size.width * .9,
-              onTap: () {
-                cubit.nextQuiz();
-              }
+              onTap: ()=> cubit.nextQuiz()
             ),
           ),
         ),
