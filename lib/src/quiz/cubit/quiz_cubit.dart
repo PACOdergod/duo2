@@ -17,7 +17,7 @@ class QuizCubit extends Cubit<QuizState> {
   late Quiz currentQuiz;
 
   QuizCubit(this.quizes, this.indexQuiz) 
-  : super(NewQuiz(quizes[indexQuiz]))
+  : super(QuizInitial(quizes[indexQuiz]))
   {
 
     quizes[indexQuiz].opciones.forEach((opcion) {
@@ -74,7 +74,7 @@ class QuizCubit extends Cubit<QuizState> {
   }
 
   nextQuiz(){
-    indexQuiz++;
-    emit(NewQuiz(quizes[indexQuiz]));
+    // indexQuiz++;
+    emit(NewQuiz(quizes[indexQuiz], this.state));
   }
 }

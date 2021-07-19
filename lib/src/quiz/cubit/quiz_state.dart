@@ -80,10 +80,11 @@ class AnimateAddResponse extends QuizState {
 
 class NewQuiz extends QuizState {
 
-  // final QuizState currentQuizSate;
+  final QuizState currentQuizSate;
+  final Quiz actualQuiz;
 
-  NewQuiz(Quiz currentQuiz) 
-  : super(currentQuiz)
+  NewQuiz(this.actualQuiz, this.currentQuizSate) 
+  : super(actualQuiz)
   {
     int i = 0;
     currentQuiz.opciones.forEach((opcion) {

@@ -36,7 +36,10 @@ class QuizSection extends StatelessWidget {
             child: Stack(children: [
 
               if (state is NewQuiz) 
-                SlideWidgets()
+                SlideWidgets(
+                  actualQuiz: state.actualQuiz,
+                  currentQuizSate: state.currentQuizSate,
+                )
 
               else _Cuerpo(
                   currentQuiz: currentQuiz,
@@ -54,9 +57,14 @@ class QuizSection extends StatelessWidget {
 class SlideWidgets extends StatefulWidget {
 
   final Duration duracion;
+  final Quiz actualQuiz;
+  final QuizState currentQuizSate;
+
 
   const SlideWidgets({
-    this.duracion = const Duration(milliseconds: 1000),
+    this.duracion = const Duration(seconds: 2),
+    required this.actualQuiz,
+    required this.currentQuizSate,
   });
 
   @override
@@ -84,8 +92,6 @@ class _SlideWidgetsState extends State<SlideWidgets>
     controller.dispose();
   }
 
-  bool primero = true;
-  List<Widget> widgets = [];
 
   @override
   Widget build(BuildContext context) {
@@ -98,16 +104,15 @@ class _SlideWidgetsState extends State<SlideWidgets>
           .animate(CurvedAnimation(
             parent: controller, 
             curve: Curves.easeInOutSine)),
-          child: 
-          Container(
-            width: 100,
-            height: 100,
-            color: Colors.blue,
-          )
+          child: _Cuerpo(
+            currentQuiz: widget.actualQuiz,
+            state: widget.currentQuizSate,
+          ), 
         ),
 
         SlideTransition(
-          position: Tween(begin: Offset(1, 0), end: Offset(0, 0))
+          //TODO debe se 1 en vez de 3
+          position: Tween(begin: Offset(3, 0), end: Offset(0, 0))
           .animate(CurvedAnimation(
             parent: controller, 
             curve: Curves.easeInOutSine)),
