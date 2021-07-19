@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:duo2/src/models/leccion_mode.dart';
 import 'package:duo2/src/quiz/quiz_botones.dart';
 import 'package:duo2/src/services/lesson_service.dart';
 import 'package:duo2/src/widgets/principal_button.dart';
@@ -9,13 +10,21 @@ import 'package:provider/provider.dart';
 part 'quiz_state.dart';
 
 class QuizCubit extends Cubit<QuizState> {
-  final List<String> options;
+  
+  final List<Quiz> quizes;
   List<EjemploBoton> totalOpciones = [];
+  int indexQuiz;
+  late Quiz currentQuiz;
 
-  QuizCubit(this.options) : super(QuizInitial(options)){
-    options.forEach((opcion) {
+  QuizCubit(this.quizes, this.indexQuiz) 
+  : super(QuizInitial(quizes[indexQuiz]))
+  {
+
+    quizes[indexQuiz].opciones.forEach((opcion) {
       totalOpciones.add(EjemploBoton(text: opcion));
     });
+
+    currentQuiz = quizes[indexQuiz];
   }
 
   agregarRespuesta(int index, Size size){
@@ -25,7 +34,11 @@ class QuizCubit extends Cubit<QuizState> {
     var newResponses = this.state.misRespuestas;
     newResponses.add(Respuesta(index: index));
 
-    emit(QuizWithResponses(newResponses, newOptions));
+    emit(QuizWithResponses(
+      currentQuiz: this.currentQuiz, 
+      newOpciones: newOptions,
+      newRespuestas: newResponses
+    ));
   }
 
   quitarRespuesta(int index){
@@ -36,15 +49,32 @@ class QuizCubit extends Cubit<QuizState> {
     newResponses.removeWhere((respuesta) => respuesta.index == index);
 
     if (newResponses.isEmpty)
-      emit(QuizWithoutResponses(newResponses, newOptions));
+      emit(QuizWithoutResponses(
+        currentQuiz: this.currentQuiz,
+        newOpciones: newOptions,
+        newRespuestas: newResponses
+      ));
 
     else
-      emit(QuizWithResponses(newResponses, newOptions));
+      emit(QuizWithResponses(
+        currentQuiz: this.currentQuiz,
+        newOpciones: newOptions,
+        newRespuestas: newResponses
+      ));
 
   }
 
   comprobarRespuesta(){
     //TODO comprobar que la respuesta sea correcta
-    emit(QuizCorrect(state.misRespuestas, state.misOpciones));
+    emit(QuizCorrect(      
+      currentQuiz: this.currentQuiz,
+      newOpciones: state.misOpciones,
+      newRespuestas: state.misRespuestas
+    ));
+  }
+
+  nextQuiz(){
+    indexQuiz++;
+    emit(NewQuiz(quizes[indexQuiz]));
   }
 }

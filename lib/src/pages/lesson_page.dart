@@ -61,11 +61,11 @@ class _LessonBodyState extends State<LessonBody> {
     return Scaffold(
       body: Container(
 
-          width: MediaQuery.of(context).size.width,
-          color: Colors.white,
+        width: MediaQuery.of(context).size.width,
+        color: Colors.white,
 
-          child: Column(
-            children: [
+        child: Column(
+          children: [
 
             //appbar
             LessonAppbar(tam: quizes.length,),
@@ -74,7 +74,10 @@ class _LessonBodyState extends State<LessonBody> {
 
             // Quiz section
             Expanded(
-              child: QuizSection(currentQuiz: quizes[index],)
+              child: QuizSection(
+                currentQuiz: quizes[index],
+                quizes: quizes,
+              )
             )
 
           ],

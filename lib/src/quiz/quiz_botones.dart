@@ -38,7 +38,7 @@ class Opcion extends Option{
   @override
   Widget build(BuildContext context) {
 
-    final cubit = BlocProvider.of<QuizCubit>(context);
+    final cubit = BlocProvider.of<QuizCubit>(context, listen: false);
 
     return GestureDetector(
       child: cubit.totalOpciones[index],
@@ -162,7 +162,8 @@ class _SiguienteState extends State<Siguiente> with AfterLayoutMixin{
   @override
   Widget build(BuildContext context) {
 
-  final lessonService = Provider.of<LessonService>(context, listen: false);
+    final lessonService = Provider.of<LessonService>(context, listen: false);
+    final cubit = BlocProvider.of<QuizCubit>(context, listen: false);
 
     return Stack(
       alignment: Alignment.bottomCenter,
@@ -186,6 +187,7 @@ class _SiguienteState extends State<Siguiente> with AfterLayoutMixin{
               text: "SIGUIENTE",
               ancho: MediaQuery.of(context).size.width * .9,
               onTap: () {
+                cubit.nextQuiz();
                 lessonService.indexSig(context);
               }
             ),
@@ -207,7 +209,7 @@ class Comprobar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final cubit = BlocProvider.of<QuizCubit>(context);
+    final cubit = BlocProvider.of<QuizCubit>(context, listen: false);
 
     return Container(
       margin: EdgeInsets.only(

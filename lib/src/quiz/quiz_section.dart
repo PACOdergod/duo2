@@ -11,10 +11,12 @@ import 'package:duo2/src/widgets/principal_button.dart';
 
 class QuizSection extends StatelessWidget {
   final Quiz currentQuiz;
+  final List<Quiz> quizes;
 
   QuizSection({
     Key? key,
     required this.currentQuiz,
+    required this.quizes,
   });
 
   final GlobalKey keyColumna = GlobalKey();
@@ -23,7 +25,7 @@ class QuizSection extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return BlocProvider(
-      create: (context) => new QuizCubit(currentQuiz.opciones),
+      create: (context) => new QuizCubit( quizes, 0),
       child: BlocBuilder<QuizCubit, QuizState>(
 
         builder: (context, state) {

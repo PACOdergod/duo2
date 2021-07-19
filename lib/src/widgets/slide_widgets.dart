@@ -64,7 +64,7 @@ class _SlideWidgetsState extends State<SlideWidgets>
             curve: Curves.easeInOutSine)),
             // TODO no debe crear una nueva instancia de quiz section
             // ya que esta ya existe
-          child: new QuizSection(currentQuiz: widget.quizes[widget.index]),
+          // child: new QuizSection(currentQuiz: widget.quizes[widget.index]),
         ),
 
         SlideTransition(
@@ -72,7 +72,7 @@ class _SlideWidgetsState extends State<SlideWidgets>
           .animate(CurvedAnimation(
             parent: controller, 
             curve: Curves.easeInOutSine)),
-          child: new QuizSection(currentQuiz: widget.quizes[widget.index]),
+          // child: new QuizSection(currentQuiz: widget.quizes[widget.index]),
         )
 
       ],

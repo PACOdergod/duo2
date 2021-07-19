@@ -3,19 +3,20 @@ part of 'quiz_cubit.dart';
 
 @immutable
 abstract class QuizState {
-
-  List<Respuesta> misRespuestas = [];
   List<Option> misOpciones = [];
-
+  late List<Respuesta> misRespuestas = [];
   late Widget boton;
+  final Quiz currentQuiz;
 
+  QuizState(this.currentQuiz);
 }
 
 class QuizInitial extends QuizState {
 
-  QuizInitial(List<String> options) {
+  QuizInitial(Quiz currentQuiz) : super(currentQuiz) 
+  {
     int i = 0;
-    options.forEach((opcion) {
+    currentQuiz.opciones.forEach((opcion) {
       var boton = Opcion(index: i);
       misOpciones.add(boton);
       i++;
@@ -27,10 +28,12 @@ class QuizInitial extends QuizState {
 }
 
 class QuizWithResponses extends QuizState {
-  QuizWithResponses(
-    List<Respuesta> newRespuestas, 
-    List<Option> newOpciones
-  ){
+  QuizWithResponses({
+    required List<Respuesta> newRespuestas, 
+    required List<Option> newOpciones,
+    required Quiz currentQuiz
+  }) : super(currentQuiz)
+  {
     misRespuestas = newRespuestas;
     misOpciones = newOpciones;
   }
@@ -40,10 +43,12 @@ class QuizWithResponses extends QuizState {
 }
 
 class QuizWithoutResponses extends QuizState {
-  QuizWithoutResponses(
-    List<Respuesta> newRespuestas, 
-    List<Option> newOpciones
-  ){
+  QuizWithoutResponses({
+    required List<Respuesta> newRespuestas, 
+    required List<Option> newOpciones,
+    required Quiz currentQuiz
+  }) : super(currentQuiz)
+  {
     misRespuestas = newRespuestas;
     misOpciones = newOpciones;
   }
@@ -53,14 +58,33 @@ class QuizWithoutResponses extends QuizState {
 }
 
 class QuizCorrect extends QuizState {
-  QuizCorrect(
-    List<Respuesta> newRespuestas, 
-    List<Option> newOpciones
-  ){
+  QuizCorrect({
+    required List<Respuesta> newRespuestas, 
+    required List<Option> newOpciones,
+    required Quiz currentQuiz
+  }) : super(currentQuiz)
+  {
     misRespuestas = newRespuestas;
     misOpciones = newOpciones;
   }
 
   @override
   Widget get boton => Siguiente();
+}
+
+class NewQuiz extends QuizState {
+
+  NewQuiz(Quiz currentQuiz) 
+  : super(currentQuiz)
+  {
+    int i = 0;
+    currentQuiz.opciones.forEach((opcion) {
+      var boton = Opcion(index: i);
+      misOpciones.add(boton);
+      i++;
+    });
+  }
+
+  @override
+  Widget get boton => BotonNull();
 }
