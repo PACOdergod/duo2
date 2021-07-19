@@ -38,6 +38,7 @@ class QuizSection extends StatelessWidget {
               if (state is NewQuiz) 
                 SlideWidgets(
                   actualQuiz: state.actualQuiz,
+                  nextQuiz: state.nextQuiz,
                   currentQuizSate: state.currentQuizSate,
                 )
 
@@ -58,6 +59,7 @@ class SlideWidgets extends StatefulWidget {
 
   final Duration duracion;
   final Quiz actualQuiz;
+  final Quiz nextQuiz;
   final QuizState currentQuizSate;
 
 
@@ -65,6 +67,7 @@ class SlideWidgets extends StatefulWidget {
     this.duracion = const Duration(seconds: 2),
     required this.actualQuiz,
     required this.currentQuizSate,
+    required this.nextQuiz,
   });
 
   @override
@@ -111,16 +114,13 @@ class _SlideWidgetsState extends State<SlideWidgets>
         ),
 
         SlideTransition(
-          //TODO debe se 1 en vez de 3
-          position: Tween(begin: Offset(3, 0), end: Offset(0, 0))
+          position: Tween(begin: Offset(1, 0), end: Offset(0, 0))
           .animate(CurvedAnimation(
             parent: controller, 
             curve: Curves.easeInOutSine)),
-          child: 
-          Container(
-            width: 100,
-            height: 100,
-            color: Colors.blue,
+          child: _Cuerpo(
+            currentQuiz: widget.nextQuiz, 
+            state: new QuizInitial(widget.nextQuiz)
           )
         )
 

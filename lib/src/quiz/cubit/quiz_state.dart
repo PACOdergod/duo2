@@ -82,8 +82,9 @@ class NewQuiz extends QuizState {
 
   final QuizState currentQuizSate;
   final Quiz actualQuiz;
+  final Quiz nextQuiz;
 
-  NewQuiz(this.actualQuiz, this.currentQuizSate) 
+  NewQuiz(this.actualQuiz, this.currentQuizSate, this.nextQuiz) 
   : super(actualQuiz)
   {
     int i = 0;

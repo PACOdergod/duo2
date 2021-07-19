@@ -74,7 +74,7 @@ class QuizCubit extends Cubit<QuizState> {
   }
 
   nextQuiz(){
-    // indexQuiz++;
-    emit(NewQuiz(quizes[indexQuiz], this.state));
+    emit(NewQuiz(quizes[indexQuiz], this.state, quizes[indexQuiz+1]));
+    indexQuiz++;
   }
 }
