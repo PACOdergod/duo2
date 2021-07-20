@@ -30,6 +30,12 @@ class QuizSection extends StatelessWidget {
       child: BlocBuilder<QuizCubit, QuizState>(
 
         builder: (context, state) {
+
+          var quizSimple = _Cuerpo(
+            currentQuiz: currentQuiz,
+            state: state,
+          );
+
           return Container(
             color: Colors.white,
             width: MediaQuery.of(context).size.width,
@@ -38,14 +44,12 @@ class QuizSection extends StatelessWidget {
               if (state is NewQuiz) 
                 SlideWidgets(
                   actualQuiz: state.actualQuiz,
+                  currentQuiz: quizSimple,
                   nextQuiz: state.nextQuiz,
                   currentQuizSate: state.currentQuizSate,
                 )
 
-              else _Cuerpo(
-                  currentQuiz: currentQuiz,
-                  state: state,
-                ),
+              else quizSimple
               
             ]),
           );
@@ -57,17 +61,16 @@ class QuizSection extends StatelessWidget {
 
 class SlideWidgets extends StatefulWidget {
 
-  final Duration duracion;
   final Quiz actualQuiz;
   final Quiz nextQuiz;
   final QuizState currentQuizSate;
-
+  final _Cuerpo currentQuiz;
 
   const SlideWidgets({
-    this.duracion = const Duration(seconds: 2),
     required this.actualQuiz,
     required this.currentQuizSate,
     required this.nextQuiz,
+    required this.currentQuiz,
   });
 
   @override
@@ -85,7 +88,7 @@ class _SlideWidgetsState extends State<SlideWidgets>
     super.initState();
     controller = AnimationController(
       vsync: this, 
-      duration: widget.duracion,
+      duration: Duration(seconds: 1),
     );
   }
 
@@ -107,10 +110,7 @@ class _SlideWidgetsState extends State<SlideWidgets>
           .animate(CurvedAnimation(
             parent: controller, 
             curve: Curves.easeInOutSine)),
-          child: _Cuerpo(
-            currentQuiz: widget.actualQuiz,
-            state: widget.currentQuizSate,
-          ), 
+          child: widget.currentQuiz
         ),
 
         SlideTransition(
