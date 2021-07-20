@@ -64,6 +64,16 @@ class QuizCubit extends Cubit<QuizState> {
 
   comprobarRespuesta(){
     //TODO comprobar que la respuesta sea correcta
+    if (indexQuiz == quizes.length-1) {
+      // TODO termino los quizes
+      emit(FinalQuiz(
+        currentQuiz: quizes[indexQuiz-1],
+        newOpciones: state.misOpciones,
+        newRespuestas: state.misRespuestas,
+      ));
+      return;
+    }
+
     emit(QuizCorrect(
       currentQuiz: quizes[indexQuiz],
       newOpciones: state.misOpciones,
@@ -72,9 +82,10 @@ class QuizCubit extends Cubit<QuizState> {
   }
 
   nextQuiz(){
-    emit( NewQuiz(
-      quizes[indexQuiz], this.state, quizes[indexQuiz+1])
-    );
     this.indexQuiz++;
+
+    emit( NewQuiz(
+      quizes[indexQuiz-1], this.state, quizes[indexQuiz])
+    );
   }
 }

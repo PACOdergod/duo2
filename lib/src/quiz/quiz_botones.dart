@@ -145,7 +145,7 @@ class _RespuestaState extends State<Respuesta> with AfterLayoutMixin{
 class EjemploBoton extends StatelessWidget {
 
   final String text;
-  const EjemploBoton({Key? key,required this.text}) : super(key: key);
+  const EjemploBoton({required this.text});
 
   @override
   Widget build(BuildContext context) {
@@ -156,6 +156,59 @@ class EjemploBoton extends StatelessWidget {
     );
   }
 }
+
+
+
+class BotonNull extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+
+    //TODO modificar el principal boton para su elevation = 0
+
+    return Container(
+      margin: EdgeInsets.only(
+        bottom: 10
+      ),
+      width: MediaQuery.of(context).size.width,
+      child: Center(
+        child: PrincipalButton(
+          text: "COMPROBAR",
+          ancho: MediaQuery.of(context).size.width * .9,
+          color: Colors.grey,
+          borderColor: Colors.grey,
+          elevation: 0,
+        ),
+      ),
+    );
+  }
+}
+
+class Comprobar extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context) {
+    final lessonService = Provider.of<LessonService>(context, listen: false);
+    final cubit = BlocProvider.of<QuizCubit>(context, listen: false);
+
+    return Container(
+      margin: EdgeInsets.only(
+        bottom: 10
+      ),
+      width: MediaQuery.of(context).size.width,
+      child: Center(
+        child: PrincipalButton(
+          text: "COMPROBAR",
+          ancho: MediaQuery.of(context).size.width * .9,
+          onTap: () {
+            cubit.comprobarRespuesta();
+            lessonService.indexSig();
+          }
+        ),
+      ),
+    );
+  }
+}
+
 
 class Siguiente extends StatefulWidget {
 
@@ -207,12 +260,11 @@ class _SiguienteState extends State<Siguiente> with AfterLayoutMixin{
   }
 }
 
-class Comprobar extends StatelessWidget {
+class Finalizar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
     final lessonService = Provider.of<LessonService>(context, listen: false);
-    final cubit = BlocProvider.of<QuizCubit>(context, listen: false);
 
     return Container(
       margin: EdgeInsets.only(
@@ -221,36 +273,10 @@ class Comprobar extends StatelessWidget {
       width: MediaQuery.of(context).size.width,
       child: Center(
         child: PrincipalButton(
-          text: "COMPROBAR",
+          text: "Finalizar",
           ancho: MediaQuery.of(context).size.width * .9,
-          onTap: () {
-            cubit.comprobarRespuesta();
-            lessonService.indexSig(context);
-          }
-        ),
-      ),
-    );
-  }
-}
-
-class BotonNull extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-
-    //TODO modificar el principal boton para su elevation = 0
-
-    return Container(
-      margin: EdgeInsets.only(
-        bottom: 10
-      ),
-      width: MediaQuery.of(context).size.width,
-      child: Center(
-        child: PrincipalButton(
-          text: "COMPROBAR",
-          ancho: MediaQuery.of(context).size.width * .9,
-          color: Colors.grey,
-          borderColor: Colors.grey,
-          elevation: 0,
+          onTap: ()=> Navigator.of(context).
+            pushNamed('final', arguments: lessonService.idModule)
         ),
       ),
     );

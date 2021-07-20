@@ -72,6 +72,21 @@ class QuizCorrect extends QuizState {
   Widget get boton => Siguiente();
 }
 
+class FinalQuiz extends QuizState{
+  FinalQuiz({
+    required List<Respuesta> newRespuestas, 
+    required List<Option> newOpciones,
+    required Quiz currentQuiz
+  }) : super(currentQuiz)
+  {
+    misRespuestas = newRespuestas;
+    misOpciones = newOpciones;
+  }
+
+  @override
+  Widget get boton => Finalizar();
+}
+
 class AnimateAddResponse extends QuizState {
   AnimateAddResponse(Quiz currentQuiz) : super(currentQuiz);
 

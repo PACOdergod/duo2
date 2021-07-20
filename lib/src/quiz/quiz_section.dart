@@ -24,7 +24,9 @@ class QuizSection extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return BlocProvider(
-      create: (context) => new QuizCubit( quizes, 0),
+      create: (context) => new QuizCubit( quizes, 0), 
+        lazy: false,
+
       child: BlocBuilder<QuizCubit, QuizState>(
 
         builder: (context, state) {
@@ -35,8 +37,8 @@ class QuizSection extends StatelessWidget {
           );
 
           return Container(
-            color: Colors.white,
-            width: MediaQuery.of(context).size.width,
+            // color: Colors.white,
+            // width: MediaQuery.of(context).size.width,
             child: Stack(children: [
 
               if (state is NewQuiz) 
