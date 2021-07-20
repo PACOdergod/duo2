@@ -13,11 +13,11 @@ class QuizCubit extends Cubit<QuizState> {
   
   final List<Quiz> quizes;
   List<EjemploBoton> totalOpciones = [];
-  int indexQuiz;
+  int indexQuiz = 0;
   late Quiz currentQuiz;
 
   QuizCubit(this.quizes, this.indexQuiz) 
-  : super(QuizInitial(quizes[indexQuiz]))
+  : super(QuizInitial(quizes.first))
   {
 
     quizes[indexQuiz].opciones.forEach((opcion) {
@@ -35,46 +35,46 @@ class QuizCubit extends Cubit<QuizState> {
     newResponses.add(Respuesta(index: index));
 
     emit(QuizWithResponses(
-      currentQuiz: this.currentQuiz, 
+      currentQuiz: quizes[indexQuiz],
       newOpciones: newOptions,
       newRespuestas: newResponses
     ));
   }
 
   quitarRespuesta(int index){
-    var newOptions = this.state.misOpciones;
-    newOptions[index] = Opcion(index: index);
 
     var newResponses = this.state.misRespuestas;
     newResponses.removeWhere((respuesta) => respuesta.index == index);
 
-    if (newResponses.isEmpty)
-      emit(QuizWithoutResponses(
-        currentQuiz: this.currentQuiz,
-        newOpciones: newOptions,
-        newRespuestas: newResponses
-      ));
+    if (newResponses.isEmpty){
+      emit(QuizInitial(quizes[indexQuiz]));
+      return;
+    }
 
-    else
-      emit(QuizWithResponses(
-        currentQuiz: this.currentQuiz,
-        newOpciones: newOptions,
-        newRespuestas: newResponses
-      ));
+    var newOptions = this.state.misOpciones;
+    newOptions[index] = Opcion(index: index);
+
+    emit(QuizWithResponses(
+      currentQuiz: quizes[indexQuiz],
+      newOpciones: newOptions,
+      newRespuestas: newResponses
+    ));
 
   }
 
   comprobarRespuesta(){
     //TODO comprobar que la respuesta sea correcta
-    emit(QuizCorrect(      
-      currentQuiz: this.currentQuiz,
+    emit(QuizCorrect(
+      currentQuiz: quizes[indexQuiz],
       newOpciones: state.misOpciones,
       newRespuestas: state.misRespuestas
     ));
   }
 
   nextQuiz(){
-    emit(NewQuiz(quizes[indexQuiz], this.state, quizes[indexQuiz+1]));
-    indexQuiz++;
+    emit( NewQuiz(
+      quizes[indexQuiz], this.state, quizes[indexQuiz+1])
+    );
+    this.indexQuiz++;
   }
 }

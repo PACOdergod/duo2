@@ -23,6 +23,7 @@ class LessonService with ChangeNotifier {
 
       return;
     }
+    
     currentIndex++;
     notifyListeners();
   } 

@@ -53,10 +53,8 @@ class _LessonBodyState extends State<LessonBody> {
   @override
   Widget build(BuildContext context) {
 
-    lessonService = Provider.of<LessonService>(context);
+    lessonService = Provider.of<LessonService>(context, listen: false);
     var quizes = lessonService.lesson.quizes;
-    var index = lessonService.currentIndex;
-
 
     return Scaffold(
       body: Container(
@@ -75,7 +73,6 @@ class _LessonBodyState extends State<LessonBody> {
             // Quiz section
             Expanded(
               child: QuizSection(
-                currentQuiz: quizes[index],
                 quizes: quizes,
               )
             )

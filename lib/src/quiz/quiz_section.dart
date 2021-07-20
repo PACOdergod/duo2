@@ -11,12 +11,10 @@ import 'package:duo2/src/services/lesson_service.dart';
 import 'package:duo2/src/widgets/principal_button.dart';
 
 class QuizSection extends StatelessWidget {
-  final Quiz currentQuiz;
   final List<Quiz> quizes;
 
   QuizSection({
     Key? key,
-    required this.currentQuiz,
     required this.quizes,
   });
 
@@ -32,7 +30,7 @@ class QuizSection extends StatelessWidget {
         builder: (context, state) {
 
           var quizSimple = _Cuerpo(
-            currentQuiz: currentQuiz,
+            currentQuiz: state.currentQuiz,
             state: state,
           );
 
@@ -43,10 +41,8 @@ class QuizSection extends StatelessWidget {
 
               if (state is NewQuiz) 
                 SlideWidgets(
-                  actualQuiz: state.actualQuiz,
                   currentQuiz: quizSimple,
                   nextQuiz: state.nextQuiz,
-                  currentQuizSate: state.currentQuizSate,
                 )
 
               else quizSimple
@@ -61,14 +57,10 @@ class QuizSection extends StatelessWidget {
 
 class SlideWidgets extends StatefulWidget {
 
-  final Quiz actualQuiz;
   final Quiz nextQuiz;
-  final QuizState currentQuizSate;
   final _Cuerpo currentQuiz;
 
   const SlideWidgets({
-    required this.actualQuiz,
-    required this.currentQuizSate,
     required this.nextQuiz,
     required this.currentQuiz,
   });
@@ -118,7 +110,13 @@ class _SlideWidgetsState extends State<SlideWidgets>
           .animate(CurvedAnimation(
             parent: controller, 
             curve: Curves.easeInOutSine)),
-          child: _Cuerpo(
+          child: 
+          // Container(
+          //   height: 100,
+          //   width: 100,
+          //   color: Colors.blue,
+          // )
+          _Cuerpo(
             currentQuiz: widget.nextQuiz, 
             state: new QuizInitial(widget.nextQuiz)
           )
