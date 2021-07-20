@@ -1,15 +1,13 @@
-import 'package:duo2/src/services/lesson_service.dart';
-import 'package:duo2/src/widgets/principal_button.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tuple/tuple.dart';
-import 'package:provider/provider.dart';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'package:provider/provider.dart';
 import 'package:after_layout/after_layout.dart';
 
-import 'package:duo2/src/quiz/response_service.dart';
+import 'package:duo2/src/quiz/cubit/quiz_cubit.dart';
+import 'package:duo2/src/services/lesson_service.dart';
+import 'package:duo2/src/widgets/principal_button.dart';
 
-import 'cubit/quiz_cubit.dart';
 
 
 abstract class Option extends StatelessWidget{

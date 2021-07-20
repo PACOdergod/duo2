@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+
 import 'package:provider/provider.dart';
 
 import 'package:duo2/src/progress_bar/progress_bar.dart';
-import 'package:duo2/src/quiz/quiz_section.dart';
 import 'package:duo2/src/services/lesson_service.dart';
 
 class LessonAppbar extends StatelessWidget {

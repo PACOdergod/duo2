@@ -1,16 +1,15 @@
 
-import 'package:duo2/src/quiz/lesson_appbar.dart';
-import 'package:duo2/src/quiz/response_service.dart';
 import 'package:flutter/material.dart';
+
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
+import 'package:duo2/src/quiz/response_service.dart';
+import 'package:duo2/src/quiz/lesson_appbar.dart';
+import 'package:duo2/src/quiz/quiz_section.dart';
 import 'package:duo2/src/controllers/lesson_controller.dart';
 import 'package:duo2/src/services/lesson_service.dart';
 import 'package:duo2/src/models/leccion_mode.dart';
-import 'package:duo2/src/quiz/quiz_section.dart';
-
-import 'package:duo2/src/widgets/slide_widgets.dart';
 
 
 class LessonPage extends StatelessWidget{

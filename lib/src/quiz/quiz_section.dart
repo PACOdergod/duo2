@@ -1,14 +1,10 @@
-import 'package:after_layout/after_layout.dart';
-import 'package:duo2/src/quiz/cubit/quiz_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:provider/provider.dart';
+import 'package:after_layout/after_layout.dart';
 
-import 'package:duo2/src/quiz/response_service.dart';
+import 'package:duo2/src/quiz/cubit/quiz_cubit.dart';
 import 'package:duo2/src/models/leccion_mode.dart';
-import 'package:duo2/src/services/lesson_service.dart';
-import 'package:duo2/src/widgets/principal_button.dart';
 
 class QuizSection extends StatelessWidget {
   final List<Quiz> quizes;

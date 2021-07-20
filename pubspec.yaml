@@ -32,7 +32,6 @@ dependencies:
   flutter_bloc: ^7.0.0
   provider: ^5.0.0
   after_layout: 
-  tuple: ^2.0.0
 
 
 dev_dependencies:

@@ -1,7 +1,7 @@
-import 'package:after_layout/after_layout.dart';
-import 'package:duo2/src/quiz/response_service.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+
+import 'package:after_layout/after_layout.dart';
+
 
 class Animacion extends StatefulWidget {
 
